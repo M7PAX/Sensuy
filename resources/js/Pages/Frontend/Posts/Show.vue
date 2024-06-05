@@ -90,17 +90,17 @@ const submit = () => {
                             </form>
                         </div>
                         <div>
-                            <ul role="list" class="divide-y divide-gray-200 m-2 p-2">
+                            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-600 m-2 p-2">
                                 <li v-for="(comment, index) in post.data.comments" :key="index" class="py-4 flex flex-col">
                                     <div class="text-sm">
-                                        <span class="text-gray-800 dark:text-gray-200">
+                                        <span class="ml-5 text-gray-800 dark:text-gray-200">
                                             Commented by
                                         </span>
                                         <span class="font-semibold text-black dark:text-white">
                                             {{ comment.username }}
                                         </span>
                                     </div>
-                                    <div class="text-gray-500 m-1 p-1">
+                                    <div class="text-gray-500 m-1 p-1 ml-8">
                                         {{ comment.content }}
                                     </div>
                                 </li>

@@ -12,8 +12,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
-
 //function () {
 //    return Inertia::render('Welcome', [
 //        'canLogin' => Route::has('login'),
@@ -22,6 +20,8 @@ Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
 //        'phpVersion' => PHP_VERSION,
 //    ]);
 //}
+
+Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
 
 Route::get('/s/{slug}', [FCommunityController::class, 'show'])->name('frontend.communities.show');
 Route::get('/s/{community_slug}/posts/{post:slug}', [PostController::class, 'show'])->name('frontend.communities.posts.show');
