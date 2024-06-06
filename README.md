@@ -1,73 +1,65 @@
 # Sensuy
 
-## About
-
-**Sensuy** is a platform created by fans, for fans. It is designed to allow users to easily share their favorite media related to celebrities and artists. Whether it's a captivating image, an engaging video, or a melodious track, Sensuy provides a space for fans to come together and celebrate their passions.
+Welcome to **Sensuy**, a vibrant platform inspired by the best of Instagram, Reddit, and Mega. Sensuy is a fan-created space where you can upload and share your favorite images, videos, and music from your beloved celebrities and artists. The name "Sensuy" is derived from the Japanese word for "fans," reflecting the community-driven spirit of this site.
 
 ## Getting Started
 
+Follow these steps to set up and run Sensuy on your local machine.
+
 ### Prerequisites
 
-To get started with Sensuy, ensure you have the following installed on your system:
-
-- **XAMPP Control Panel**
-- **Node.js**
-- **PHP**
-- **Composer**
-- **A Code Editor** (PHPStorm recommended)
+- **XAMPP Control Panel**: Ensure you have XAMPP installed for an easy-to-use local web server.
+- **Code Editor**: You can use any code editor, but we recommend PhpStorm for the best development experience.
+- **Node.js**: Required to run the frontend development server.
 
 ### Installation
 
 1. **Clone the Repository**
-   ```sh
-   git clone https://github.com/your-username/sensuy.git
-   cd sensuy
-   ```
+    ```sh
+    git clone https://github.com/yourusername/sensuy.git
+    cd sensuy
+    ```
 
-2. **Install Node.js Dependencies**
-   ```sh
-   npm install
-   ```
+2. **Install Dependencies**
+    ```sh
+    npm install
+    composer install
+    ```
 
-3. **Install PHP Dependencies**
-   ```sh
-   composer install
-   ```
+3. **Configure Environment**
+   Copy `.env.example` to `.env` and update the necessary configuration settings.
 
-4. **Set Up Environment Variables**
-   Copy the `.env.example` file to `.env` and fill in the necessary details.
-   ```sh
-   cp .env.example .env
-   php artisan key:generate
-   ```
+    ```sh
+    cp .env.example .env
+    php artisan key:generate
+   npm i @vueuse/core
+    ```
 
-## Usage
+### Running the Application
 
-### Running the Website
+1. **Start the Development Server**
+    ```sh
+    npm run dev
+    ```
 
-To start the development server, run the following commands:
+2. **Start the PHP Server**
+    ```sh
+    php artisan serve
+    ```
 
-```sh
-npm run dev
-php artisan serve
-```
+3. **Run Database Migrations**
+    ```sh
+    php artisan migrate
+    ```
 
-Open your web browser and navigate to `http://localhost:8000` to see the website in action.
+4. **Seed the Database with Default Data**
+    ```sh
+    php artisan db:seed
+    ```
 
-### Seeding the Database
+### Technologies Used
 
-To populate the database with randomly generated default information, run the following command:
-
-```sh
-php artisan db:seed
-```
-
-## Technologies Used
-
-- **XAMPP Control Panel:** For managing Apache and MySQL.
-- **Node.js:** For the development server and building the frontend.
-- **PHP:** For backend development.
-- **Laravel:** As the PHP framework.
-- **Composer:** For managing PHP dependencies.
-- **NPM:** For managing Node.js dependencies.
-- **PHPStorm:** As the code editor.
+- **Backend**: PHP, Laravel
+- **Frontend**: JavaScript, Vue.js
+- **Database**: MySQL
+- **Development Tools**: XAMPP, PhpStorm
