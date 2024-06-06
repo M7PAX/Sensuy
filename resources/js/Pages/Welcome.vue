@@ -11,18 +11,17 @@ defineProps({
 
 <template>
     <guest-layout>
-        <section class="m-2 p-2 md:flex-row flex">
-            <div class="w-8/12">
+        <section class="m-2 p-2 flex flex-col md:flex-row">
+            <div class="md:w-8/12 w-full">
                 <PostCard v-for="post in posts.data" :post="post" :community="post.community_slug" :key="post.id"/>
             </div>
-            <div class="w-4/12 p-4">
+            <div class="md:w-4/12 w-full p-4">
                 <CommunityList :communities="communities.data">
                     <template #title>
                         Top Communities
                     </template>
                 </CommunityList>
             </div>
-
         </section>
     </guest-layout>
 </template>

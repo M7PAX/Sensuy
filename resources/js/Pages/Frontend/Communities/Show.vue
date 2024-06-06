@@ -27,15 +27,8 @@ defineProps({
             </div>
         </template>
 
-        <section class="m-2 p-2 md:flex-row flex">
-            <div class="w-8/12">
-                <PostCard v-for="post in posts.data" :post="post" :community="community.slug" :key="post.id"/>
-                <div class="mt-4 p-2">
-                    <Pagination :links="posts.meta.links"/>
-                </div>
-            </div>
-
-            <div class="w-4/12 p-4">
+        <section class="m-2 p-2 flex flex-col md:flex-row">
+            <div class="w-full md:w-4/12 p-4 order-1 md:order-2">
                 <div class="w-full shadow-md rounded-lg border border-blue-500 dark:border-blue-700 bg-white dark:bg-gray-800">
                     <h2 class="font-semibold text-lg p-6 rounded-t-lg text-white bg-blue-500 dark:bg-blue-700">
                         About {{ community.name }}
@@ -45,13 +38,22 @@ defineProps({
                     </p>
                 </div>
 
-<!--                <CommunityList class="mt-4" :communities="community">-->
-<!--                    <template #title>-->
-<!--                        Latest Communities-->
-<!--                    </template>-->
-<!--                </CommunityList>-->
+                <!-- Uncomment the following if you want to include the CommunityList section -->
+                <!--
+                <CommunityList class="mt-4" :communities="community">
+                    <template #title>
+                        Latest Communities
+                    </template>
+                </CommunityList>
+                -->
             </div>
 
+            <div class="w-full md:w-8/12 order-2 md:order-1">
+                <PostCard v-for="post in posts.data" :post="post" :community="community.slug" :key="post.id"/>
+                <div class="mt-4 p-2">
+                    <Pagination :links="posts.meta.links"/>
+                </div>
+            </div>
         </section>
     </guest-layout>
 </template>
