@@ -19,7 +19,7 @@ defineProps({
                     >
                         {{ community.name }}
                     </Link>
-                    <div class="text-gray-600 dark:text-gray-400">
+                    <div class="text-gray-600 dark:text-gray-400 w-3/12">
                         Posts - {{ community.posts_count }}
                     </div>
                 </div>
