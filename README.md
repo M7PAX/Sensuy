@@ -24,6 +24,7 @@ Follow these steps to set up and run Sensuy on your local machine.
     ```sh
     npm install
     composer install
+    npm i @vueuse/core
     ```
 
 3. **Configure Environment**
@@ -32,7 +33,6 @@ Follow these steps to set up and run Sensuy on your local machine.
     ```sh
     cp .env.example .env
     php artisan key:generate
-   npm i @vueuse/core
     ```
 
 ### Running the Application
