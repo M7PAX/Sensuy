@@ -19,8 +19,8 @@ defineProps({
                 <h2 class="font-semibold text-xl text-black dark:text-white leading-tight">
                     s/{{ community.name }}
                 </h2>
-                <PrimaryButton>
-                    <Link v-if="$page.props.auth.auth_check" :href="route('communities.posts.create', community.slug)">
+                <PrimaryButton v-if="$page.props.auth.auth_check">
+                    <Link :href="route('communities.posts.create', community.slug)">
                         Create Post
                     </Link>
                 </PrimaryButton>

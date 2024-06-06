@@ -29,7 +29,7 @@ const submit = () => {
     <guest-layout>
         <template #header>
             <div class="flex justify-between">
-                <Link :href="route('frontend.communities.show', community.slug)" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                <Link :href="route('frontend.communities.show', community.slug)" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight hover:text-blue-700 dark:hover:text-blue-500">
                     s/{{ community.name }}
                 </Link>
             </div>
@@ -109,11 +109,11 @@ const submit = () => {
                     </div>
                 </div>
             </div>
-            <div class="w-full md:w-4/12 p-4">
-                <CommunityList class="mt-4" :community="community">
-                    <template #title>Latest Communities</template>
-                </CommunityList>
-            </div>
+<!--            <div class="w-full md:w-4/12 p-4">-->
+<!--                <CommunityList class="mt-4" :community="community">-->
+<!--                    <template #title>Latest Communities</template>-->
+<!--                </CommunityList>-->
+<!--            </div>-->
 
         </section>
     </guest-layout>

@@ -34,7 +34,7 @@ defineProps({
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-black dark:text-white hover:text-blue-700 dark:hover:text-blue-500">
                 {{ post.title }}
             </h5>
-            <p class="mb-3 font-normal text-gray-600 dark:text-gray-400">
+            <p class="mb-3 mr-3 font-normal text-gray-600 dark:text-gray-400">
                 {{ post.description }}
             </p>
             <div class="flex my-2 py-2 text-gray-700 dark:text-gray-300">
