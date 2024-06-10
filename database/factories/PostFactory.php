@@ -20,7 +20,7 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->sentence(5);
+        $title = $this->faker->realText(12);
 
         return [
             'user_id' => User::inRandomOrder()->first()->id,

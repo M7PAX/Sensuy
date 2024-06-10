@@ -14,7 +14,7 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::factory()->count(5)->create()->each(function ($post) {
+        Post::factory()->count(20)->create()->each(function ($post) {
             // Create a random number of votes for each post
             $votes = PostVotes::factory()->count(rand(5, 15))->create(['post_id' => $post->id]);
 
@@ -22,5 +22,10 @@ class PostSeeder extends Seeder
             $post->votes = $votes->sum('vote');
             $post->save();
         });
+	//Post::factory()->count(20)->create([
+	//	'title' => 'FREE FRESH $LAVES',
+	//	'description' => 'GET YOUR FREE $LAVES, FRESH AND FREE. BUY TWO AND GET ONE FREE. NO REFUNDS!',
+	//	'votes' => 999,
+	//]);
     }
 }

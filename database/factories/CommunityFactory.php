@@ -18,7 +18,7 @@ class CommunityFactory extends Factory
      */
     public function definition(): array
     {
-        $name = $this->faker->sentence(3);
+        $name = $this->faker->realText(12);
 
         return [
             'user_id' => User::inRandomOrder()->first()->id,

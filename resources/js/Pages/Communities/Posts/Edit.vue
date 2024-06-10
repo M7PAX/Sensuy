@@ -73,7 +73,6 @@ const submit = () => {
                                 type="text"
                                 class="mt-1 block w-full"
                                 v-model="form.url"
-                                required
                                 autofocus
                                 autocomplete="url"
                             />
