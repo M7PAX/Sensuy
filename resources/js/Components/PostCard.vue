@@ -4,7 +4,7 @@ import PostVote from "@/Components/PostVote.vue";
 
 defineProps({
     post: Object,
-    community: Object,
+    community: String,
 });
 </script>
 

@@ -16,7 +16,7 @@ Follow these steps to set up and run Sensuy on your local machine.
 
 1. **Clone the Repository**
     ```sh
-    git clone https://github.com/yourusername/sensuy.git
+    git clone https://github.com/M7PAX/sensuy.git
     cd sensuy
     ```
 

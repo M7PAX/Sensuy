@@ -54,7 +54,8 @@ const submit = () => {
                             </div>
                             <div v-if="$page.props.auth.auth_check">
                                 <Link v-if="can_update" class="inline-flex items-center font-semibold text-xs text-white uppercase tracking-widest bg-yellow-500 hover:bg-yellow-700 rounded-md px-4 py-2"
-                                      :href="route('communities.posts.edit', [community.slug, post.data.slug])">
+                                      :href="route('communities.posts.edit', [community.slug, post.data.slug])"
+                                      method="get" as="button" type="button">
                                     Edit
                                 </Link>
                                 <Link v-if="can_delete" class="inline-flex items-center font-semibold text-xs text-white uppercase tracking-widest bg-red-500 hover:bg-red-700 ml-2 rounded-md px-4 py-2"

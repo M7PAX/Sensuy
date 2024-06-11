@@ -51,7 +51,7 @@ defineProps({
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                             <Link :href="route('communities.edit', community.slug)"
                                                   class="text-yellow-500 hover:text-yellow-700 dark:hover:text-yellow-300 mr-5"
-                                                  method="edit" as="button" type="button">
+                                                  method="get" as="button" type="button">
                                                   Edit
                                             </Link>
                                             <Link :href="route('communities.destroy', community.slug)"
