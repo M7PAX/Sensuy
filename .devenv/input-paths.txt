@@ -1,0 +1,4 @@
+/home/mipax/Projects/Sensuy/.env
+/home/mipax/Projects/Sensuy/devenv.lock
+/home/mipax/Projects/Sensuy/devenv.nix
+/home/mipax/Projects/Sensuy/devenv.yaml
