@@ -33,60 +33,11 @@ const showingNavigationDropdown = ref(false);
 <!--                            </div>-->
                         </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <div class="sm:flex sm:items-center sm:ms-6">
                             <ThemeToggle class="mr-5"/>
 
-                            <!-- Settings Dropdown -->
-                            <div class="ms-3 relative" v-if="$page.props.auth.auth_check">
-                                <Dropdown align="right" width="48">
-                                    <template #trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                {{ $page.props.auth.user.username }}
-
-                                                <svg
-                                                    class="ms-2 -me-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </template>
-
-                                    <template #content>
-                                        <DropdownLink :href="route('profile.edit')">
-                                            Profile
-                                        </DropdownLink>
-                                        <DropdownLink :href="route('communities.index')">
-                                            Communities
-                                        </DropdownLink>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
-                                        </DropdownLink>
-                                    </template>
-                                </Dropdown>
-                            </div>
-                            <template v-else>
-                                <Link :href="route('login')"
-                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                    Log in
-                                </Link>
-
-                                <Link :href="route('register')"
-                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                    Register
-                                </Link>
-                            </template>
+                            <Link :href="route('login')" class="btn btn-outline btn-info btn-sm mr-4 hover:text-white dark:hover:text-black">Log in</Link>
+                            <Link :href="route('register')" class="btn btn-outline btn-info btn-sm hover:text-white dark:hover:text-black">Register</Link>
                         </div>
 
                         <!-- Hamburger -->
@@ -123,13 +74,13 @@ const showingNavigationDropdown = ref(false);
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div
-                    :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
-                    class="sm:hidden"
-                >
-                    <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('communities.index')" :active="route().current('communities.index')">
-                            Communities
+                <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
+                    <div class="mt-3 space-y-1">
+                        <ResponsiveNavLink :href="route('login')">
+                            Log In
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('register')">
+                            Register
                         </ResponsiveNavLink>
                     </div>
                 </div>

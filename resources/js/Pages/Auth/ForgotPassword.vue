@@ -1,10 +1,10 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import ErrorAlert from "@/Components/ErrorAlert.vue";
+import {HiMail} from "oh-vue-icons/icons";
+import {addIcons} from "oh-vue-icons";
+addIcons(HiMail);
 
 defineProps({
     status: {
@@ -36,25 +36,25 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
+                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="email">Email</label>
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
+                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                    <input id="email"
+                           type="email"
+                           class="mt-1 block w-full"
+                           v-model="form.email"
+                           required
+                           autocomplete="username"
+                           autofocus
+                    />
+                </label>
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <ErrorAlert class="mt-2" :message="form.errors.email"/>
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
-                </PrimaryButton>
+                <button class="btn btn-warning text-white dark:text-black ms-4" :disabled="form.processing">Email Password Reset Link</button>
             </div>
         </form>
     </GuestLayout>

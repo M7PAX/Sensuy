@@ -3,8 +3,6 @@ import GuestLayout from "@/Layouts/GuestLayout.vue";
 import { Link } from "@inertiajs/vue3";
 import PostCard from "@/Components/PostCard.vue";
 import Pagination from "@/Components/Pagination.vue";
-import CommunityList from "@/Components/CommunityList.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 defineProps({
     community: Object,
@@ -19,11 +17,11 @@ defineProps({
                 <h2 class="font-semibold text-xl text-black dark:text-white leading-tight">
                     s/{{ community.name }}
                 </h2>
-                <PrimaryButton v-if="$page.props.auth.auth_check">
+                <button v-if="$page.props.auth.auth_check" class="btn btn-success text-white dark:text-black" :disabled="form.processing">
                     <Link :href="route('communities.posts.create', community.slug)">
                         Create Post
                     </Link>
-                </PrimaryButton>
+                </button>
             </div>
         </template>
 

@@ -1,10 +1,11 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import ErrorAlert from "@/Components/ErrorAlert.vue";
+import {HiMail, MdKey} from "oh-vue-icons/icons";
+import {addIcons} from "oh-vue-icons";
+addIcons(HiMail, MdKey);
+
 
 const props = defineProps({
     email: {
@@ -37,55 +38,61 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
+                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="email">Email</label>
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
+                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                    <input id="email"
+                           type="email"
+                           class="mt-1 block w-full"
+                           v-model="form.email"
+                           required
+                           autocomplete="username"
+                           autofocus
+                    />
+                </label>
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <ErrorAlert class="mt-2" :message="form.errors.email"/>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="password">Password</label>
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
+                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                    <v-icon name="md-key" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                    <input id="password"
+                           v-model="form.password"
+                           type="password"
+                           class="mt-1 block w-full"
+                           autocomplete="new-password"
+                           required
+                           autofocus
+                    />
+                </label>
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <ErrorAlert class="mt-2" :message="form.errors.password" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="password_confirmation">Confirm Password</label>
 
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
+                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                    <v-icon name="md-key" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                    <input id="password_confirmation"
+                           v-model="form.password_confirmation"
+                           type="password"
+                           class="mt-1 block w-full"
+                           autocomplete="new-password"
+                           required
+                           autofocus
+                    />
+                </label>
 
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
+                <ErrorAlert class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Reset Password
-                </PrimaryButton>
+                <button class="btn btn-warning text-white dark:text-black" :disabled="form.processing">Reset Password</button>
             </div>
         </form>
     </GuestLayout>

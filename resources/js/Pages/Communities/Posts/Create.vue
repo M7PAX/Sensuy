@@ -1,10 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import ErrorAlert from "@/Components/ErrorAlert.vue";
 
 const props = defineProps({
     community: Object,
@@ -34,55 +31,56 @@ const submit = () => {
                 <div class="w-full sm:max-w-md mx-auto m-2 p-2 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
                     <form @submit.prevent="submit">
                         <div class="mt-4">
-                            <InputLabel for="title" value="Title" />
+                            <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="title">Title</label>
 
-                            <TextInput
-                                id="title"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.title"
-                                required
-                                autofocus
-                                autocomplete="title"
-                            />
+                            <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                                <input id="title"
+                                       type="text"
+                                       class="mt-1 block w-full"
+                                       v-model="form.title"
+                                       required
+                                       autofocus
+                                       autocomplete="title"
+                                />
+                            </label>
 
-                            <InputError class="mt-2" :message="form.errors.title" />
+                            <ErrorAlert class="mt-2" :message="form.errors.title"/>
                         </div>
 
                         <div class="mt-4">
-                            <InputLabel for="description" value="Description" />
+                            <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="description">Description</label>
 
-                            <TextInput
-                                id="description"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.description"
-                                required
-                                autocomplete="description"
-                            />
+                            <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                                <input id="description"
+                                       type="text"
+                                       class="mt-1 block w-full"
+                                       v-model="form.description"
+                                       required
+                                       autocomplete="description"
+                                />
+                            </label>
 
-                            <InputError class="mt-2" :message="form.errors.description" />
+                            <ErrorAlert class="mt-2" :message="form.errors.description"/>
                         </div>
 
                         <div class="mt-4">
-                            <InputLabel for="url" value="Url" />
+                            <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="url">URL</label>
 
-                            <TextInput
-                                id="url"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.url"
-                                autofocus
-                                autocomplete="url"
-                            />
+                            <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                                <input id="url"
+                                       type="text"
+                                       class="mt-1 block w-full"
+                                       v-model="form.url"
+                                       autofocus
+                                       autocomplete="url"
+                                />
+                            </label>
 
-                            <InputError class="mt-2" :message="form.errors.url" />
+                            <ErrorAlert class="mt-2" :message="form.errors.url"/>
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                Create
-                            </PrimaryButton>
+                            <button class="ms-4 btn btn-success text-white dark:text-black" :disabled="form.processing">Create</button>
                         </div>
                     </form>
                 </div>

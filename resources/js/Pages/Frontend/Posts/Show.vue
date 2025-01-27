@@ -2,8 +2,6 @@
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import { Link, useForm } from "@inertiajs/vue3";
 import PostVote from "@/Components/PostVote.vue";
-import CommunityList from "@/Components/CommunityList.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const props = defineProps({
     community: Object,
@@ -53,16 +51,16 @@ const submit = () => {
                                 </span>
                             </div>
                             <div v-if="$page.props.auth.auth_check">
-                                <Link v-if="can_update" class="inline-flex items-center font-semibold text-xs text-white uppercase tracking-widest bg-yellow-500 hover:bg-yellow-700 rounded-md px-4 py-2"
-                                      :href="route('communities.posts.edit', [community.slug, post.data.slug])"
-                                      method="get" as="button" type="button">
-                                    Edit
-                                </Link>
-                                <Link v-if="can_delete" class="inline-flex items-center font-semibold text-xs text-white uppercase tracking-widest bg-red-500 hover:bg-red-700 ml-2 rounded-md px-4 py-2"
-                                      :href="route('communities.posts.destroy', [community.slug, post.data.slug])"
-                                      method="delete" as="button" type="button">
-                                    Delete
-                                </Link>
+                                <button class="btn btn-warning text-white dark:text-black inline-flex items-center font-semibold text-xs uppercase tracking-widest px-4 py-2">
+                                    <Link v-if="can_update" :href="route('communities.posts.edit', [community.slug, post.data.slug])" method="get" as="button" type="button">
+                                        Edit
+                                    </Link>
+                                </button>
+                                <button class="btn btn-warning text-white dark:text-black inline-flex items-center font-semibold text-xs uppercase px-4 py-2">
+                                    <Link v-if="can_delete" :href="route('communities.posts.destroy', [community.slug, post.data.slug])" method="delete" as="button" type="button">
+                                        Delete
+                                    </Link>
+                                </button>
                             </div>
                         </div>
                         <div class="p-2">
@@ -84,9 +82,9 @@ const submit = () => {
                                     </textarea>
                                 </div>
                                 <div class="mt-2">
-                                    <PrimaryButton class="px-4 py-2">
+                                    <button class="btn btn-info text-white dark:text-black px-4 py-2">
                                         Comment
-                                    </PrimaryButton>
+                                    </button>
                                 </div>
                             </form>
                         </div>

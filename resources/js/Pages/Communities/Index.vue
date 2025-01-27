@@ -2,7 +2,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import Pagination from "@/Components/Pagination.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 defineProps({
     communities: Object,
@@ -30,11 +29,11 @@ defineProps({
                                         </th>
                                         <th scope="col" class="pr-2">
                                             <div class="flex justify-end">
-                                                <PrimaryButton>
+                                                <button class="ms-4 btn btn-info text-white dark:text-black">
                                                     <Link :href="route('communities.create')">
                                                         Add Community
                                                     </Link>
-                                                </PrimaryButton>
+                                                </button>
                                             </div>
                                         </th>
                                             <!--<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Slug</th>-->
@@ -49,16 +48,16 @@ defineProps({
                                         </td>
 <!--                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ community.slug}}</td>-->
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                            <Link :href="route('communities.edit', community.slug)"
-                                                  class="text-yellow-500 hover:text-yellow-700 dark:hover:text-yellow-300 mr-5"
-                                                  method="get" as="button" type="button">
-                                                  Edit
-                                            </Link>
-                                            <Link :href="route('communities.destroy', community.slug)"
-                                                  class="text-red-500 hover:text-red-800 dark:hover:text-red-300"
-                                                  method="delete" as="button" type="button">
-                                                  Delete
-                                            </Link>
+                                            <button class="btn btn-warning text-white dark:text-black mr-5">
+                                                <Link :href="route('communities.edit', community.slug)" method="get" as="button" type="button">
+                                                    Edit
+                                                </Link>
+                                            </button>
+                                            <button class="btn btn-error text-white dark:text-black">
+                                                <Link :href="route('communities.destroy', community.slug)" method="delete" as="button" type="button">
+                                                    Delete
+                                                </Link>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>

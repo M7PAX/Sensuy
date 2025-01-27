@@ -1,11 +1,10 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import ErrorAlert from "@/Components/ErrorAlert.vue";
+import {HiMail, MdKey} from "oh-vue-icons/icons";
+import {addIcons} from "oh-vue-icons";
+addIcons(HiMail, MdKey);
 
 defineProps({
     canResetPassword: {
@@ -27,6 +26,7 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+
 </script>
 
 <template>
@@ -38,41 +38,45 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit" class="max-w-md mx-auto shadow rounded-md p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600">
+
             <div>
-                <InputLabel for="email" value="Email" />
+                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="email">Email</label>
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="email"
-                />
+                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                    <input id="email"
+                           type="email"
+                           class="mt-1 block w-full"
+                           v-model="form.email"
+                           required
+                           autocomplete="username"
+                    />
+                </label>
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <ErrorAlert class="mt-2" :message="form.errors.email"/>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="password">Password</label>
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
+                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                    <v-icon name="md-key" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                    <input id="password"
+                           required
+                           v-model="form.password"
+                           type="password"
+                           class="mt-1 block w-full"
+                           autocomplete="current-password"
+                    />
+                </label>
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <ErrorAlert class="mt-2" :message="form.errors.password" />
             </div>
 
             <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+                <label class="cursor-pointer label flex items-center">
+                    <span class="label-text">Remember me</span>
+                    <input type="checkbox" class="checkbox checkbox-sm checkbox-info [--chkfg:white] dark:[--chkfg:black]" v-model="form.remember"/>
                 </label>
             </div>
 
@@ -85,9 +89,7 @@ const submit = () => {
                     Forgot your password?
                 </Link>
 
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
+                <button class="ms-4 btn btn-info text-white dark:text-black" :disabled="form.processing">Log In</button>
             </div>
         </form>
     </GuestLayout>

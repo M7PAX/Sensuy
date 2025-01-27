@@ -1,10 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import ErrorAlert from "@/Components/ErrorAlert.vue";
 
 const form = useForm({
     name: '',
@@ -30,40 +27,36 @@ const submit = () => {
                 <div class="w-full sm:max-w-md mx-auto m-2 p-2 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
                     <form @submit.prevent="submit">
                         <div class="mt-4">
-                            <InputLabel for="name" value="Name" />
-
-                            <TextInput
-                                id="name"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.name"
-                                required
-                                autofocus
-                                autocomplete="name"
-                            />
-
-                            <InputError class="mt-2" :message="form.errors.name" />
+                            <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="name">Name</label>
+                            <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                                <input id="name"
+                                       type="text"
+                                       class="mt-1 block w-full"
+                                       v-model="form.name"
+                                       required
+                                       autofocus
+                                       autocomplete="name"
+                                />
+                            </label>
+                            <ErrorAlert class="mt-2" :message="form.errors.name"/>
                         </div>
 
                         <div class="mt-4">
-                            <InputLabel for="description" value="Description" />
-
-                            <TextInput
-                                id="description"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.description"
-                                required
-                                autocomplete="description"
-                            />
-
-                            <InputError class="mt-2" :message="form.errors.description" />
+                            <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="description">Description</label>
+                            <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+                                <input id="description"
+                                       type="text"
+                                       class="mt-1 block w-full"
+                                       v-model="form.description"
+                                       required
+                                       autocomplete="description"
+                                />
+                            </label>
+                            <ErrorAlert class="mt-2" :message="form.errors.description"/>
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                Create
-                            </PrimaryButton>
+                            <button class="btn btn-success text-white dark:text-black ms-4" :disabled="form.processing">Create</button>
                         </div>
                     </form>
                 </div>
