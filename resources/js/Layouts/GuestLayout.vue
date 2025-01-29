@@ -1,9 +1,6 @@
 <script setup>
 import { ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import ThemeToggle from "@/Components/ThemeToggle.vue";
 
@@ -44,7 +41,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="-me-2 flex items-center sm:hidden">
                             <button
                                 @click="showingNavigationDropdown = !showingNavigationDropdown"
-                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out"
+                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-hidden focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out"
                             >
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path
@@ -76,18 +73,18 @@ const showingNavigationDropdown = ref(false);
                 <!-- Responsive Navigation Menu -->
                 <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
                     <div class="mt-3 space-y-1">
-                        <ResponsiveNavLink :href="route('login')">
+                        <Link :href="route('login')">
                             Log In
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('register')">
+                        </Link>
+                        <Link :href="route('register')">
                             Register
-                        </ResponsiveNavLink>
+                        </Link>
                     </div>
                 </div>
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white dark:bg-gray-800 shadow" v-if="$slots.header">
+            <header class="bg-white dark:bg-gray-800 shadow-sm" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>

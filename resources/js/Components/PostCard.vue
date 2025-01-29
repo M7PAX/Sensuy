@@ -19,7 +19,7 @@ defineProps({
             <div class="flex my-2 py-2 text-sm">
                 <Link :href="route('frontend.communities.show',community)"
                       class="font-semibold text-black dark:text-white mr-5 hover:text-blue-700 dark:hover:text-blue-500">
-                      s/{{ community }}
+                      {{ community }}
                 </Link>
                 <div class="flex">
                     Posted by
@@ -38,7 +38,7 @@ defineProps({
                 {{ post.description }}
             </p>
             <div class="flex my-2 py-2 text-gray-700 dark:text-gray-300">
-                Comments({{ post.comments_count }})
+                Comments - {{ post.comments_count }}
             </div>
         </div>
     </Link>

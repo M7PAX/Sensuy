@@ -37,7 +37,7 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" class="max-w-md mx-auto shadow rounded-md p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600">
+        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-sm rounded-md p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600">
 
             <div>
                 <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="email">Email</label>
@@ -46,7 +46,7 @@ const submit = () => {
                     <v-icon name="hi-mail" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
                     <input id="email"
                            type="email"
-                           class="mt-1 block w-full"
+                           class="mt-1 w-full grow"
                            v-model="form.email"
                            required
                            autocomplete="username"
@@ -65,7 +65,7 @@ const submit = () => {
                            required
                            v-model="form.password"
                            type="password"
-                           class="mt-1 block w-full"
+                           class="mt-1 w-full grow"
                            autocomplete="current-password"
                     />
                 </label>
@@ -84,7 +84,7 @@ const submit = () => {
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                    class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                 >
                     Forgot your password?
                 </Link>

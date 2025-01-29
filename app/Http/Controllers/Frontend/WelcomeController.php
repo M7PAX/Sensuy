@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CommunityPostResource;
+use App\Http\Resources\PostResource;
 use App\Http\Resources\CommunityResource;
 use App\Models\Community;
 use App\Models\Post;
@@ -14,7 +14,7 @@ class WelcomeController extends Controller
 {
     public function welcome()
     {
-        $posts = CommunityPostResource::collection(Post::with(['user', 'community', 'voted' => function ($query)
+        $posts = PostResource::collection(Post::with(['user', 'community', 'voted' => function ($query)
         {
             $query->where('user_id', auth()->id());
         }])->withCount('comments')->orderBy('votes', 'desc')->take(10)->get());

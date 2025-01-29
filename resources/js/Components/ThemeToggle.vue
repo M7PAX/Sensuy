@@ -7,12 +7,12 @@ addIcons(OiSun, RiMoonClearLine);
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);
-const test = () => setTimeout(toggleDark,20)
+const themeController = () => setTimeout(toggleDark,20)
 </script>
 
 <template>
     <label class="swap swap-rotate">
-        <input @click="test" type="checkbox" class="theme-controller" value="synthwave" />
+        <input @click="themeController" type="checkbox" />
 
         <v-icon name="oi-sun" class="swap-off h-8 w-8 fill-current text-white"/>
         <v-icon name="ri-moon-clear-line" class="swap-on h-8 w-8 fill-current text-black"/>

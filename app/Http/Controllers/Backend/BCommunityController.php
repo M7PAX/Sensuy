@@ -23,7 +23,7 @@ class BCommunityController extends Controller
             'slug' => $community->slug,
         ]);
 
-        return Inertia::render('Communities/Index', compact('communities'));
+        return Inertia::render('Communities/CommunityIndex', compact('communities'));
     }
 
     /**
@@ -31,7 +31,7 @@ class BCommunityController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Communities/Create');
+        return Inertia::render('Communities/CommunityCreate');
     }
 
     /**
@@ -58,7 +58,7 @@ class BCommunityController extends Controller
     public function edit(Community $community)
     {
         Gate::authorize('update', $community);
-        return Inertia::render('Communities/Edit', compact('community'));
+        return Inertia::render('Communities/CommunityEdit', compact('community'));
     }
 
     /**

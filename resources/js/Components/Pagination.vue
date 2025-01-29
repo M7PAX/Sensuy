@@ -7,19 +7,12 @@ defineProps({
 </script>
 
 <template>
-    <div class="flex">
-        <template v-for="(link, key) in links" :key="key">
-            <div v-if="link.url === null" v-html="link.label"
-                class="mb-1 mr-1 px-4 py-3 text-black dark:text-white text-sm leading-4 border rounded border-black dark:border-white">
-            </div>
-            <Link v-else :href="link.url" v-html="link.label"
-                  class="mb-1 mr-1 px-4 py-3 text-black dark:text-white text-sm leading-4
-                  border rounded border-black dark:border-white
-                  hover:bg-blue-700 dark:hover:bg-blue-500
-                  focus:text-blue-400 focus:border-blue-400 dark:focus:text-blue-800 dark:focus:border-blue-800"
-                  :class="{ 'bg-blue-500 dark:bg-blue-700': link.active }">
-            </Link>
-        </template>
+    <div v-for="(link, key) in links" :key="key">
+        <div class="join">
+            <button class="join-item btn" v-if="link.url === null">«</button>
+            <button class="join-item btn"></button>
+            <button class="join-item btn" :href="link.url">»</button>
+        </div>
     </div>
 </template>
 

@@ -2,7 +2,7 @@
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import PostCard from "@/Components/PostCard.vue";
 import CommunityList from "@/Components/CommunityList.vue";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import AuthLayout from "@/Layouts/AuthLayout.vue";
 
 defineProps({
     communities: Object,
@@ -25,7 +25,7 @@ defineProps({
 <!--            </div>-->
 <!--        </section>-->
 <!--    </guest-layout>-->
-    <component :is="$page.props.auth.auth_check ? AuthenticatedLayout : GuestLayout">
+    <component :is="$page.props.auth.auth_check ? AuthLayout : GuestLayout">
         <section class="m-2 p-2 flex flex-col md:flex-row">
             <div class="md:w-8/12 w-full">
                 <PostCard v-for="post in posts.data" :post="post" :community="post.community_slug" :key="post.id"/>
