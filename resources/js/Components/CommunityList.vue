@@ -15,11 +15,11 @@ defineProps({
             <li v-for="community in communities" :key="community.id" class="py-3 px-5 sm:py-4">
                 <div class="flex items-center space-x-4">
                     <Link :href="route('frontend.communities.show', community.slug)"
-                          class="text-black dark:text-white font-semibold truncate text-sm"
+                          class="text-black dark:text-white font-semibold truncate text-sm w-3/5"
                     >
                         {{ community.name }}
                     </Link>
-                    <div class="text-gray-600 dark:text-gray-400 w-3/12">
+                    <div class="text-gray-600 dark:text-gray-400 w-full">
                         Posts - {{ community.posts_count }}
                     </div>
                 </div>

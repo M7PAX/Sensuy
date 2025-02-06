@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import Logo from '@/Components/Logo.vue';
 import { Link } from '@inertiajs/vue3';
 import ThemeToggle from "@/Components/ThemeToggle.vue";
 
@@ -18,7 +18,7 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"/>
+                                    <Logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"/>
                                 </Link>
                             </div>
 

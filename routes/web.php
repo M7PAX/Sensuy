@@ -1,27 +1,15 @@
 <?php
-
 use App\Http\Controllers\Backend\BCommunityController;
 use App\Http\Controllers\Backend\BPostController;
 use App\Http\Controllers\Backend\VoteController;
 use App\Http\Controllers\Frontend\FCommunityController;
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Frontend\FPostController;
-use App\Http\Controllers\Frontend\WelcomeController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-//function () {
-//    return Inertia::render('Welcome', [
-//        'canLogin' => Route::has('login'),
-//        'canRegister' => Route::has('register'),
-//        'laravelVersion' => Application::VERSION,
-//        'phpVersion' => PHP_VERSION,
-//    ]);
-//}
-
-Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::get('/s/{slug}', [FCommunityController::class, 'show'])->name('frontend.communities.show');
 Route::get('/s/{community_slug}/posts/{post:slug}', [FPostController::class, 'show'])->name('frontend.communities.posts.show');
