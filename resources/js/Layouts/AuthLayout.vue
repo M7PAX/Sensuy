@@ -9,11 +9,11 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div v-if="$page.props.flash.message" class="bg-green-400">
+        <div v-if="$page.props.flash.message" class="bg-success-400">
             <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between flex-wrap">
                     <div class="w-0 flex-1 flex items-center">
-                        <p class="ml-3 font-medium text-white truncate">
+                        <p class="ml-3 font-medium truncate">
                             <span class="md:hidden">
                                 {{ $page.props.flash.message }}
                             </span>
@@ -26,8 +26,8 @@ const showingNavigationDropdown = ref(false);
             </div>
         </div>
 
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+        <div class="min-h-screen bg-base-200">
+            <nav class="bg-base-100 border-b border-primary">
 
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,7 +54,7 @@ const showingNavigationDropdown = ref(false);
                             <!-- Settings Dropdown -->
                             <div class="ms-3 relative">
                                 <div class="dropdown dropdown-end">
-                                    <div tabindex="0" role="button" class="flex items-center btn btn-ghost text-black dark:text-white">
+                                    <div tabindex="0" role="button" class="flex items-center btn btn-ghost">
                                         {{ $page.props.auth.user.username }}
                                     </div>
                                     <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
@@ -75,7 +75,7 @@ const showingNavigationDropdown = ref(false);
                         <!-- Hamburger -->
                         <div class="-me-2 flex items-center sm:hidden">
                             <button @click="showingNavigationDropdown = !showingNavigationDropdown"
-                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-hidden focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out"
+                                class="inline-flex items-center justify-center p-2 rounded-md"
                             >
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path :class="{ hidden: showingNavigationDropdown,'inline-flex': !showingNavigationDropdown }"
@@ -99,12 +99,12 @@ const showingNavigationDropdown = ref(false);
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                    <div class="pt-4 pb-1 border-t">
                         <div class="px-4">
-                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">
+                            <div class="font-medium text-base">
                                 {{ $page.props.auth.user.username }}
                             </div>
-                            <div class="font-medium text-sm text-gray-500">
+                            <div class="font-medium text-sm">
                                 {{ $page.props.auth.user.email }}
                             </div>
                         </div>
@@ -122,10 +122,8 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white dark:bg-gray-800 shadow-sm" v-if="$slots.header">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
-                </div>
+            <header class="bg-base-100 shadow-sm">
+                <slot name="header" />
             </header>
 
             <!-- Page Content -->

@@ -13,8 +13,8 @@ defineProps({
 </script>
 
 <template>
-    <div role="alert" class="alert alert-error text-white dark:text-black" v-show="message">
-        <v-icon name="md-reportgmailerrorred-sharp" class="w-8 h-8 text-white dark:text-black"/>
+    <div v-show="message" class="text-error">
+        <v-icon name="md-reportgmailerrorred-sharp" class="w-5 h-5 text-error mr-1"/>
         <span>{{ message }}</span>
     </div>
 </template>

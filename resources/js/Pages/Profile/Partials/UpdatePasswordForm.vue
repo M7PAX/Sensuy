@@ -36,18 +36,18 @@ const updatePassword = () => {
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Update Password</h2>
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            <h2 class="text-lg font-medium">Update Password</h2>
+            <p class="mt-1 text-sm">
                 Ensure your account is using a long, random password to stay secure.
             </p>
         </header>
 
         <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
             <div>
-                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="current_password"> Current Password </label>
+                <label class="block font-medium text-sm" for="current_password"> Current Password </label>
 
-                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                <label class="input input-bordered flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="current_password"
                            ref="currentPasswordInput"
                            v-model="form.current_password"
@@ -61,10 +61,10 @@ const updatePassword = () => {
             </div>
 
             <div>
-                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="password"> New Password </label>
+                <label class="block font-medium text-sm" for="password"> New Password </label>
 
-                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                <label class="input input-bordered flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password"
                            ref="passwordInput"
                            v-model="form.password"
@@ -78,10 +78,10 @@ const updatePassword = () => {
             </div>
 
             <div>
-                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="password_confirmation"> Confirm Password </label>
+                <label class="block font-medium text-sm" for="password_confirmation"> Confirm Password </label>
 
-                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                <label class="input input-bordered flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password_confirmation"
                            v-model="form.password_confirmation"
                            type="password"
@@ -94,7 +94,7 @@ const updatePassword = () => {
             </div>
 
             <div class="flex items-center gap-4">
-                <button class="btn btn-success text-white dark:text-black" :disabled="form.processing">Save</button>
+                <button class="btn btn-success" :disabled="form.processing">Save</button>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -102,7 +102,7 @@ const updatePassword = () => {
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600 dark:text-gray-400">Saved.</p>
+                    <p v-if="form.recentlySuccessful" class="text-sm">Saved.</p>
                 </Transition>
             </div>
         </form>

@@ -37,13 +37,13 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-sm rounded-md p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600">
+        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-sm rounded-xl p-6 bg-base-100 border border-primary">
 
             <div>
-                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="email">Email</label>
+                <label class="block font-medium text-sm" for="email">Email</label>
 
-                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
-                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                <label class="input input-bordered flex items-center gap-2 ">
+                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
                     <input id="email"
                            type="email"
                            class="mt-1 w-full grow"
@@ -57,10 +57,10 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="password">Password</label>
+                <label class="block font-medium text-sm" for="password">Password</label>
 
-                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                <label class="input input-bordered flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password"
                            required
                            v-model="form.password"
@@ -76,20 +76,16 @@ const submit = () => {
             <div class="block mt-4">
                 <label class="cursor-pointer label flex items-center">
                     <span class="label-text">Remember me</span>
-                    <input type="checkbox" class="checkbox checkbox-sm checkbox-info [--chkfg:white] dark:[--chkfg:black]" v-model="form.remember"/>
+                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary" v-model="form.remember"/>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                >
+                <Link v-if="canResetPassword" :href="route('password.request')" class="text-sm btn-link">
                     Forgot your password?
                 </Link>
 
-                <button class="ms-4 btn btn-info text-white dark:text-black" :disabled="form.processing">Log In</button>
+                <button class="ms-4 btn btn-primary" :disabled="form.processing">Log In</button>
             </div>
         </form>
     </GuestLayout>

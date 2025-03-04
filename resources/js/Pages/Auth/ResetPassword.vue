@@ -38,10 +38,10 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="email">Email</label>
+                <label class="block font-medium text-sm" for="email">Email</label>
 
-                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
-                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                <label class="input input-bordered flex items-center gap-2">
+                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
                     <input id="email"
                            type="email"
                            class="mt-1 block w-full"
@@ -56,10 +56,10 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="password">Password</label>
+                <label class="block font-medium text-sm" for="password">Password</label>
 
-                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                <label class="input input-bordered flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password"
                            v-model="form.password"
                            type="password"
@@ -74,10 +74,10 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="password_confirmation">Confirm Password</label>
+                <label class="block font-medium text-sm" for="password_confirmation">Confirm Password</label>
 
-                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                <label class="input input-bordered flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password_confirmation"
                            v-model="form.password_confirmation"
                            type="password"
@@ -92,7 +92,7 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <button class="btn btn-warning text-white dark:text-black" :disabled="form.processing">Reset Password</button>
+                <button class="btn btn-warning" :disabled="form.processing">Reset Password</button>
             </div>
         </form>
     </GuestLayout>

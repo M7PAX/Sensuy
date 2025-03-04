@@ -25,7 +25,7 @@ defineProps({
 <!--        </section>-->
 <!--    </guest-layout>-->
     <LayoutPicker>
-        <section class="p-5 flex flex-col md:flex-row">
+        <section class="pb-5 flex flex-col md:flex-row">
             <div class="md:w-8/12 w-full">
                 <PostCard v-for="post in posts.data" :post="post" :community="post.community_slug" :key="post.id"/>
             </div>

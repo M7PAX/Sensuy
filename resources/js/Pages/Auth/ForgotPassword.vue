@@ -25,7 +25,7 @@ const submit = () => {
     <GuestLayout>
         <Head title="Forgot Password" />
 
-        <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+        <div class="mb-4 text-sm">
             Forgot your password? No problem. Just let us know your email address and we will email you a password reset
             link that will allow you to choose a new one.
         </div>
@@ -36,10 +36,10 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="email">Email</label>
+                <label class="block font-medium text-sm" for="email">Email</label>
 
-                <label class="input input-bordered flex items-center gap-2 bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
-                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70 text-black dark:text-white"/>
+                <label class="input input-bordered flex items-center gap-2">
+                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
                     <input id="email"
                            type="email"
                            class="mt-1 block w-full"
@@ -54,7 +54,7 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <button class="btn btn-warning text-white dark:text-black ms-4" :disabled="form.processing">Email Password Reset Link</button>
+                <button class="btn btn-warning ms-4" :disabled="form.processing">Email Password Reset Link</button>
             </div>
         </form>
     </GuestLayout>

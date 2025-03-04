@@ -9,21 +9,19 @@ defineProps({
 </script>
 
 <template>
-    <Link :href="route('frontend.communities.posts.show', [community, post.slug])"
-        class="mt-4 max-w-4xl flex text-gray-400 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 shadow-md"
-    >
+    <Link :href="route('frontend.communities.posts.show', [community, post.slug])" class="mt-4 max-w-4xl flex shadow-md bg-base-100 border border-primary rounded-xl">
         <div class="mr-3">
             <PostVote :post="post"/>
         </div>
         <div>
             <div class="flex my-2 py-2 text-sm">
                 <Link :href="route('frontend.communities.show',community)"
-                      class="font-semibold text-black dark:text-white mr-5 hover:text-blue-700 dark:hover:text-blue-500">
+                      class="font-semibold mr-5 hover:text-primary">
                       {{ community }}
                 </Link>
                 <div class="flex">
                     Posted by
-                    <span class="font-semibold text-black dark:text-white ml-1">
+                    <span class="font-semibold ml-1">
                         {{ post.username }}
                     </span>
                     <span class="ml-5">
@@ -31,13 +29,13 @@ defineProps({
                     </span>
                 </div>
             </div>
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-black dark:text-white hover:text-blue-700 dark:hover:text-blue-500">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight hover:text-primary">
                 {{ post.title }}
             </h5>
-            <p class="mb-3 mr-3 font-normal text-gray-600 dark:text-gray-400">
+            <p class="mb-3 mr-3 font-normal">
                 {{ post.description }}
             </p>
-            <div class="flex my-2 py-2 text-gray-700 dark:text-gray-300">
+            <div class="flex my-2 py-2">
                 Comments - {{ post.comments_count }}
             </div>
         </div>

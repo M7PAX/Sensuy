@@ -27,23 +27,23 @@ const submit = () => {
     <LayoutPicker>
         <template #header>
             <div class="flex justify-between">
-                <Link :href="route('frontend.communities.show', community.slug)" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight hover:text-blue-700 dark:hover:text-blue-500">
+                <Link :href="route('frontend.communities.show', community.slug)" class="font-semibold text-xl leading-tight btn-link no-underline hover:text-primary">
                     s/{{ community.name }}
                 </Link>
             </div>
         </template>
 
         <section class="flex flex-colm-2 p-2 md:flex-row">
-            <div class="w-full md:w-8/12 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 shadow-md">
-                <div class="flex m-2 text-sm text-slate-400">
+            <div class="w-full md:w-8/12 rounded-xl border border-primary shadow-md bg-base-100">
+                <div class="flex m-2 text-sm">
                     <div>
                         <PostVote :post="post.data"/>
                     </div>
                     <div class="w-full">
-                        <div class="flex flex-col md:flex-row justify-between m-2">
+                        <div class="flex flex-col md:flex-row justify-between mx-2 mt-2">
                             <div class="text-sm">
                                 Posted by
-                                <span class="font-semibold text-black dark:text-white">
+                                <span class="font-semibold">
                                     {{ post.data.username }}
                                 </span>
                                 <span class="ml-5">
@@ -51,12 +51,12 @@ const submit = () => {
                                 </span>
                             </div>
                             <div v-if="$page.props.auth.auth_check">
-                                <button v-if="can_update" class="btn btn-warning text-white dark:text-black inline-flex items-center font-semibold text-xs uppercase tracking-widest px-4 py-2">
+                                <button v-if="can_update" class="btn btn-warning inline-flex items-center font-semibold text-xs uppercase tracking-widest px-4 py-2">
                                     <Link :href="route('communities.posts.edit', [community.slug, post.data.slug])" method="get" type="button">
                                         Edit
                                     </Link>
                                 </button>
-                                <button v-if="can_delete" class="btn btn-error text-white dark:text-black inline-flex items-center font-semibold text-xs uppercase px-4 py-2 ml-3">
+                                <button v-if="can_delete" class="btn btn-error inline-flex items-center font-semibold text-xs uppercase px-4 py-2 ml-3">
                                     <Link :href="route('communities.posts.destroy', [community.slug, post.data.slug])" method="delete" type="button">
                                         Delete
                                     </Link>
@@ -64,13 +64,13 @@ const submit = () => {
                             </div>
                         </div>
                         <div class="p-2">
-                            <h1 class="font-semibold text-3xl text-gray-900 dark:text-gray-100">
+                            <h1 class="font-semibold text-3xl">
                                 {{ post.data.title }}
                             </h1>
-                            <p class="my-2 text-base text-gray-600 dark:text-gray-400">
+                            <p class="my-2 text-base">
                                 {{ post.data.description }}
                             </p>
-                            <a :href="post.data.url" class="font-semibold text-blue-500 text-sm hover:text-blue-300">
+                            <a :href="post.data.url" class="font-semibold btn-link">
                                 {{ post.data.url }}
                             </a>
                         </div>
@@ -78,28 +78,28 @@ const submit = () => {
                             <form class="m-1 p-1 max-w-md" @submit.prevent="submit">
                                 <div class="mt-2">
                                     <textarea v-model="form.content" id="comment" rows="2"  placeholder="Your comment..."
-                                              class="block p-2.5 w-full text-sm rounded-lg text-black dark:text-white bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600">
+                                              class="block p-2.5 w-full text-sm rounded-xl bg-base-300">
                                     </textarea>
                                 </div>
                                 <div class="mt-2">
-                                    <button class="btn btn-info text-white dark:text-black px-4 py-2">
+                                    <button class="btn btn-primary px-4 py-2">
                                         Comment
                                     </button>
                                 </div>
                             </form>
                         </div>
                         <div>
-                            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-600 m-2 p-2">
+                            <ul role="list" class="divide-y m-2 p-2">
                                 <li v-for="(comment, index) in post.data.comments" :key="index" class="py-4 flex flex-col">
                                     <div class="text-sm">
-                                        <span class="ml-5 text-gray-800 dark:text-gray-200">
+                                        <span class="ml-5">
                                             Commented by
                                         </span>
-                                        <span class="font-semibold text-black dark:text-white">
+                                        <span class="font-semibold">
                                             {{ comment.username }}
                                         </span>
                                     </div>
-                                    <div class="text-gray-500 m-1 p-1 ml-8">
+                                    <div class="m-1 p-1 ml-8">
                                         {{ comment.content }}
                                     </div>
                                 </li>
