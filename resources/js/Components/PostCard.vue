@@ -19,9 +19,9 @@ defineProps({
                       class="font-semibold mr-5 hover:text-primary">
                       {{ community }}
                 </Link>
-                <div class="flex">
+                <div class="flex text-base-content/50">
                     Posted by
-                    <span class="font-semibold ml-1">
+                    <span class="text-base-content font-semibold ml-1">
                         {{ post.username }}
                     </span>
                     <span class="ml-5">
@@ -35,7 +35,7 @@ defineProps({
             <p class="mb-3 mr-3 font-normal">
                 {{ post.description }}
             </p>
-            <div class="flex my-2 py-2">
+            <div class="flex my-2 py-2 text-base-content/50">
                 Comments - {{ post.comments_count }}
             </div>
         </div>

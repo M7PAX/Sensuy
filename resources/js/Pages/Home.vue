@@ -2,6 +2,7 @@
 import PostCard from "@/Components/PostCard.vue";
 import CommunityList from "@/Components/CommunityList.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
+import {Head} from "@inertiajs/vue3";
 
 defineProps({
     communities: Object,
@@ -10,6 +11,8 @@ defineProps({
 </script>
 
 <template>
+    <Head title="Home" />
+
 <!--    <guest-layout>-->
 <!--        <section class="m-2 p-2 flex flex-col md:flex-row">-->
 <!--            <div class="md:w-8/12 w-full">-->
@@ -24,6 +27,7 @@ defineProps({
 <!--            </div>-->
 <!--        </section>-->
 <!--    </guest-layout>-->
+
     <LayoutPicker>
         <section class="pb-5 flex flex-col md:flex-row">
             <div class="md:w-8/12 w-full">

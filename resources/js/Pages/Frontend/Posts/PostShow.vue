@@ -41,9 +41,9 @@ const submit = () => {
                     </div>
                     <div class="w-full">
                         <div class="flex flex-col md:flex-row justify-between mx-2 mt-2">
-                            <div class="text-sm">
+                            <div class="text-sm text-base-content/50">
                                 Posted by
-                                <span class="font-semibold">
+                                <span class="font-semibold text-base-content">
                                     {{ post.data.username }}
                                 </span>
                                 <span class="ml-5">
@@ -91,11 +91,11 @@ const submit = () => {
                         <div>
                             <ul role="list" class="divide-y m-2 p-2">
                                 <li v-for="(comment, index) in post.data.comments" :key="index" class="py-4 flex flex-col">
-                                    <div class="text-sm">
+                                    <div class="text-sm text-base-content/50">
                                         <span class="ml-5">
                                             Commented by
                                         </span>
-                                        <span class="font-semibold">
+                                        <span class="font-semibold text-base-content">
                                             {{ comment.username }}
                                         </span>
                                     </div>

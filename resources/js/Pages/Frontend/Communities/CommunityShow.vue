@@ -17,18 +17,18 @@ const form = ref({
 
 <template>
     <LayoutPicker>
-        <div class="card card-xl shadow-sm bg-base-100">
-            <div class="card-body">
-                <h2 class="card-title font-semibold text-xl leading-tight justify-between">
+        <template #header>
+            <div class="flex justify-between">
+                <h2 class="font-semibold text-xl leading-tight my-auto">
                     s/{{ community.name }}
-                    <button v-if="$page.props.auth.auth_check" class="btn btn-success" :disabled="form.processing">
-                        <Link :href="route('communities.posts.create', community.slug)">
-                            Create Post
-                        </Link>
-                    </button>
                 </h2>
+                <button v-if="$page.props.auth.auth_check" class="btn btn-success" :disabled="form.processing">
+                    <Link :href="route('communities.posts.create', community.slug)">
+                        Create Post
+                    </Link>
+                </button>
             </div>
-        </div>
+        </template>
 
         <div class="m-2 p-2 flex flex-col md:flex-row">
             <div class="w-full md:w-4/12 p-4 order-1 md:order-2">
