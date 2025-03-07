@@ -27,7 +27,7 @@ const showingNavigationDropdown = ref(false);
         </div>
 
         <div class="min-h-screen bg-base-200">
-            <nav class="bg-base-100 border-b border-primary">
+            <nav class="bg-base-100 border-b border-primary shadow-md">
 
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +65,7 @@ const showingNavigationDropdown = ref(false);
                                             <Link :href="route('profile.edit')">Profile</Link>
                                         </li>
                                         <li>
-                                            <Link :href="route('logout')" method="post">Log Out</Link>
+                                            <Link :href="route('logout')" method="post" class="text-error">Log Out</Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -73,7 +73,7 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <!-- Hamburger -->
-                        <div class="-me-2 flex items-center sm:hidden">
+                        <div class="-me-2 flex items-center sm:hidden">flex-grow mr-2
                             <button @click="showingNavigationDropdown = !showingNavigationDropdown"
                                 class="inline-flex items-center justify-center p-2 rounded-md"
                             >
@@ -122,7 +122,7 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-base-100 shadow-sm">
+            <header class="bg-base-100 shadow-md">
                 <slot name="header" />
             </header>
 

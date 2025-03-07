@@ -31,8 +31,9 @@ const submit = () => {
             <div class="w-full sm:max-w-md mx-auto shadow-md overflow-hidden rounded-xl bg-base-100 p-6 border border-primary">
                 <form @submit.prevent="submit">
                     <div>
-                        <label class="block font-medium text-sm" for="title">Title</label>
-
+                        <label class="block font-medium text-sm" for="title">
+                            Title
+                        </label>
                         <label class="input input-bordered flex items-center gap-2">
                             <input id="title"
                                    type="text"
@@ -43,13 +44,13 @@ const submit = () => {
                                    autocomplete="title"
                             />
                         </label>
-
                         <ErrorAlert class="mt-2" :message="form.errors.title"/>
                     </div>
 
                     <div class="mt-4">
-                        <label class="block font-medium text-sm" for="description">Description</label>
-
+                        <label class="block font-medium text-sm" for="description">
+                            Description
+                        </label>
                         <label class="input input-bordered flex items-center gap-2">
                             <input id="description"
                                    type="text"
@@ -59,28 +60,13 @@ const submit = () => {
                                    autocomplete="description"
                             />
                         </label>
-
                         <ErrorAlert class="mt-2" :message="form.errors.description"/>
                     </div>
 
-                    <div class="mt-4">
-                        <label class="block font-medium text-sm" for="url">URL</label>
-
-                        <label class="input input-bordered flex items-center gap-2">
-                            <input id="url"
-                                   type="text"
-                                   class="mt-1 block w-full"
-                                   v-model="form.url"
-                                   autofocus
-                                   autocomplete="url"
-                            />
-                        </label>
-
-                        <ErrorAlert class="mt-2" :message="form.errors.url"/>
-                    </div>
-
                     <div class="flex items-center justify-end mt-4">
-                        <button class="ms-4 btn btn-warning" :disabled="form.processing">Update</button>
+                        <button class="ms-4 btn btn-success" :disabled="form.processing">
+                            Update
+                        </button>
                     </div>
                 </form>
             </div>

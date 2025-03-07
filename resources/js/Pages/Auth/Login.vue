@@ -37,7 +37,7 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-sm rounded-xl p-6 bg-base-100 border border-primary">
+        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-md rounded-xl p-6 bg-base-100 border border-primary">
 
             <div>
                 <label class="block font-medium text-sm" for="email">Email</label>
@@ -75,17 +75,21 @@ const submit = () => {
 
             <div class="block mt-4">
                 <label class="cursor-pointer label flex items-center">
-                    <span class="label-text">Remember me</span>
-                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary" v-model="form.remember"/>
+                    <span class="label-text">
+                        Remember me
+                    </span>
+                    <input type="checkbox" class="checkbox checkbox-sm checkbox-secondary" v-model="form.remember"/>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="text-sm btn-link">
+                <Link v-if="canResetPassword" :href="route('password.request')" class="text-sm btn-link hover:text-secondary">
                     Forgot your password?
                 </Link>
 
-                <button class="ms-4 btn btn-primary" :disabled="form.processing">Log In</button>
+                <button class="ms-4 btn btn-success" :disabled="form.processing">
+                    Log In
+                </button>
             </div>
         </form>
     </GuestLayout>

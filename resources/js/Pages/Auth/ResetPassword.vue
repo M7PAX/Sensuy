@@ -38,8 +38,9 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <label class="block font-medium text-sm" for="email">Email</label>
-
+                <label class="block font-medium text-sm" for="email">
+                    Email
+                </label>
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
                     <input id="email"
@@ -51,13 +52,13 @@ const submit = () => {
                            autofocus
                     />
                 </label>
-
                 <ErrorAlert class="mt-2" :message="form.errors.email"/>
             </div>
 
             <div class="mt-4">
-                <label class="block font-medium text-sm" for="password">Password</label>
-
+                <label class="block font-medium text-sm" for="password">
+                    Password
+                </label>
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password"
@@ -69,13 +70,13 @@ const submit = () => {
                            autofocus
                     />
                 </label>
-
                 <ErrorAlert class="mt-2" :message="form.errors.password" />
             </div>
 
             <div class="mt-4">
-                <label class="block font-medium text-sm" for="password_confirmation">Confirm Password</label>
-
+                <label class="block font-medium text-sm" for="password_confirmation">
+                    Confirm Password
+                </label>
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password_confirmation"
@@ -87,12 +88,13 @@ const submit = () => {
                            autofocus
                     />
                 </label>
-
                 <ErrorAlert class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <button class="btn btn-warning" :disabled="form.processing">Reset Password</button>
+                <button class="btn btn-warning" :disabled="form.processing">
+                    Reset Password
+                </button>
             </div>
         </form>
     </GuestLayout>

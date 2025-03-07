@@ -16,7 +16,7 @@ defineProps({
         <div>
             <div class="flex my-2 py-2 text-sm">
                 <Link :href="route('frontend.communities.show',community)"
-                      class="font-semibold mr-5 hover:text-primary">
+                      class="font-semibold mr-5 hover:text-secondary">
                       {{ community }}
                 </Link>
                 <div class="flex text-base-content/50">
@@ -29,7 +29,7 @@ defineProps({
                     </span>
                 </div>
             </div>
-            <h5 class="mb-2 text-2xl font-bold tracking-tight hover:text-primary">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight hover:text-secondary">
                 {{ post.title }}
             </h5>
             <p class="mb-3 mr-3 font-normal">

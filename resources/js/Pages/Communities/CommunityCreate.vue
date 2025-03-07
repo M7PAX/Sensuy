@@ -26,7 +26,9 @@ const submit = () => {
             <div class="w-full sm:max-w-md mx-auto shadow-md overflow-hidden rounded-xl bg-base-100 p-6 border border-primary">
                 <form @submit.prevent="submit">
                     <div>
-                        <label class="block font-medium text-sm" for="name">Name</label>
+                        <label class="block font-medium text-sm" for="name">
+                            Name
+                        </label>
                         <label class="input input-bordered flex items-center gap-2">
                             <input id="name"
                                    type="text"
@@ -41,7 +43,9 @@ const submit = () => {
                     </div>
 
                     <div class="mt-4">
-                        <label class="block font-medium text-sm" for="description">Description</label>
+                        <label class="block font-medium text-sm" for="description">
+                            Description
+                        </label>
                         <label class="input input-bordered flex items-center gap-2">
                             <input id="description"
                                    type="text"
@@ -55,7 +59,9 @@ const submit = () => {
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
-                        <button class="btn btn-success ms-4" :disabled="form.processing">Create</button>
+                        <button class="btn btn-success ms-4" :disabled="form.processing">
+                            Create
+                        </button>
                     </div>
                 </form>
             </div>

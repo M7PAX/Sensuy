@@ -23,10 +23,13 @@ const submit = () => {
 <template>
     <GuestLayout>
         <Head title="Register" />
-        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-sm rounded-xl p-6 bg-base-100 border border-primary">
+        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-md rounded-xl p-6 bg-base-100 border border-primary">
 
             <div>
-                <label class="block font-medium text-sm" for="username">Username</label>
+                <label class="block font-medium text-sm" for="username">
+                    Username
+                </label>
+
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="ri-user-3-line" class="h-4 w-4 opacity-70"/>
                     <input id="name"
@@ -42,7 +45,9 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <label class="block font-medium text-sm" for="email">Email</label>
+                <label class="block font-medium text-sm" for="email">
+                    Email
+                </label>
 
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
@@ -59,7 +64,9 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <label class="block font-medium text-sm" for="password">Password</label>
+                <label class="block font-medium text-sm" for="password">
+                    Password
+                </label>
 
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
@@ -76,7 +83,9 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <label class="block font-medium text-sm" for="password_confirmation">Confirm Password</label>
+                <label class="block font-medium text-sm" for="password_confirmation">
+                    Confirm Password
+                </label>
 
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
@@ -92,11 +101,11 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link :href="route('login')" class="text-sm btn-link">
+                <Link :href="route('login')" class="text-sm btn-link hover:text-secondary">
                     Already registered?
                 </Link>
 
-                <button class="ms-4 btn btn-primary" :disabled="form.processing">
+                <button class="ms-4 btn btn-success" :disabled="form.processing">
                     Register
                 </button>
             </div>

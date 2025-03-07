@@ -16,7 +16,7 @@ defineProps({
         </template>
 
         <div class="flex flex-col">
-            <div class="mx-auto shadow-sm rounded-xl p-6 align-middle overflow-x-auto bg-base-100 border border-primary">
+            <div class="mx-auto shadow-md rounded-xl p-6 align-middle overflow-x-auto bg-base-100 border border-primary">
                 <div class="flex justify-end">
                     <button class="btn btn-success">
                         <Link :href="route('communities.create')">
@@ -24,6 +24,7 @@ defineProps({
                         </Link>
                     </button>
                 </div>
+
                 <table class="table">
                     <thead>
                         <tr>

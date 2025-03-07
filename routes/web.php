@@ -2,6 +2,7 @@
 use App\Http\Controllers\Backend\BCommunityController;
 use App\Http\Controllers\Backend\BPostController;
 use App\Http\Controllers\Backend\VoteController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\Frontend\FCommunityController;
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Frontend\FPostController;

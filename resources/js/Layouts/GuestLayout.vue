@@ -10,7 +10,7 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div>
         <div class="min-h-screen bg-base-200">
-            <nav class="bg-base-100 border-b border-primary">
+            <nav class="bg-base-100 border-b border-primary shadow-md">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -33,8 +33,8 @@ const showingNavigationDropdown = ref(false);
                         <div class="sm:flex sm:items-center sm:ms-6">
                             <ThemeToggle class="mr-5"/>
 
-                            <Link :href="route('login')" class="btn btn-soft btn-primary btn-sm mr-4">Log in</Link>
-                            <Link :href="route('register')" class="btn btn-soft btn-primary btn-sm">Register</Link>
+                            <Link :href="route('login')" class="btn btn-soft btn-secondary btn-sm mr-4">Log in</Link>
+                            <Link :href="route('register')" class="btn btn-soft btn-secondary btn-sm">Register</Link>
                         </div>
 
                         <!-- Hamburger -->
@@ -84,7 +84,7 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-base-100 shadow-sm">
+            <header class="bg-base-100 shadow-md">
                 <slot name="header" />
             </header>
 

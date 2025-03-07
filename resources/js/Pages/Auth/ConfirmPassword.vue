@@ -27,8 +27,9 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <label class="block font-medium text-sm" for="password">Password</label>
-
+                <label class="block font-medium text-sm" for="password">
+                    Password
+                </label>
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password"
@@ -40,12 +41,13 @@ const submit = () => {
                            autofocus
                     />
                 </label>
-
                 <ErrorAlert class="mt-2" :message="form.errors.password" />
             </div>
 
             <div class="flex justify-end mt-4">
-                <button class="btn btn-success ms-4" :disabled="form.processing">Confirm</button>
+                <button class="btn btn-success ms-4" :disabled="form.processing">
+                    Confirm
+                </button>
             </div>
         </form>
     </GuestLayout>

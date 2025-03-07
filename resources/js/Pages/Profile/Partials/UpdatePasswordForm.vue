@@ -36,7 +36,9 @@ const updatePassword = () => {
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium">Update Password</h2>
+            <h2 class="text-lg font-medium">
+                Update Password
+            </h2>
             <p class="mt-1 text-sm">
                 Ensure your account is using a long, random password to stay secure.
             </p>
@@ -44,8 +46,9 @@ const updatePassword = () => {
 
         <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
             <div>
-                <label class="block font-medium text-sm" for="current_password"> Current Password </label>
-
+                <label class="block font-medium text-sm" for="current_password">
+                    Current Password
+                </label>
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="current_password"
@@ -56,13 +59,13 @@ const updatePassword = () => {
                            autocomplete="current-password"
                     />
                 </label>
-
                 <ErrorAlert class="mt-2" :message="form.errors.current_password" />
             </div>
 
             <div>
-                <label class="block font-medium text-sm" for="password"> New Password </label>
-
+                <label class="block font-medium text-sm" for="password">
+                    New Password
+                </label>
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password"
@@ -73,13 +76,13 @@ const updatePassword = () => {
                            autocomplete="new-password"
                     />
                 </label>
-
                 <ErrorAlert class="mt-2" :message="form.errors.password" />
             </div>
 
             <div>
-                <label class="block font-medium text-sm" for="password_confirmation"> Confirm Password </label>
-
+                <label class="block font-medium text-sm" for="password_confirmation">
+                    Confirm Password
+                </label>
                 <label class="input input-bordered flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password_confirmation"
@@ -89,20 +92,17 @@ const updatePassword = () => {
                            autocomplete="new-password"
                     />
                 </label>
-
                 <ErrorAlert class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
             <div class="flex items-center gap-4">
-                <button class="btn btn-success" :disabled="form.processing">Save</button>
-
-                <Transition
-                    enter-active-class="transition ease-in-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out"
-                    leave-to-class="opacity-0"
-                >
-                    <p v-if="form.recentlySuccessful" class="text-sm">Saved.</p>
+                <button class="btn btn-success" :disabled="form.processing">
+                    Save
+                </button>
+                <Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0" leave-active-class="transition ease-in-out" leave-to-class="opacity-0">
+                    <p v-if="form.recentlySuccessful" class="text-sm">
+                        Saved.
+                    </p>
                 </Transition>
             </div>
         </form>

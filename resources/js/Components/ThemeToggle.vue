@@ -26,7 +26,6 @@ onMounted(() => {
 
 <!--        <v-icon v-if="currentTheme === 'light'" name="oi-sun" class="swap-off h-8 w-8 fill-current text-white"/>-->
 <!--        <v-icon v-else name="ri-moon-clear-line" class="swap-on h-8 w-8 fill-current text-black"/>-->
-
         <v-icon :name="currentTheme === 'light' ? 'ri-moon-clear-line' : 'oi-sun'" class="h-8 w-8 fill-current" :class="{ 'text-white': currentTheme === 'dark', 'text-black': currentTheme === 'light' }"/>
     </label>
 </template>

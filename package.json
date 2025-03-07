@@ -19,8 +19,6 @@
     "dependencies": {
         "@tailwindcss/vite": "^4.0.0",
         "@vueuse/core": "^10.11.1",
-        "filepond": "^4.31.1",
-        "filepond-plugin-image-preview": "^4.6.12",
         "oh-vue-icons": "^1.0.0-rc3",
         "vue-filepond": "^7.0.4"
     }

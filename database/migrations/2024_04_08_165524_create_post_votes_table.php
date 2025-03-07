@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('post_id')->constrained('posts')->cascadeOnDelete();
+
             $table->smallInteger('vote')->default(0);
             $table->timestamps();
         });

@@ -32,8 +32,8 @@ const form = ref({
 
         <div class="m-2 p-2 flex flex-col md:flex-row">
             <div class="w-full md:w-4/12 p-4 order-1 md:order-2">
-                <div class="w-full shadow-md rounded-xl border border-primary">
-                    <h2 class="font-semibold text-lg p-6 rounded-t-xl bg-primary">
+                <div class="w-full shadow-md rounded-xl border border-secondary bg-base-100">
+                    <h2 class="font-semibold text-lg p-6 rounded-t-xl bg-secondary">
                         About {{ community.name }}
                     </h2>
                     <p class="p-4 rounded-b-xl">
