@@ -17,10 +17,6 @@ class Community extends Model
         'slug'
     ];
 
-    public static function paginate(int $int)
-    {
-    }
-
     public function sluggable(): array
     {
         return [

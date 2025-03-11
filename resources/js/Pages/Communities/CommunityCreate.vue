@@ -51,7 +51,6 @@ const submit = () => {
                                    type="text"
                                    class="mt-1 block w-full"
                                    v-model="form.description"
-                                   required
                                    autocomplete="description"
                             />
                         </label>
@@ -59,7 +58,7 @@ const submit = () => {
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
-                        <button class="btn btn-success ms-4" :disabled="form.processing">
+                        <button class="btn btn-success ms-4 uppercase" :disabled="form.processing">
                             Create
                         </button>
                     </div>

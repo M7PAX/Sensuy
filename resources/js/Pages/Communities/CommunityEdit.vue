@@ -60,7 +60,7 @@ const submit = () => {
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
-                        <button class="ms-4 btn btn-success" :disabled="form.processing">
+                        <button class="ms-4 btn btn-success uppercase" :disabled="form.processing">
                             Update
                         </button>
                     </div>

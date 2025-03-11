@@ -53,7 +53,7 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <button class="btn btn-warning ms-4" :disabled="form.processing">
+                <button class="btn btn-warning ms-4 uppercase" :disabled="form.processing">
                     Email Password Reset Link
                 </button>
             </div>

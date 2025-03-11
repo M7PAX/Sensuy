@@ -14,21 +14,25 @@ class FileController extends Controller
         ]);
 
         $uploadedFile = $request->file('file');
+        $type = explode('/', $uploadedFile->getClientMimeType())[0] ?? 'other';
+        $filename = $uploadedFile->getClientOriginalName();
 
-        $file = new File();
-        $file->name = $uploadedFile->getClientOriginalName();
-        $file->mime_type = $uploadedFile->getClientMimeType();
-        $file->post_id = id();
-        $file->save();
+        $path = $uploadedFile->storeAs(
+            "public/uploads/{$type}",
+            "{$request->post_id}_{$filename}"
+        );
 
-        $path = $uploadedFile->store('uploads', 'public');
-        $size = $uploadedFile->getSize();
+        $file = File::create([
+            'post_id' => $request->post_id,
+            'name' => $filename,
+            'mime_type' => $uploadedFile->getClientMimeType(),
+        ]);
 
         return redirect()->back()->with('success', 'File uploaded successfully.');
     }
 
     public function download(File $file)
     {
-        return response()->download(storage_path("app/public/{$file->path}"), $file->name);
+        return Storage::download($file->path, $file->name);
     }
 }

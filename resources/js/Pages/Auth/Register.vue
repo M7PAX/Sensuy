@@ -105,7 +105,7 @@ const submit = () => {
                     Already registered?
                 </Link>
 
-                <button class="ms-4 btn btn-success" :disabled="form.processing">
+                <button class="ms-4 btn btn-success uppercase" :disabled="form.processing">
                     Register
                 </button>
             </div>

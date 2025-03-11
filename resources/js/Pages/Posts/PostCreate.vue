@@ -2,25 +2,39 @@
 import { Head, useForm } from '@inertiajs/vue3';
 import ErrorAlert from "@/Components/ErrorAlert.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
+import {ref} from "vue";
 
 const props = defineProps({
-    post: Object,
     community: Object,
 })
 
 const form = useForm({
-    title: props.post?.title,
-    description: props.post?.description,
-    url: props.post?.url,
+    title: '',
+    description: '',
+    url: '',
+    file: null,
 });
 
 const submit = () => {
-    form.put(route('communities.posts.update', [props.community.slug, props.post.slug]));
+    form.post(route('communities.posts.store', props.community.slug), {
+        forceFormData: true,
+    });
+};
+
+const PreviewUrl = ref(null);
+
+const FileUpload = (file) => {
+    if (file && !['image', 'video', 'audio'].includes(file.type.split('/')[0])) {
+        form.setError('file', 'Only images, videos, and music files are allowed');
+        return;
+    }
+    form.file = file;
+    PreviewUrl.value = file ? URL.createObjectURL(file) : null;
 };
 </script>
 
 <template>
-    <Head title="Create Community" />
+    <Head title="Create Post" />
 
     <LayoutPicker>
         <template #header>
@@ -56,16 +70,49 @@ const submit = () => {
                                    type="text"
                                    class="mt-1 block w-full"
                                    v-model="form.description"
-                                   required
                                    autocomplete="description"
                             />
                         </label>
                         <ErrorAlert class="mt-2" :message="form.errors.description"/>
                     </div>
 
+                    <div class="mt-4">
+                        <label class="block font-medium text-sm" for="url">
+                            URL
+                        </label>
+                        <label class="input input-bordered flex items-center gap-2">
+                            <input id="url"
+                                   type="text"
+                                   class="mt-1 block w-full"
+                                   v-model="form.url"
+                                   autofocus
+                                   autocomplete="url"
+                            />
+                        </label>
+                        <ErrorAlert class="mt-2" :message="form.errors.url"/>
+                    </div>
+
+                    <div class="mt-4">
+                        <label class="block font-medium text-sm">
+                            Media File (Images, Videos, Music - Max: 1000MB)
+                        </label>
+                        <fieldset class="fieldset">
+                            <input
+                                type="file"
+                                class="file-input"
+                                accept="image/*,video/*,audio/*"
+                                @input="FileUpload($event.target.files[0])"
+                            />
+                            <label class="fieldset-label">
+                                Supported formats: JPG, PNG, MP4, MP3, WAV, etc.
+                            </label>
+                        </fieldset>
+                        <ErrorAlert class="mt-2" :message="form.errors.file"/>
+                    </div>
+
                     <div class="flex items-center justify-end mt-4">
-                        <button class="ms-4 btn btn-success" :disabled="form.processing">
-                            Update
+                        <button class="ms-4 btn btn-success uppercase" :disabled="form.processing">
+                            Create
                         </button>
                     </div>
                 </form>

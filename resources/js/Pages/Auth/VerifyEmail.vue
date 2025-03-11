@@ -32,7 +32,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 
         <form @submit.prevent="submit">
             <div class="mt-4 flex items-center justify-between">
-                <button class="btn btn-warning" :disabled="form.processing">
+                <button class="btn btn-warning uppercase" :disabled="form.processing">
                     Resend Verification Email
                 </button>
                 <Link :href="route('logout')" method="post" as="button" class="underline text-sm">

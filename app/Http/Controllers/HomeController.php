@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\PostResource;
 use App\Http\Resources\CommunityResource;
+use App\Http\Resources\PostResource;
 use App\Models\Community;
 use App\Models\Post;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -21,6 +19,6 @@ class HomeController extends Controller
 
         $communities = CommunityResource::collection(Community::withCount('posts')->orderBy('posts_count', 'desc')->take(5)->get());
 
-        return Inertia::render('Home', compact('posts', 'communities'));
+        return Inertia::render('Home', ['communities' => $communities, 'posts' => $posts]);
     }
 }

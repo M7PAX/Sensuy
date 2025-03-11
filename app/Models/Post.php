@@ -13,7 +13,6 @@ class Post extends Model
     protected $fillable = [
         'user_id',
         'community_id',
-        'file_id',
         'title',
         'slug',
         'description',
@@ -53,5 +52,9 @@ class Post extends Model
     public function voted()
     {
         return $this->hasMany(PostVotes::class);
+    }
+
+    public function files() {
+        return $this->hasMany(File::class);
     }
 }

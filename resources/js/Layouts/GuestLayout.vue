@@ -33,8 +33,8 @@ const showingNavigationDropdown = ref(false);
                         <div class="sm:flex sm:items-center sm:ms-6">
                             <ThemeToggle class="mr-5"/>
 
-                            <Link :href="route('login')" class="btn btn-soft btn-secondary btn-sm mr-4">Log in</Link>
-                            <Link :href="route('register')" class="btn btn-soft btn-secondary btn-sm">Register</Link>
+                            <Link :href="route('login')" class="btn btn-soft btn-secondary btn-sm mr-4 uppercase">Log in</Link>
+                            <Link :href="route('register')" class="btn btn-soft btn-secondary btn-sm uppercase">Register</Link>
                         </div>
 
                         <!-- Hamburger -->

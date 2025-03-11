@@ -16,7 +16,7 @@ const form = useForm({
 
 const submit = () => {
     form.post(
-        route('frontend.posts.comments', [props.community.slug, props.post.data.slug]),{
+        route('comments', [props.community.slug, props.post.data.slug]),{
             onSuccess: () => form.reset('content')
         }
     );
@@ -27,7 +27,7 @@ const submit = () => {
     <LayoutPicker>
         <template #header>
             <div class="flex justify-between">
-                <Link :href="route('frontend.communities.show', community.slug)" class="font-semibold text-xl leading-tight hover:text-secondary">
+                <Link :href="route('communities', community.slug)" class="font-semibold text-xl leading-tight hover:text-secondary">
                     s/{{ community.name }}
                 </Link>
             </div>
@@ -52,16 +52,12 @@ const submit = () => {
                                 </span>
                             </div>
                             <div v-if="$page.props.auth.auth_check">
-                                <button v-if="can_update" class="btn btn-warning inline-flex items-center font-semibold text-xs tracking-widest px-4 py-2">
-                                    <Link :href="route('communities.posts.edit', [community.slug, post.data.slug])" method="get" type="button">
-                                        Edit
-                                    </Link>
-                                </button>
-                                <button v-if="can_delete" class="btn btn-error inline-flex items-center font-semibold text-xs px-4 py-2 ml-3">
-                                    <Link :href="route('communities.posts.destroy', [community.slug, post.data.slug])" method="delete" type="button">
-                                        Delete
-                                    </Link>
-                                </button>
+                                <Link v-if="can_update" :href="route('communities.posts.edit', [community.slug, post.data.slug])" class="btn btn-warning btn-sm uppercase mr-2" method="get" type="button">
+                                    Edit
+                                </Link>
+                                <Link v-if="can_delete" :href="route('communities.posts.destroy', [community.slug, post.data.slug])" class="btn btn-error btn-sm uppercase" method="delete" type="button">
+                                    Delete
+                                </Link>
                             </div>
                         </div>
 
@@ -72,9 +68,34 @@ const submit = () => {
                             <p class="my-2 text-base">
                                 {{ post.data.description }}
                             </p>
-                            <a :href="post.data.url" class="font-semibold btn-link hover:text-accent">
+                            <a :href="post.data.url" class="btn-link hover:text-accent">
                                 {{ post.data.url }}
                             </a>
+
+<!--                            <div v-if="post.data.files.length" class="ml-5 mt-4">-->
+<!--                                <div v-for="file in post.data.files" :key="file.id" class="mb-4">-->
+<!--                                    <div>-->
+<!--                                        <a :href="file.url" target="_blank" class="font-semibold hover:underline">-->
+<!--                                            {{ file.name }}-->
+<!--                                        </a>-->
+<!--                                        <div class="text-sm text-base-content/70">{{ file.formatted_size }}</div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div v-if="file.mime_type.startsWith('image')" class="mt-2">-->
+<!--                                    <img :src="file.url" class="rounded-lg max-w-full h-auto"/>-->
+<!--                                </div>-->
+<!--                                <div v-else-if="file.mime_type.startsWith('video')" class="mt-2">-->
+<!--                                    <video controls class="rounded-lg max-w-full h-auto">-->
+<!--                                        <source :src="file.url" :type="file.mime_type">-->
+<!--                                    </video>-->
+<!--                                </div>-->
+<!--                                <div v-else-if="file.mime_type.startsWith('audio')" class="mt-2">-->
+<!--                                    <audio controls class="rounded-lg w-full">-->
+<!--                                        <source :src="file.url" :type="file.mime_type">-->
+<!--                                    </audio>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -94,7 +115,7 @@ const submit = () => {
                                 <textarea v-model="form.content" id="comment" rows="3"  placeholder="Your comment..." class="block p-2 w-full text-sm rounded-xl bg-base-300 resize-none border border-accent shadow-md shadow-accent"></textarea>
                             </div>
                             <div class="ml-3 my-auto">
-                                <button class="btn btn-accent shadow-md shadow-accent">
+                                <button class="btn btn-accent shadow-md shadow-accent uppercase">
                                     Comment
                                 </button>
                             </div>
@@ -102,7 +123,7 @@ const submit = () => {
                     </form>
                 </div>
 
-                <div class="bg-base-100 rounded-xl border border-secondary shadow-md my-5">
+                <div v-if="post.data.comments === null" class="bg-base-100 rounded-xl border border-secondary shadow-md my-5">
                     <ul role="list" class="divide-y divide-secondary mx-5">
                         <li v-for="(comment, index) in post.data.comments" :key="index" class="py-4 flex flex-col">
                             <div class="text-sm text-base-content/50 ml-3">

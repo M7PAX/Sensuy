@@ -9,13 +9,13 @@ defineProps({
 </script>
 
 <template>
-    <Link :href="route('frontend.communities.posts.show', [community, post.slug])" class="mt-4 max-w-4xl flex shadow-md bg-base-100 border border-primary rounded-xl">
+    <Link :href="route('posts', [community, post.slug])" class="mt-4 max-w-4xl flex shadow-md bg-base-100 border border-primary rounded-xl">
         <div class="mr-3">
             <PostVote :post="post"/>
         </div>
         <div>
             <div class="flex my-2 py-2 text-sm">
-                <Link :href="route('frontend.communities.show',community)"
+                <Link :href="route('communities',community)"
                       class="font-semibold mr-5 hover:text-secondary">
                       {{ community }}
                 </Link>

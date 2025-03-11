@@ -49,7 +49,7 @@ const deleteUser = () => {
             </p>
         </header>
 
-        <button class="btn btn-error" @click="toggleModal('open')">
+        <button class="btn btn-error uppercase" @click="toggleModal('open')">
             Delete Account
         </button>
 
@@ -84,10 +84,10 @@ const deleteUser = () => {
                         </div>
 
                         <div class="mt-6 flex justify-end">
-                            <button type="button" @click="toggleModal('close')" class="btn">
+                            <button type="button" @click="toggleModal('close')" class="btn uppercase">
                                 Cancel
                             </button>
-                            <button type="button" class="btn btn-error ms-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="deleteUser">
+                            <button type="button" class="btn btn-error ms-3 uppercase" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="deleteUser">
                                 Delete Account
                             </button>
                         </div>

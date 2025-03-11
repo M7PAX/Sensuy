@@ -1,9 +1,8 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
 import PostCard from "@/Components/PostCard.vue";
-import Pagination from "@/Components/Pagination.vue";
+import LayoutPicker from "@/Components/LayoutPicker.vue"
 import {ref} from "vue";
-import LayoutPicker from "@/Components/LayoutPicker.vue";
 
 defineProps({
     community: Object,
@@ -22,11 +21,12 @@ const form = ref({
                 <h2 class="font-semibold text-xl leading-tight my-auto">
                     s/{{ community.name }}
                 </h2>
-                <button v-if="$page.props.auth.auth_check" class="btn btn-success" :disabled="form.processing">
-                    <Link :href="route('communities.posts.create', community.slug)">
+                <div v-if="$page.props.auth.auth_check">
+                    <Link :href="route('communities.posts.create', community.slug)" class="btn btn-success uppercase">
+<!--                        :disabled="form.processing"-->
                         Create Post
                     </Link>
-                </button>
+                </div>
             </div>
         </template>
 
@@ -53,9 +53,6 @@ const form = ref({
 
             <div class="w-full md:w-8/12 order-2 md:order-1">
                 <PostCard v-for="post in posts.data" :post="post" :community="community.slug" :key="post.id"/>
-                <div class="mt-4 p-2">
-                    <Pagination :links="posts.meta.links"/>
-                </div>
             </div>
         </div>
     </LayoutPicker>

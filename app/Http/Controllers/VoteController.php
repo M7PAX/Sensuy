@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\PostVotes;
-use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {

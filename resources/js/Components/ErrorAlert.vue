@@ -14,9 +14,9 @@ defineProps({
 
 <template>
     <div v-show="message" class="text-error">
-        <v-icon name="md-reportgmailerrorred-sharp" class="w-5 h-5 text-error mr-1"/>
-        <span>
+        <div class="my-auto">
+            <v-icon name="md-reportgmailerrorred-sharp" class="w-5 h-5 text-error mr-1"/>
             {{ message }}
-        </span>
+        </div>
     </div>
 </template>

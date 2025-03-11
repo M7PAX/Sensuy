@@ -25,6 +25,15 @@ class StorePostRequest extends FormRequest
             'title' => ['required', 'min:5'],
             'description' => ['nullable', 'min:5'],
             'url' => ['nullable', 'url'],
+            'file' => [
+                'nullable',
+                'file',
+                'max:1000000', // 1000MB
+                'mimetypes:' .
+                'image/jpeg,image/png,image/gif,image/webp,' .
+                'video/mp4,video/webm,video/ogg,' .
+                'audio/mpeg,audio/wav,audio/ogg,audio/aac'
+            ],
         ];
     }
 }

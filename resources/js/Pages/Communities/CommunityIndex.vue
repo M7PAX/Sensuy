@@ -8,21 +8,19 @@ defineProps({
 </script>
 
 <template>
-    <Head title="All Communities" />
+    <Head title="My Communities" />
 
     <LayoutPicker>
         <template #header>
-            <h2 class="font-semibold text-xl leading-tight">All Communities</h2>
+            <h2 class="font-semibold text-xl leading-tight">My Communities</h2>
         </template>
 
         <div class="flex flex-col">
             <div class="mx-auto shadow-md rounded-xl p-6 align-middle overflow-x-auto bg-base-100 border border-primary">
                 <div class="flex justify-end">
-                    <button class="btn btn-success">
-                        <Link :href="route('communities.create')">
-                            Add Community
-                        </Link>
-                    </button>
+                    <Link :href="route('communities.create')" class="btn btn-success uppercase" as="button">
+                        Add Community
+                    </Link>
                 </div>
 
                 <table class="table">
@@ -43,11 +41,9 @@ defineProps({
                                             <img src="https://preview.redd.it/could-this-be-the-more-chaos-poster-v0-v1btt7qv0hde1.jpeg?auto=webp&s=17e70207ea2b6b8de8728d1c197a844423cf66fc" alt="pfp"/>
                                         </div>
                                     </div>
-                                    <div class="font-bold">
-                                        <Link :href="route('frontend.communities.show', community.slug)">
-                                            {{ community.name }}
-                                        </Link>
-                                    </div>
+                                    <Link :href="route('communities', community.slug)" class="font-bold">
+                                        {{ community.name }}
+                                    </Link>
                                 </div>
                             </td>
 <!--                            <td>-->
@@ -57,16 +53,12 @@ defineProps({
 <!--                            </td>-->
 <!--                            <td>{{community.slug}}</td>-->
                             <th>
-                                <button class="btn btn-warning btn-sm mr-5">
-                                    <Link :href="route('communities.edit', community.slug)" method="get" as="button" type="button">
-                                        Edit
-                                    </Link>
-                                </button>
-                                <button class="btn btn-error btn-sm">
-                                    <Link :href="route('communities.destroy', community.slug)" method="delete" as="button" type="button">
-                                        Delete
-                                    </Link>
-                                </button>
+                                <Link :href="route('communities.edit', community.slug)" class="btn btn-warning btn-sm mr-5 uppercase" method="get" as="button" type="button">
+                                    Edit
+                                </Link>
+                                <Link :href="route('communities.destroy', community.slug)" class="btn btn-error btn-sm uppercase" method="delete" as="button" type="button">
+                                    Delete
+                                </Link>
                             </th>
                         </tr>
                     </tbody>

@@ -87,7 +87,7 @@ const submit = () => {
                     Forgot your password?
                 </Link>
 
-                <button class="ms-4 btn btn-success" :disabled="form.processing">
+                <button class="ms-4 btn btn-success uppercase" :disabled="form.processing">
                     Log In
                 </button>
             </div>

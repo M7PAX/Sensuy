@@ -2,33 +2,25 @@
 import { Head, useForm } from '@inertiajs/vue3';
 import ErrorAlert from "@/Components/ErrorAlert.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
-import {ref} from "vue";
 
 const props = defineProps({
+    post: Object,
     community: Object,
 })
 
 const form = useForm({
-    title: '',
-    description: '',
-    url: ''
+    title: props.post?.title,
+    description: props.post?.description,
+    url: props.post?.url,
 });
 
 const submit = () => {
-    form.post(route('communities.posts.store', props.community.slug));
+    form.put(route('communities.posts.update', [props.community.slug, props.post.slug]));
 };
-
-const inputFile = ref<File>null;
-
-const uploadFile = (val) => {
-    inputFile = val;
-    form.mdata = inputFile;
-    mdata.value = URL.createObjectURL(inputFile);
-}
 </script>
 
 <template>
-    <Head title="Create Post" />
+    <Head title="Create Community" />
 
     <LayoutPicker>
         <template #header>
@@ -64,44 +56,15 @@ const uploadFile = (val) => {
                                    type="text"
                                    class="mt-1 block w-full"
                                    v-model="form.description"
-                                   required
                                    autocomplete="description"
                             />
                         </label>
                         <ErrorAlert class="mt-2" :message="form.errors.description"/>
                     </div>
 
-                    <div class="mt-4">
-                        <label class="block font-medium text-sm" for="url">
-                            URL
-                        </label>
-                        <label class="input input-bordered flex items-center gap-2">
-                            <input id="url"
-                                   type="text"
-                                   class="mt-1 block w-full"
-                                   v-model="form.url"
-                                   autofocus
-                                   autocomplete="url"
-                            />
-                        </label>
-                        <ErrorAlert class="mt-2" :message="form.errors.url"/>
-                    </div>
-
-<!--                    <div class="mt-4">-->
-<!--                        <label class="block font-medium text-sm">-->
-<!--                            File-->
-<!--                        </label>-->
-<!--                        <fieldset class="fieldset">-->
-<!--                            <input type="file" class="file-input"  @input="uploadFile(($event.target).files![0])" />-->
-<!--                            <label class="fieldset-label">-->
-<!--                                Max: 1000MB-->
-<!--                            </label>-->
-<!--                        </fieldset>-->
-<!--                    </div>-->
-
                     <div class="flex items-center justify-end mt-4">
-                        <button class="ms-4 btn btn-success" :disabled="form.processing">
-                            Create
+                        <button class="ms-4 btn btn-success uppercase" :disabled="form.processing">
+                            Update
                         </button>
                     </div>
                 </form>
