@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -56,5 +57,16 @@ class Post extends Model
 
     public function files() {
         return $this->hasMany(File::class);
+    }
+
+    protected static function booted()
+    {
+        static::deleting(function ($post) {
+            $post->files->each(function ($file) {
+                Storage::delete($file->path);
+            });
+
+            $post->files()->delete();
+        });
     }
 }

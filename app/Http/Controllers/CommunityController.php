@@ -37,14 +37,17 @@ class CommunityController extends Controller
     public function show($slug)
     {
         $community = Community::where('slug', $slug)->firstOrFail();
-        $posts = PostResource::collection($community->posts()->with(['user', 'voted' => function ($query)
-        {
-            $query->where('user_id', auth()->id());
-        }])->withCount('comments')->paginate(10));
 
-    //        $communities = CommunityResource::collection(Community::withCount('posts')->latest()->take(5)->get());
+        $posts = PostResource::collection($community->posts()->with([
+            'user',
+            'voted' => fn($q) => $q->where('user_id', auth()->id()),
+            'files'
+        ])->withCount('comments')->paginate(10));
 
-        return Inertia::render('Communities/CommunityShow', ['community' => $community, 'posts' => $posts]);
+        return Inertia::render('Communities/CommunityShow', [
+            'community' => $community,
+            'posts' => $posts,
+        ]);
     }
 
     public function edit(Community $community)

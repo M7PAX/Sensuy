@@ -20,9 +20,12 @@
 #      '';
 #    };
     languages.php.extensions = [ "xdebug" "pdo_mysql" ];
-    languages.php.ini = ''xdebug.mode = debug
+    languages.php.ini = ''
+        xdebug.mode = debug
         xdebug.discover_client_host = 1
         xdebug.client_host = 127.0.0.1
+        post_max_size = 1G
+        upload_max_filesize = 1G
     '';
     languages.javascript.enable = true;
     languages.javascript.package = pkgs.nodejs_20;

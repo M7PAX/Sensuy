@@ -94,17 +94,12 @@ const FileUpload = (file) => {
 
                     <div class="mt-4">
                         <label class="block font-medium text-sm">
-                            Media File (Images, Videos, Music - Max: 1000MB)
+                            File
                         </label>
                         <fieldset class="fieldset">
-                            <input
-                                type="file"
-                                class="file-input"
-                                accept="image/*,video/*,audio/*"
-                                @input="FileUpload($event.target.files[0])"
-                            />
+                            <input type="file" class="file-input" accept="image/*,video/*,audio/*" @input="FileUpload($event.target.files[0])"/>
                             <label class="fieldset-label">
-                                Supported formats: JPG, PNG, MP4, MP3, WAV, etc.
+                                Max: 1GB - JPG, MP3, MP4, etc.
                             </label>
                         </fieldset>
                         <ErrorAlert class="mt-2" :message="form.errors.file"/>

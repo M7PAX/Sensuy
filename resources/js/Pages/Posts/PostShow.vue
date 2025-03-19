@@ -2,6 +2,9 @@
 import { Link, useForm } from "@inertiajs/vue3";
 import PostVote from "@/Components/PostVote.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
+import {HiDownload, FaShare} from "oh-vue-icons/icons";
+import {addIcons} from "oh-vue-icons";
+addIcons(HiDownload, FaShare);
 
 const props = defineProps({
     community: Object,
@@ -72,30 +75,40 @@ const submit = () => {
                                 {{ post.data.url }}
                             </a>
 
-<!--                            <div v-if="post.data.files.length" class="ml-5 mt-4">-->
-<!--                                <div v-for="file in post.data.files" :key="file.id" class="mb-4">-->
-<!--                                    <div>-->
-<!--                                        <a :href="file.url" target="_blank" class="font-semibold hover:underline">-->
-<!--                                            {{ file.name }}-->
-<!--                                        </a>-->
-<!--                                        <div class="text-sm text-base-content/70">{{ file.formatted_size }}</div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                            <div v-if="post.data.files.length" class="m-4">
+                                <div v-for="file in post.data.files" :key="file.id" class="mb-4">
+                                    <div v-if="file.mime_type.startsWith('image')" class="mt-2">
+                                        <img :src="file.url" class="rounded-xl max-w-full h-auto"/>
+                                    </div>
+                                    <div v-else-if="file.mime_type.startsWith('video')" class="mt-2">
+                                        <video controls class="rounded-lg max-w-full h-auto">
+                                            <source :src="file.url" :type="file.mime_type">
+                                        </video>
+                                    </div>
+                                    <div v-else-if="file.mime_type.startsWith('audio')" class="mt-2">
+                                        <audio controls class="rounded-lg w-full">
+                                            <source :src="file.url" :type="file.mime_type">
+                                        </audio>
+                                    </div>
 
-<!--                                <div v-if="file.mime_type.startsWith('image')" class="mt-2">-->
-<!--                                    <img :src="file.url" class="rounded-lg max-w-full h-auto"/>-->
-<!--                                </div>-->
-<!--                                <div v-else-if="file.mime_type.startsWith('video')" class="mt-2">-->
-<!--                                    <video controls class="rounded-lg max-w-full h-auto">-->
-<!--                                        <source :src="file.url" :type="file.mime_type">-->
-<!--                                    </video>-->
-<!--                                </div>-->
-<!--                                <div v-else-if="file.mime_type.startsWith('audio')" class="mt-2">-->
-<!--                                    <audio controls class="rounded-lg w-full">-->
-<!--                                        <source :src="file.url" :type="file.mime_type">-->
-<!--                                    </audio>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                                    <div class="mt-2 flex justify-between">
+                                        <div class="text-sm text-base-content/70">{{ file.formatted_size }}</div>
+                                        <div>
+                                            <a :href="route('download', file.id)" class="btn btn-circle" as="button">
+                                                <v-icon name="hi-download" class="hover:text-success"/>
+                                            </a>
+                                            <button class="btn btn-circle">
+                                                <v-icon name="fa-share" class="hover:text-secondary"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-else class="flex justify-end">
+                                <button class="btn btn-circle">
+                                    <v-icon name="fa-share" class="hover:text-secondary"/>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -134,7 +147,6 @@ const submit = () => {
                                     {{ comment.username }}
                                 </span>
                             </div>
-
                             <div class="ml-5">
                                 {{ comment.content }}
                             </div>

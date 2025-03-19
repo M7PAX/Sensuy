@@ -18,13 +18,17 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'url' => $this->url,
+            'files' => FileResource::collection($this->whenLoaded('files')),
             'username' => $this->user->username,
+            'community' => $this->community->slug,
             'slug' => $this->slug,
             'votes' => $this->votes,
             'voted' => $this->whenLoaded('voted'),
+            'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'community_slug' => $this->community->slug,
             'comments_count' => $this->comments_count,
-            'created_at' => $this->created_at->diffForHumans()
+            'created_at' => $this->created_at->diffForHumans(),
         ];
     }
 }

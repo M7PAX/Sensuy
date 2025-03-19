@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
-use App\Http\Resources\PostShowResource;
+use App\Http\Resources\PostResource;
 use App\Models\Community;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +23,7 @@ class PostController extends Controller
             'files'
         ])->where('slug', $slug)->first();
 
-        $post = new PostShowResource($community_post);
+        $post = new PostResource($community_post);
 
         $can_update = Auth::check() ? Auth::user()->can('update', $community_post) : false;
         $can_delete = Auth::check() ? Auth::user()->can('delete', $community_post) : false;
@@ -58,10 +58,10 @@ class PostController extends Controller
                 'a' => 'audio'
             };
 
-            $path = $file->store("/public/{$directory}");
+            $path = $file->store("public/uploads/{$directory}");
 
             $post->files()->create([
-                'name' => $file->getClientOriginalName(),
+                'path' => $path,
                 'mime_type' => $file->getClientMimeType(),
             ]);
         }

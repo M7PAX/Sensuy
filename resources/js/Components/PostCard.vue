@@ -35,6 +35,25 @@ defineProps({
             <p class="mb-3 mr-3 font-normal">
                 {{ post.description }}
             </p>
+
+            <div v-if="post.files.length" class="m-4">
+                <div v-for="file in post.files" :key="file.id" class="mb-4">
+                    <div v-if="file.mime_type.startsWith('image')" class="mt-2">
+                        <img :src="file.url" class="rounded-xl max-w-full h-auto"/>
+                    </div>
+                    <div v-else-if="file.mime_type.startsWith('video')" class="mt-2">
+                        <video controls class="rounded-lg max-w-full h-auto">
+                            <source :src="file.url" :type="file.mime_type">
+                        </video>
+                    </div>
+                    <div v-else-if="file.mime_type.startsWith('audio')" class="mt-2">
+                        <audio controls class="rounded-lg w-full">
+                            <source :src="file.url" :type="file.mime_type">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+
             <div class="flex my-2 py-2 text-base-content/50">
                 Comments - {{ post.comments_count }}
             </div>
