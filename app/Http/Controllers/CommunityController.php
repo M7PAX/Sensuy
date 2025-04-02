@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommunityStoreRequest;
+use App\Http\Requests\CommunityUpdateRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Community;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ class CommunityController extends Controller
             'id' => $community->id,
             'name' => $community->name,
             'slug' => $community->slug,
+            'picture' => $community->picture,
         ]);
 
         return Inertia::render('Communities/CommunityIndex', ['communities' => $communities]);
@@ -29,7 +31,18 @@ class CommunityController extends Controller
 
     public function store(CommunityStoreRequest $request)
     {
-        Community::create($request->validated() + ['user_id' => Auth::user()->id]);
+        $data = $request->validated() + ['user_id' => Auth::user()->id];
+        $community = Community::create($data);
+
+        if ($request->hasFile('picture')) {
+            $picturePath = $request->file('picture')->store('community_pictures', 'public');
+            $community->update(['picture' => $picturePath]);
+        }
+
+        if ($request->hasFile('background')) {
+            $backgroundPath = $request->file('background')->store('community_backgrounds', 'public');
+            $community->update(['background' => $backgroundPath]);
+        }
 
         return to_route('communities.index')->with('message', 'Community created successfully!');
     }
@@ -56,12 +69,23 @@ class CommunityController extends Controller
         return Inertia::render('Communities/CommunityEdit', ['community' => $community]);
     }
 
-    public function update(CommunityStoreRequest $request, Community $community)
+    public function update(CommunityUpdateRequest $request, Community $community)
     {
         Gate::authorize('update', $community);
-        $community->update($request->validated());
+        $data = $request->validated();
+        $community->update($data);
 
-        return Inertia::render('Communities/CommunityIndex')->with('message', 'Community updated successfully!');
+        if ($request->hasFile('picture')) {
+            $picturePath = $request->file('picture')->store('community_pictures', 'public');
+            $community->update(['picture' => $picturePath]);
+        }
+
+        if ($request->hasFile('background')) {
+            $backgroundPath = $request->file('background')->store('community_backgrounds', 'public');
+            $community->update(['background' => $backgroundPath]);
+        }
+
+        return to_route('communities.index')->with('message', 'Community updated successfully!');
     }
 
     public function destroy(Community $community)

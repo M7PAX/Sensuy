@@ -2,9 +2,9 @@
 import { Link, useForm } from "@inertiajs/vue3";
 import PostVote from "@/Components/PostVote.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
-import {HiDownload, FaShare} from "oh-vue-icons/icons";
+import {HiDownload, FaShare, HiUserGroup} from "oh-vue-icons/icons";
 import {addIcons} from "oh-vue-icons";
-addIcons(HiDownload, FaShare);
+addIcons(HiDownload, FaShare, HiUserGroup);
 
 const props = defineProps({
     community: Object,
@@ -24,13 +24,28 @@ const submit = () => {
         }
     );
 };
+
+const copyLink = async () => {
+    try {
+        await navigator.clipboard.writeText(window.location.href);
+    } catch (err) {
+        console.error('Failed to copy link: ', err);
+    }
+};
+
 </script>
 
 <template>
     <LayoutPicker>
         <template #header>
             <div class="flex justify-between">
-                <Link :href="route('communities', community.slug)" class="font-semibold text-xl leading-tight hover:text-secondary">
+                <Link :href="route('communities', community.slug)" class="font-semibold text-xl leading-tight hover:text-secondary group my-auto">
+                    <div class="avatar mr-2">
+                        <div class="mask mask-heart w-10 bg-primary group-hover:bg-secondary">
+                            <v-icon name="hi-user-group" class="w-10 h-10 text-base-100 mt-1"/>
+                            <!--                            <img v-else :src="`/storage/${post.user_picture}`" alt="Profile Picture"/>-->
+                        </div>
+                    </div>
                     s/{{ community.name }}
                 </Link>
             </div>
@@ -45,15 +60,21 @@ const submit = () => {
 
                     <div class="w-full">
                         <div class="flex flex-col md:flex-row justify-between mx-2 mt-2">
-                            <div class="text-sm text-base-content/50">
-                                Posted by
-                                <span class="font-semibold text-base-content">
+                            <div>
+                                <div class="avatar mr-2">
+                                    <div class="mask mask-hexagon-2 w-8 bg-accent">
+                                        <v-icon v-if="post.data.user_picture === null" name="ri-user-3-line" class="w-8 h-8 text-base-100 mt-0.5"/>
+                                        <img v-else :src="`/storage/${post.data.user_picture}`" alt="Profile Picture"/>
+                                    </div>
+                                </div>
+                                <span class="text-base-content font-semibold">
                                     {{ post.data.username }}
                                 </span>
-                                <span class="ml-5">
+                                <span class="text-base-content/50 ml-5">
                                     {{ post.data.created_at }}
                                 </span>
                             </div>
+
                             <div v-if="$page.props.auth.auth_check">
                                 <Link v-if="can_update" :href="route('communities.posts.edit', [community.slug, post.data.slug])" class="btn btn-warning btn-sm uppercase mr-2" method="get" type="button">
                                     Edit
@@ -97,7 +118,7 @@ const submit = () => {
                                             <a :href="route('download', file.id)" class="btn btn-circle" as="button">
                                                 <v-icon name="hi-download" class="hover:text-success"/>
                                             </a>
-                                            <button class="btn btn-circle">
+                                            <button class="btn btn-circle" @click="copyLink">
                                                 <v-icon name="fa-share" class="hover:text-secondary"/>
                                             </button>
                                         </div>
@@ -105,7 +126,7 @@ const submit = () => {
                                 </div>
                             </div>
                             <div v-else class="flex justify-end">
-                                <button class="btn btn-circle">
+                                <button class="btn btn-circle" @click="copyLink">
                                     <v-icon name="fa-share" class="hover:text-secondary"/>
                                 </button>
                             </div>
@@ -136,13 +157,16 @@ const submit = () => {
                     </form>
                 </div>
 
-                <div v-if="post.data.comments === null" class="bg-base-100 rounded-xl border border-secondary shadow-md my-5">
+                <div v-if="post.data.comments !== undefined" class="bg-base-100 rounded-xl border border-secondary shadow-md my-5">
                     <ul role="list" class="divide-y divide-secondary mx-5">
                         <li v-for="(comment, index) in post.data.comments" :key="index" class="py-4 flex flex-col">
-                            <div class="text-sm text-base-content/50 ml-3">
-                                <span>
-                                    Commented by
-                                </span>
+                            <div class="text-sm ml-3 mb-1">
+                                <div class="avatar mr-2">
+                                    <div class="mask mask-hexagon-2 w-8 bg-accent">
+                                        <v-icon v-if="comment.user_picture === null" name="ri-user-3-line" class="w-8 h-8 text-base-100 mt-0.5"/>
+                                        <img v-else :src="`/storage/${comment.user_picture}`" alt="Profile Picture"/>
+                                    </div>
+                                </div>
                                 <span class="font-semibold text-base-content">
                                     {{ comment.username }}
                                 </span>

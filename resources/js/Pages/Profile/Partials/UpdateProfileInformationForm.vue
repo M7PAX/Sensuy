@@ -19,6 +19,7 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    picture: null,
 });
 </script>
 
@@ -33,59 +34,68 @@ const form = useForm({
             </p>
         </header>
 
-        <form @submit.prevent="form.post(route('profile.update'), {method: 'put'})" class="mt-6 space-y-6">
-            <!-- Profile Picture Upload -->
-<!--            <div class="form-control flex flex-row items-center gap-4">-->
-<!--                <label-->
-<!--                    class="cursor-pointer rounded-full bg-gray-200 dark:bg-gray-600 transition-all duration-300 ease-in-out hover:bg-transparent"-->
-<!--                    for="profilePicture">-->
-<!--                    <img v-if="icon !== null" :src="icon" class="size-16 rounded-full" alt=""/>-->
-<!--                    <v-icon v-else name="io-add-outline" scale="3.333"/>-->
-<!--                </label>-->
-<!--                <label for="profilePicture" class="cursor-pointer">Upload profile picture</label>-->
-<!--                <input-->
-<!--                    ref="inputFile"-->
-<!--                    id="profilePicture"-->
-<!--                    type="file"-->
-<!--                    class="hidden"-->
-<!--                    accept="image/png, image/jpeg"-->
-<!--                    @input="updateIcon((<HTMLInputElement>$event.target).files![0])"-->
-<!--                />-->
-<!--            </div>-->
+        <form @submit.prevent="form.post(route('profile.update'), { method: 'put' })" class="mt-6">
+            <div class="flex justify-between">
+                <div class="flex-1 space-y-6">
+                    <div class="form-control">
+                        <label class="block font-medium text-sm" for="name">
+                            Name
+                        </label>
+                        <label class="input input-bordered border border-secondary flex items-center gap-2">
+                            <v-icon name="ri-user-3-line" class="h-4 w-4 opacity-70"/>
+                            <input id="name"
+                                   type="text"
+                                   class="mt-1 block w-full"
+                                   v-model="form.name"
+                                   required
+                                   autofocus
+                                   autocomplete="name"
+                            />
+                        </label>
+                        <ErrorAlert class="mt-2" :message="form.errors.name"/>
+                    </div>
 
-            <div class="form-control">
-                <label class="block font-medium text-sm" for="name">
-                    Name
-                </label>
-                <label class="input input-bordered flex items-center gap-2">
-                    <v-icon name="ri-user-3-line" class="h-4 w-4 opacity-70"/>
-                    <input id="name"
-                           type="text"
-                           class="mt-1 block w-full"
-                           v-model="form.name"
-                           required
-                           autofocus
-                           autocomplete="name"
-                    />
-                </label>
-                <ErrorAlert class="mt-2" :message="form.errors.name"/>
-            </div>
+                    <div>
+                        <label class="block font-medium text-sm" for="email">
+                            Email
+                        </label>
+                        <label class="input input-bordered border border-secondary flex items-center gap-2">
+                            <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
+                            <input id="email"
+                                   type="email"
+                                   class="mt-1 block w-full"
+                                   v-model="form.email"
+                                   required
+                                   autocomplete="username"
+                            />
+                        </label>
+                        <ErrorAlert class="mt-2" :message="form.errors.email"/>
+                    </div>
+                </div>
 
-            <div>
-                <label class="block font-medium text-sm" for="email">
-                    Email
-                </label>
-                <label class="input input-bordered flex items-center gap-2">
-                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
-                    <input id="email"
-                           type="email"
-                           class="mt-1 block w-full"
-                           v-model="form.email"
-                           required
-                           autocomplete="username"
-                    />
-                </label>
-                <ErrorAlert class="mt-2" :message="form.errors.email"/>
+                <div class="flex-1 space-y-4">
+                    <div class="flex justify-center ">
+                        <label for="picture" class=" w-42 h-42">
+                            <div class="avatar">
+                                <div class="mask mask-hexagon-2 bg-accent">
+                                    <v-icon v-if="user.picture === null" name="ri-user-3-line" class="w-40 h-40 mt-1 text-base-100"/>
+                                    <img v-else :src="`/storage/${user.picture}`" alt="Current profile picture">
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <label class="font-medium text-sm justify-center">
+                                    Profile Picture
+                                </label>
+                            </div>
+
+
+                            <fieldset class="fieldset" hidden>
+                                <input id="picture" type="file" class="file-input" @input="form.picture = $event.target.files[0]" accept="image/*"/>
+                            </fieldset>
+                            <ErrorAlert class="mt-2" :message="form.errors.picture"/>
+                        </label>
+                    </div>
+                </div>
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">

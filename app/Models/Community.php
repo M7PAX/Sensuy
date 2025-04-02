@@ -14,7 +14,9 @@ class Community extends Model
         'user_id',
         'name',
         'description',
-        'slug'
+        'slug',
+        'picture',
+        'background',
     ];
 
     public function sluggable(): array
@@ -33,5 +35,15 @@ class Community extends Model
 
     public function posts(){
         return $this->hasMany(Post::class);
+    }
+
+    public function getPictureUrlAttribute()
+    {
+        return $this->picture ? asset('storage/' . $this->picture) : null;
+    }
+
+    public function getBackgroundUrlAttribute()
+    {
+        return $this->background ? asset('storage/' . $this->background) : null;
     }
 }

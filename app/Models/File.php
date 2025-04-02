@@ -11,6 +11,7 @@ class File extends Model
     use HasFactory;
 
     protected $fillable = [
+//        'name',
         'path',
         'mime_type',
         'post_id'

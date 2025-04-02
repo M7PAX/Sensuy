@@ -49,7 +49,7 @@ const updatePassword = () => {
                 <label class="block font-medium text-sm" for="current_password">
                     Current Password
                 </label>
-                <label class="input input-bordered flex items-center gap-2">
+                <label class="input input-bordered border border-secondary flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="current_password"
                            ref="currentPasswordInput"
@@ -66,7 +66,7 @@ const updatePassword = () => {
                 <label class="block font-medium text-sm" for="password">
                     New Password
                 </label>
-                <label class="input input-bordered flex items-center gap-2">
+                <label class="input input-bordered border border-secondary flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password"
                            ref="passwordInput"
@@ -83,7 +83,7 @@ const updatePassword = () => {
                 <label class="block font-medium text-sm" for="password_confirmation">
                     Confirm Password
                 </label>
-                <label class="input input-bordered flex items-center gap-2">
+                <label class="input input-bordered border border-secondary flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password_confirmation"
                            v-model="form.password_confirmation"

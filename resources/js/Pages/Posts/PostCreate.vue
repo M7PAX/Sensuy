@@ -48,7 +48,7 @@ const FileUpload = (file) => {
                         <label class="block font-medium text-sm" for="title">
                             Title
                         </label>
-                        <label class="input input-bordered flex items-center gap-2">
+                        <label class="input input-bordered border border-secondary flex items-center gap-2">
                             <input id="title"
                                    type="text"
                                    class="mt-1 block w-full"
@@ -65,7 +65,7 @@ const FileUpload = (file) => {
                         <label class="block font-medium text-sm" for="description">
                             Description
                         </label>
-                        <label class="input input-bordered flex items-center gap-2">
+                        <label class="input input-bordered border border-secondary flex items-center gap-2">
                             <input id="description"
                                    type="text"
                                    class="mt-1 block w-full"
@@ -80,7 +80,7 @@ const FileUpload = (file) => {
                         <label class="block font-medium text-sm" for="url">
                             URL
                         </label>
-                        <label class="input input-bordered flex items-center gap-2">
+                        <label class="input input-bordered border border-secondary flex items-center gap-2">
                             <input id="url"
                                    type="text"
                                    class="mt-1 block w-full"
@@ -97,7 +97,7 @@ const FileUpload = (file) => {
                             File
                         </label>
                         <fieldset class="fieldset">
-                            <input type="file" class="file-input" accept="image/*,video/*,audio/*" @input="FileUpload($event.target.files[0])"/>
+                            <input type="file" class="file-input file-input-accent" accept="image/*,video/*,audio/*" @input="FileUpload($event.target.files[0])"/>
                             <label class="fieldset-label">
                                 Max: 1GB - JPG, MP3, MP4, etc.
                             </label>

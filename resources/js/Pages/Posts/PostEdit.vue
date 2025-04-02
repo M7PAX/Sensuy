@@ -20,11 +20,11 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Create Community" />
+    <Head title="Post Edit" />
 
     <LayoutPicker>
         <template #header>
-            <h2 class="font-semibold text-xl leading-tight">Create Post for {{community.name}}</h2>
+            <h2 class="font-semibold text-xl leading-tight">Edit post for {{community.name}}</h2>
         </template>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -34,7 +34,7 @@ const submit = () => {
                         <label class="block font-medium text-sm" for="title">
                             Title
                         </label>
-                        <label class="input input-bordered flex items-center gap-2">
+                        <label class="input input-bordered border border-secondary flex items-center gap-2">
                             <input id="title"
                                    type="text"
                                    class="mt-1 block w-full"
@@ -51,7 +51,7 @@ const submit = () => {
                         <label class="block font-medium text-sm" for="description">
                             Description
                         </label>
-                        <label class="input input-bordered flex items-center gap-2">
+                        <label class="input input-bordered border border-secondary flex items-center gap-2">
                             <input id="description"
                                    type="text"
                                    class="mt-1 block w-full"

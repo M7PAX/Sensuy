@@ -22,6 +22,7 @@ class FileController extends Controller
 
         $file = File::create([
             'post_id' => $request->post_id,
+//            'name' => $name,
             'path' => $path,
             'mime_type' => $mimeType,
         ]);

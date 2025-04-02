@@ -69,7 +69,7 @@ const deleteUser = () => {
                             <label class="block font-medium text-sm" for="password">
                                 Password
                             </label>
-                            <label class="input input-bordered flex items-center gap-2">
+                            <label class="input input-bordered border border-secondary flex items-center gap-2">
                                 <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                                 <input id="password"
                                        ref="passwordInput"

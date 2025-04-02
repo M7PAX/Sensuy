@@ -36,9 +36,10 @@ defineProps({
                         <tr v-for="community in communities.data" :key="community.id">
                             <td>
                                 <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle h-12 w-12">
-                                            <img src="https://preview.redd.it/could-this-be-the-more-chaos-poster-v0-v1btt7qv0hde1.jpeg?auto=webp&s=17e70207ea2b6b8de8728d1c197a844423cf66fc" alt="pfp"/>
+                                    <div class="avatar mr-2">
+                                        <div class="mask mask-heart w-12 bg-primary group-hover:bg-secondary">
+                                            <v-icon v-if="community.picture === null" name="hi-user-group" class="w-12 h-12 text-base-100 mt-1"/>
+                                            <img v-else :src="`/storage/${community.picture}`" alt="Community Picture"/>
                                         </div>
                                     </div>
                                     <Link :href="route('communities', community.slug)" class="font-bold">

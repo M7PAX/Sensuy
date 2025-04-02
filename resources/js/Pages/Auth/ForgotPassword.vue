@@ -38,7 +38,7 @@ const submit = () => {
                 <label class="block font-medium text-sm" for="email">
                     Email
                 </label>
-                <label class="input input-bordered flex items-center gap-2">
+                <label class="input input-bordered border border-secondary flex items-center gap-2">
                     <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
                     <input id="email"
                            type="email"

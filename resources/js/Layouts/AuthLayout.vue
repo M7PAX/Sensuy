@@ -3,6 +3,9 @@ import { ref } from 'vue';
 import Logo from '@/Components/Logo.vue';
 import { Link } from '@inertiajs/vue3';
 import ThemeToggle from "@/Components/ThemeToggle.vue";
+import {RiUser3Line} from "oh-vue-icons/icons";
+import {addIcons} from "oh-vue-icons";
+addIcons(RiUser3Line);
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -53,11 +56,18 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Settings Dropdown -->
                             <div class="ms-3 relative">
-                                <div class="dropdown dropdown-end">
-                                    <div tabindex="0" role="button" class="flex items-center btn btn-ghost">
+                                <div class="dropdown dropdown-bottom dropdown-hover">
+                                    <div tabindex="0" role="button" class="btn btn-ghost m-1">
+                                        <div class="avatar mr-2">
+                                            <div class="mask mask-hexagon-2 w-8 bg-accent">
+                                                <v-icon v-if="$page.props.auth.user.picture=== null" name="ri-user-3-line" class="w-8 h-8 text-base-100 mt-0.5"/>
+                                                <img v-else :src="`/storage/${$page.props.auth.user.picture}`" alt="Profile Picture"/>
+                                            </div>
+                                        </div>
+
                                         {{ $page.props.auth.user.username }}
                                     </div>
-                                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 shadow-sm">
                                         <li>
                                             <Link :href="route('communities.index')">Communities</Link>
                                         </li>
@@ -73,7 +83,7 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <!-- Hamburger -->
-                        <div class="-me-2 flex items-center sm:hidden">flex-grow mr-2
+                        <div class="-me-2 flex items-center sm:hidden">
                             <button @click="showingNavigationDropdown = !showingNavigationDropdown"
                                 class="inline-flex items-center justify-center p-2 rounded-md"
                             >
