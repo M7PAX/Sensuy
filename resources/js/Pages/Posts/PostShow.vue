@@ -33,6 +33,7 @@ const copyLink = async () => {
     }
 };
 
+// console.log(props.post.data.files[0].path.value)
 </script>
 
 <template>
@@ -42,8 +43,8 @@ const copyLink = async () => {
                 <Link :href="route('communities', community.slug)" class="font-semibold text-xl leading-tight hover:text-secondary group my-auto">
                     <div class="avatar mr-2">
                         <div class="mask mask-heart w-10 bg-primary group-hover:bg-secondary">
-                            <v-icon name="hi-user-group" class="w-10 h-10 text-base-100 mt-1"/>
-                            <!--                            <img v-else :src="`/storage/${post.user_picture}`" alt="Profile Picture"/>-->
+                            <v-icon v-if="community.picture === null" name="hi-user-group" class="w-10 h-10 text-base-100 mt-1"/>
+<!--                            <img v-else :src="`/storage/${community_picture}`" alt="Community Picture"/>-->
                         </div>
                     </div>
                     s/{{ community.name }}
@@ -52,7 +53,7 @@ const copyLink = async () => {
         </template>
 
         <section class="flex flex-col p-2">
-            <div class="w-full md:w-8/12 rounded-xl border border-primary shadow-md bg-base-100">
+            <div class="w-full md:w-8/12 rounded-box border border-primary shadow-md bg-base-100">
                 <div class="flex m-2 text-sm">
                     <div>
                         <PostVote :post="post.data"/>
@@ -67,9 +68,11 @@ const copyLink = async () => {
                                         <img v-else :src="`/storage/${post.data.user_picture}`" alt="Profile Picture"/>
                                     </div>
                                 </div>
+
                                 <span class="text-base-content font-semibold">
                                     {{ post.data.username }}
                                 </span>
+
                                 <span class="text-base-content/50 ml-5">
                                     {{ post.data.created_at }}
                                 </span>
@@ -77,10 +80,11 @@ const copyLink = async () => {
 
                             <div v-if="$page.props.auth.auth_check">
                                 <Link v-if="can_update" :href="route('communities.posts.edit', [community.slug, post.data.slug])" class="btn btn-warning btn-sm uppercase mr-2" method="get" type="button">
-                                    Edit
+                                    {{ $t('edit') }}
                                 </Link>
+
                                 <Link v-if="can_delete" :href="route('communities.posts.destroy', [community.slug, post.data.slug])" class="btn btn-error btn-sm uppercase" method="delete" type="button">
-                                    Delete
+                                    {{ $t('delete') }}
                                 </Link>
                             </div>
                         </div>
@@ -89,9 +93,11 @@ const copyLink = async () => {
                             <h1 class="font-semibold text-3xl">
                                 {{ post.data.title }}
                             </h1>
+
                             <p class="my-2 text-base">
                                 {{ post.data.description }}
                             </p>
+
                             <a :href="post.data.url" class="btn-link hover:text-accent">
                                 {{ post.data.url }}
                             </a>
@@ -99,13 +105,15 @@ const copyLink = async () => {
                             <div v-if="post.data.files.length" class="m-4">
                                 <div v-for="file in post.data.files" :key="file.id" class="mb-4">
                                     <div v-if="file.mime_type.startsWith('image')" class="mt-2">
-                                        <img :src="file.url" class="rounded-xl max-w-full h-auto"/>
+                                        <img :src="file.url" class="rounded-selector max-w-full h-auto"/>
                                     </div>
+
                                     <div v-else-if="file.mime_type.startsWith('video')" class="mt-2">
                                         <video controls class="rounded-lg max-w-full h-auto">
                                             <source :src="file.url" :type="file.mime_type">
                                         </video>
                                     </div>
+
                                     <div v-else-if="file.mime_type.startsWith('audio')" class="mt-2">
                                         <audio controls class="rounded-lg w-full">
                                             <source :src="file.url" :type="file.mime_type">
@@ -113,11 +121,15 @@ const copyLink = async () => {
                                     </div>
 
                                     <div class="mt-2 flex justify-between">
-                                        <div class="text-sm text-base-content/70">{{ file.formatted_size }}</div>
+                                        <div class="text-sm text-base-content/70">
+                                            {{ file.formatted_size }}
+                                        </div>
+
                                         <div>
                                             <a :href="route('download', file.id)" class="btn btn-circle" as="button">
                                                 <v-icon name="hi-download" class="hover:text-success"/>
                                             </a>
+
                                             <button class="btn btn-circle" @click="copyLink">
                                                 <v-icon name="fa-share" class="hover:text-secondary"/>
                                             </button>
@@ -146,18 +158,21 @@ const copyLink = async () => {
                     <form class="max-w-md" @submit.prevent="submit">
                         <div class="flex items-end">
                             <div class="flex-grow">
-                                <textarea v-model="form.content" id="comment" rows="3"  placeholder="Your comment..." class="block p-2 w-full text-sm rounded-xl bg-base-300 resize-none border border-accent shadow-md shadow-accent"></textarea>
+                                <textarea v-model="form.content" id="comment" rows="3"  :placeholder="$t('your comment')+'...'"
+                                          class="block p-2 w-full text-sm rounded-selector bg-base-300 resize-none border border-accent shadow-md shadow-accent">
+                                </textarea>
                             </div>
+
                             <div class="ml-3 my-auto">
                                 <button class="btn btn-accent shadow-md shadow-accent uppercase">
-                                    Comment
+                                    {{ $t('comment') }}
                                 </button>
                             </div>
                         </div>
                     </form>
                 </div>
 
-                <div v-if="post.data.comments !== undefined" class="bg-base-100 rounded-xl border border-secondary shadow-md my-5">
+                <div v-if="post.data.comments !== undefined" class="bg-base-100 rounded-box border border-secondary shadow-md my-5">
                     <ul role="list" class="divide-y divide-secondary mx-5">
                         <li v-for="(comment, index) in post.data.comments" :key="index" class="py-4 flex flex-col">
                             <div class="text-sm ml-3 mb-1">
@@ -167,10 +182,12 @@ const copyLink = async () => {
                                         <img v-else :src="`/storage/${comment.user_picture}`" alt="Profile Picture"/>
                                     </div>
                                 </div>
+
                                 <span class="font-semibold text-base-content">
                                     {{ comment.username }}
                                 </span>
                             </div>
+
                             <div class="ml-5">
                                 {{ comment.content }}
                             </div>

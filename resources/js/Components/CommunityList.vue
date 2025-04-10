@@ -7,8 +7,8 @@ defineProps({
 </script>
 
 <template>
-    <div class="w-full shadow-md rounded-xl border border-secondary bg-base-100">
-        <h2 class="font-semibold text-lg p-6 rounded-lg bg-secondary">
+    <div class="w-full shadow-md rounded-box border border-secondary bg-base-100">
+        <h2 class="font-semibold text-lg p-6 rounded-field bg-secondary">
             <slot name="title"></slot>
         </h2>
         <ul role="list" class="divide-y">
@@ -18,7 +18,7 @@ defineProps({
                         {{ community.name }}
                     </Link>
                     <div class="w-full">
-                        Posts - {{ community.posts_count }}
+                        {{ $t('posts') }} - {{ community.posts_count }}
                     </div>
                 </div>
             </li>

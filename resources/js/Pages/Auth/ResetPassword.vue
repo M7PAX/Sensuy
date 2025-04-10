@@ -34,13 +34,14 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Reset Password" />
+        <Head :title="$t('reset password')" />
 
         <form @submit.prevent="submit">
             <div>
                 <label class="block font-medium text-sm" for="email">
-                    Email
+                    {{ $t('email') }}
                 </label>
+
                 <label class="input input-bordered border border-secondary flex items-center gap-2">
                     <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
                     <input id="email"
@@ -52,13 +53,15 @@ const submit = () => {
                            autofocus
                     />
                 </label>
+
                 <ErrorAlert class="mt-2" :message="form.errors.email"/>
             </div>
 
             <div class="mt-4">
                 <label class="block font-medium text-sm" for="password">
-                    Password
+                    {{ $t('password') }}
                 </label>
+
                 <label class="input input-bordered border border-secondary flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password"
@@ -70,13 +73,15 @@ const submit = () => {
                            autofocus
                     />
                 </label>
+
                 <ErrorAlert class="mt-2" :message="form.errors.password" />
             </div>
 
             <div class="mt-4">
                 <label class="block font-medium text-sm" for="password_confirmation">
-                    Confirm Password
+                    {{ $t('confirm password') }}
                 </label>
+
                 <label class="input input-bordered border border-secondary flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
                     <input id="password_confirmation"
@@ -88,12 +93,13 @@ const submit = () => {
                            autofocus
                     />
                 </label>
+
                 <ErrorAlert class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <button class="btn btn-warning uppercase" :disabled="form.processing">
-                    Reset Password
+                    {{ $t('reset password') }}
                 </button>
             </div>
         </form>

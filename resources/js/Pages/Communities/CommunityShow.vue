@@ -59,8 +59,8 @@ watch(
 <template>
     <LayoutPicker>
         <template #header>
-            <div class="relative flex justify-between p-5 rounded-xl" :style="{ backgroundImage: community.background ? `url(/storage/${community.background})` : '' }">
-                <div v-if="community.background" class="absolute inset-0 bg-cover bg-center opacity-65 rounded-xl" :style="{ backgroundImage: `url(/storage/${community.background})` }"></div>
+            <div class="relative flex justify-between p-5 rounded-box" :style="{ backgroundImage: community.background ? `url(/storage/${community.background})` : '' }">
+                <div v-if="community.background" class="absolute inset-0 bg-cover bg-center opacity-65 rounded-selector" :style="{ backgroundImage: `url(/storage/${community.background})` }"></div>
 
                 <div class="flex items-center justify-center my-auto z-10">
                     <div class="avatar mr-2">
@@ -69,6 +69,7 @@ watch(
                             <img v-else class="w-10 h-10 mt-1" :src="`/storage/${community.picture}`" alt="Community Icon"/>
                         </div>
                     </div>
+
                     <h2 ref="titleRef" class="font-semibold text-xl leading-tight">
                         s/{{ community.name }}
                     </h2>
@@ -76,7 +77,7 @@ watch(
 
                 <div v-if="$page.props.auth.auth_check" class="z-10">
                     <Link :href="route('communities.posts.create', community.slug)" class="btn btn-success uppercase">
-                        Create Post
+                        {{ $t('create post') }}
                     </Link>
                 </div>
             </div>
@@ -84,10 +85,11 @@ watch(
 
         <div class="m-2 p-2 flex flex-col md:flex-row">
             <div class="w-full md:w-4/12 p-4 order-1 md:order-2">
-                <div class="w-full shadow-md rounded-xl border border-secondary bg-base-100">
-                    <h2 class="font-semibold text-lg p-6 rounded-t-xl bg-secondary">
-                        About {{ community.name }}
+                <div class="w-full shadow-md rounded-box border border-secondary bg-base-100">
+                    <h2 class="font-semibold text-lg p-6 rounded-t-field bg-secondary">
+                        {{ $t('about') }} {{ community.name }}
                     </h2>
+
                     <p class="p-4 rounded-b-xl">
                         {{ community.description }}
                     </p>
@@ -104,6 +106,13 @@ watch(
             </div>
 
             <div class="w-full md:w-8/12 order-2 md:order-1">
+                <div class="tabs tabs-border">
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('all')" checked="checked" />
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('images')" />
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('videos')" />
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('audios')" />
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('texts')" />
+                </div>
                 <PostCard v-for="post in posts.data" :post="post" :community="community.slug" :key="post.id"/>
             </div>
         </div>

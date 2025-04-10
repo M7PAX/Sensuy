@@ -20,6 +20,6 @@
         "@tailwindcss/vite": "^4.0.0",
         "@vueuse/core": "^10.11.1",
         "oh-vue-icons": "^1.0.0-rc3",
-        "vue-filepond": "^7.0.4"
+        "vue-i18n": "^10.0.6"
     }
 }

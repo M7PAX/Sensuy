@@ -1,18 +1,43 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, watch} from 'vue';
 import Logo from '@/Components/Logo.vue';
-import { Link } from '@inertiajs/vue3';
-import ThemeToggle from "@/Components/ThemeToggle.vue";
-import {RiUser3Line} from "oh-vue-icons/icons";
-import {addIcons} from "oh-vue-icons";
+import { Link, usePage } from '@inertiajs/vue3';
+import { useI18n } from 'vue-i18n';
+import { RiUser3Line } from "oh-vue-icons/icons";
+import { addIcons } from "oh-vue-icons";
 addIcons(RiUser3Line);
 
+const { t, locale } = useI18n();
+const user = usePage().props.auth?.user;
 const showingNavigationDropdown = ref(false);
+
+const initializeLanguage = () => {
+    locale.value = user.language;
+    document.documentElement.setAttribute('lang', user.language);
+};
+
+const initializeTheme = () => {
+    document.documentElement.setAttribute('data-theme', user.theme);
+};
+
+watch(() => user.language, (newLanguage) => {
+    locale.value = newLanguage;
+    document.documentElement.setAttribute('lang', newLanguage);
+});
+
+watch(() => user.theme, (newTheme) => {
+    document.documentElement.setAttribute('data-theme', newTheme);
+});
+
+onMounted(() => {
+    initializeLanguage();
+    initializeTheme();
+});
 </script>
 
 <template>
     <div>
-        <div v-if="$page.props.flash.message" class="bg-success-400">
+        <div v-if="$page.props.flash.message" class="bg-success">
             <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between flex-wrap">
                     <div class="w-0 flex-1 flex items-center">
@@ -52,7 +77,6 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
-                            <ThemeToggle class="mr-5"/>
 
                             <!-- Settings Dropdown -->
                             <div class="ms-3 relative">
@@ -69,13 +93,19 @@ const showingNavigationDropdown = ref(false);
                                     </div>
                                     <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 shadow-sm">
                                         <li>
-                                            <Link :href="route('communities.index')">Communities</Link>
+                                            <Link :href="route('communities.index')">
+                                                {{ $t('communities') }}
+                                            </Link>
                                         </li>
                                         <li>
-                                            <Link :href="route('profile.edit')">Profile</Link>
+                                            <Link :href="route('profile.edit')">
+                                                {{ $t('profile n settings') }}
+                                            </Link>
                                         </li>
                                         <li>
-                                            <Link :href="route('logout')" method="post" class="text-error">Log Out</Link>
+                                            <Link :href="route('logout')" method="post" class="text-error">
+                                                {{ $t('logout') }}
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -104,7 +134,7 @@ const showingNavigationDropdown = ref(false);
                 <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <Link :href="route('communities.index')" :active="route().current('communities.index')">
-                            Communities
+                            {{ $t('communities') }}
                         </Link>
                     </div>
 
@@ -121,10 +151,10 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="mt-3 space-y-1">
                             <Link :href="route('profile.edit')">
-                                Profile
+                                {{ $t('profile n settings') }}
                             </Link>
                             <Link :href="route('logout')" method="post" as="button">
-                                Log Out
+                                {{ $t('logout') }}
                             </Link>
                         </div>
                     </div>

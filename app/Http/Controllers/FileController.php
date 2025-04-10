@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class FileController extends Controller
 {
@@ -16,13 +15,14 @@ class FileController extends Controller
         ]);
 
         $uploadedFile = $request->file('file');
+        $originalName = $uploadedFile->getClientOriginalName();
         $mimeType = $uploadedFile->getClientMimeType();
         $type = explode('/', $mimeType)[0];
         $path = $uploadedFile->store("uploads/{$type}", "public");
 
         $file = File::create([
             'post_id' => $request->post_id,
-//            'name' => $name,
+            'name' => $originalName,
             'path' => $path,
             'mime_type' => $mimeType,
         ]);
@@ -32,6 +32,6 @@ class FileController extends Controller
 
     public function download(File $file)
     {
-        return Storage::download($file->path);
+        return Storage::download($file->path, $file->name);
     }
 }

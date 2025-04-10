@@ -31,18 +31,20 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Log in" />
+        <Head :title="$t('login')" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-md rounded-xl p-6 bg-base-100 border border-primary">
+        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-md rounded-box p-6 bg-base-100 border border-primary">
 
             <div>
-                <label class="block font-medium text-sm" for="email">Email</label>
+                <label class="block font-medium text-sm" for="email">
+                    {{ $t('email') }}
+                </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2 ">
+                <label class="input input-bordered border border-secondary flex items-center gap-2">
                     <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
                     <input id="email"
                            type="email"
@@ -57,7 +59,9 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <label class="block font-medium text-sm" for="password">Password</label>
+                <label class="block font-medium text-sm" for="password">
+                    {{ $t('password') }}
+                </label>
 
                 <label class="input input-bordered border border-secondary flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
@@ -76,19 +80,20 @@ const submit = () => {
             <div class="block mt-4">
                 <label class="cursor-pointer label flex items-center">
                     <span class="label-text">
-                        Remember me
+                        {{ $t('remember') }}
                     </span>
+
                     <input type="checkbox" class="checkbox checkbox-sm checkbox-secondary" v-model="form.remember"/>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <Link v-if="canResetPassword" :href="route('password.request')" class="text-sm btn-link hover:text-secondary">
-                    Forgot your password?
+                    {{ $t('forgot password question') }}
                 </Link>
 
                 <button class="ms-4 btn btn-success uppercase" :disabled="form.processing">
-                    Log In
+                    {{ $t('login') }}
                 </button>
             </div>
         </form>

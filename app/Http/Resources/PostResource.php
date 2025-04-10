@@ -23,12 +23,12 @@ class PostResource extends JsonResource
             'username' => $this->user->username,
             'user_picture' => $this->user->picture,
             'community' => $this->community->slug,
+            'community_slug' => $this->community->slug, // WHY
             'community_picture' => $this->community->picture,
             'slug' => $this->slug,
             'votes' => $this->votes,
             'voted' => $this->whenLoaded('voted'),
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
-            'community_slug' => $this->community->slug,
             'comments_count' => $this->comments_count,
             'created_at' => $this->created_at->diffForHumans(),
         ];

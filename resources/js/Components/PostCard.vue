@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-    <Link :href="route('posts', [community, post.slug])" class="mt-4 max-w-4xl flex shadow-md bg-base-100 border border-primary rounded-xl">
+    <Link :href="route('posts', [community, post.slug])" class="mt-4 max-w-4xl flex shadow-md bg-base-100 border border-primary rounded-box">
         <div class="mr-3">
             <PostVote :post="post"/>
         </div>
@@ -52,7 +52,7 @@ defineProps({
             <div v-if="post.files.length" class="m-4">
                 <div v-for="file in post.files" :key="file.id" class="mb-4">
                     <div v-if="file.mime_type.startsWith('image')" class="mt-2">
-                        <img :src="file.url" class="rounded-xl max-w-full h-auto"/>
+                        <img :src="file.url" class="rounded-selector max-w-full h-auto"/>
                     </div>
                     <div v-else-if="file.mime_type.startsWith('video')" class="mt-2">
                         <video controls class="rounded-lg max-w-full h-auto">
@@ -68,7 +68,7 @@ defineProps({
             </div>
 
             <div class="flex my-2 py-2 text-accent">
-                Comments - {{ post.comments_count }}
+                {{ $t('comments') }} - {{ post.comments_count }}
             </div>
         </div>
     </Link>

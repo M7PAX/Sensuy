@@ -27,10 +27,11 @@ const form = useForm({
     <section>
         <header>
             <h2 class="text-lg font-medium">
-                Profile Information
+                {{ $t('profile info') }}
             </h2>
+
             <p class="mt-1 text-sm">
-                Update your account's profile information and email address.
+                {{ $t('profile info text') }}
             </p>
         </header>
 
@@ -39,10 +40,12 @@ const form = useForm({
                 <div class="flex-1 space-y-6">
                     <div class="form-control">
                         <label class="block font-medium text-sm" for="name">
-                            Name
+                            {{ $t('username') }}
                         </label>
+
                         <label class="input input-bordered border border-secondary flex items-center gap-2">
                             <v-icon name="ri-user-3-line" class="h-4 w-4 opacity-70"/>
+
                             <input id="name"
                                    type="text"
                                    class="mt-1 block w-full"
@@ -52,12 +55,13 @@ const form = useForm({
                                    autocomplete="name"
                             />
                         </label>
+
                         <ErrorAlert class="mt-2" :message="form.errors.name"/>
                     </div>
 
                     <div>
                         <label class="block font-medium text-sm" for="email">
-                            Email
+                            {{ $t('email') }}
                         </label>
                         <label class="input input-bordered border border-secondary flex items-center gap-2">
                             <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
@@ -82,16 +86,17 @@ const form = useForm({
                                     <img v-else :src="`/storage/${user.picture}`" alt="Current profile picture">
                                 </div>
                             </div>
+
                             <div class="flex justify-center">
                                 <label class="font-medium text-sm justify-center">
-                                    Profile Picture
+                                    {{ $t('profile picture') }}
                                 </label>
                             </div>
-
 
                             <fieldset class="fieldset" hidden>
                                 <input id="picture" type="file" class="file-input" @input="form.picture = $event.target.files[0]" accept="image/*"/>
                             </fieldset>
+
                             <ErrorAlert class="mt-2" :message="form.errors.picture"/>
                         </label>
                     </div>
@@ -100,23 +105,26 @@ const form = useForm({
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p class="text-sm mt-2">
-                    Your email address is unverified.
+                    {{ $t('profile info text 1') }}
+
                     <Link :href="route('verification.send')" method="post" class="underline text-sm btn-link">
-                        Click here to re-send the verification email.
+                        {{ $t('profile info text 2') }}
                     </Link>
                 </p>
+
                 <div v-show="status === 'verification-link-sent'" class="mt-2 font-medium text-sm text-success">
-                    A new verification link has been sent to your email address.
+                    {{ $t('profile info text 3') }}
                 </div>
             </div>
 
             <div class="flex items-center gap-4">
                 <button class="btn btn-success uppercase" :disabled="form.processing">
-                    Save
+                    {{ $t('save') }}
                 </button>
+
                 <Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0" leave-active-class="transition ease-in-out" leave-to-class="opacity-0">
                     <p v-if="form.recentlySuccessful" class="text-sm">
-                        Saved.
+                        {{ $t('saved') }}.
                     </p>
                 </Transition>
             </div>

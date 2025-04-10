@@ -62,8 +62,8 @@ class PostController extends Controller
             $path = $file->store("public/uploads/{$directory}");
 
             $post->files()->create([
-//                'name' => $name,
                 'path' => $path,
+                'name' => $file->getClientOriginalName(),
                 'mime_type' => $file->getClientMimeType(),
             ]);
         }

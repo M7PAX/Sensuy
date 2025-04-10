@@ -1,10 +1,30 @@
 <script setup>
-import { ref } from 'vue';
+import {onMounted, ref, watch} from 'vue';
 import Logo from '@/Components/Logo.vue';
 import { Link } from '@inertiajs/vue3';
 import ThemeToggle from "@/Components/ThemeToggle.vue";
+import {useI18n} from "vue-i18n";
 
 const showingNavigationDropdown = ref(false);
+
+const { locale } = useI18n();
+
+const selectedLanguage = ref(locale.value);
+
+watch(selectedLanguage, (newLocale) => {
+    locale.value = newLocale;
+    localStorage.setItem('user-locale', newLocale);
+    document.documentElement.setAttribute('lang', newLocale);
+});
+
+onMounted(() => {
+    const savedLocale = localStorage.getItem('user-locale');
+    if (savedLocale) {
+        selectedLanguage.value = savedLocale;
+        locale.value = savedLocale;
+        document.documentElement.setAttribute('lang', savedLocale);
+    }
+});
 </script>
 
 <template>
@@ -31,10 +51,20 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="sm:flex sm:items-center sm:ms-6">
-                            <ThemeToggle class="mr-5"/>
+                            <div class="join join-horizontal">
+                                <input v-for="lang in ['en', 'lv', 'ru']" :key="lang" type="radio" name="language" class="btn btn-sm join-item"
+                                       :aria-label="lang" :value="lang" v-model="selectedLanguage"
+                                />
+                            </div>
 
-                            <Link :href="route('login')" class="btn btn-soft btn-secondary btn-sm mr-4 uppercase">Log in</Link>
-                            <Link :href="route('register')" class="btn btn-soft btn-secondary btn-sm uppercase">Register</Link>
+                            <ThemeToggle class="mx-5"/>
+
+                            <Link :href="route('login')" class="btn btn-soft btn-secondary btn-sm mr-4 uppercase">
+                                {{ $t('login') }}
+                            </Link>
+                            <Link :href="route('register')" class="btn btn-soft btn-secondary btn-sm uppercase">
+                                {{ $t('register') }}
+                            </Link>
                         </div>
 
                         <!-- Hamburger -->
@@ -74,10 +104,10 @@ const showingNavigationDropdown = ref(false);
                 <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
                     <div class="mt-3 space-y-1">
                         <Link :href="route('login')">
-                            Log In
+                            {{ $t('login') }}
                         </Link>
                         <Link :href="route('register')">
-                            Register
+                            {{ $t('register') }}
                         </Link>
                     </div>
                 </div>

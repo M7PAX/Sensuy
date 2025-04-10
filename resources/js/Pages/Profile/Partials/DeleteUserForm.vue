@@ -41,16 +41,16 @@ const deleteUser = () => {
     <section class="space-y-6">
         <header>
             <h2 class="text-lg font-medium">
-                Delete Account
+                {{ $t('delete acc') }}
             </h2>
+
             <p class="mt-1 text-sm">
-                Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting
-                your account, please download any data or information that you wish to retain.
+                {{ $t('delete acc text 1') }}
             </p>
         </header>
 
         <button class="btn btn-error uppercase" @click="toggleModal('open')">
-            Delete Account
+            {{ $t('delete acc') }}
         </button>
 
         <dialog ref="modalRef" class="modal">
@@ -58,19 +58,21 @@ const deleteUser = () => {
                 <form method="dialog" class="modal-backdrop">
                     <div class="p-6">
                         <h2 class="text-lg font-medium">
-                            Are you sure you want to delete your account?
+                            {{ $t('delete acc text 2') }}
                         </h2>
+
                         <p class="mt-1 text-sm">
-                            Once your account is deleted, all of its resources and data will be permanently deleted. Please
-                            enter your password to confirm you would like to permanently delete your account.
+                            {{ $t('delete acc text 3') }}
                         </p>
 
                         <div class="mt-6">
                             <label class="block font-medium text-sm" for="password">
-                                Password
+                                {{ $t('password') }}
                             </label>
+
                             <label class="input input-bordered border border-secondary flex items-center gap-2">
                                 <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
+
                                 <input id="password"
                                        ref="passwordInput"
                                        v-model="form.password"
@@ -80,15 +82,17 @@ const deleteUser = () => {
                                        @keyup.enter="deleteUser"
                                 />
                             </label>
+
                             <ErrorAlert class="mt-2" :message="form.errors.password" />
                         </div>
 
                         <div class="mt-6 flex justify-end">
                             <button type="button" @click="toggleModal('close')" class="btn uppercase">
-                                Cancel
+                                {{ $t('cancel') }}
                             </button>
+
                             <button type="button" class="btn btn-error ms-3 uppercase" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="deleteUser">
-                                Delete Account
+                                {{ $t('delete acc') }}
                             </button>
                         </div>
                     </div>

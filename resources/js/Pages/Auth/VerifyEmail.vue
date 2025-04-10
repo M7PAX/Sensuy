@@ -20,23 +20,23 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 
 <template>
     <GuestLayout>
-        <Head title="Email Verification" />
+        <Head :title="$t('email verification')" />
 
         <div class="mb-4 text-sm">
-            Thanks for signing up! Before getting started, could you verify your email address by clicking on the link
-            we just emailed to you? If you didn't receive the email, we will gladly send you another.
+            {{ $t('email verification text 1') }}
         </div>
         <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400" v-if="verificationLinkSent">
-            A new verification link has been sent to the email address you provided during registration.
+            {{ $t('email verification text 2') }}
         </div>
 
         <form @submit.prevent="submit">
             <div class="mt-4 flex items-center justify-between">
                 <button class="btn btn-warning uppercase" :disabled="form.processing">
-                    Resend Verification Email
+                    {{ $t('resend verification') }}
                 </button>
+
                 <Link :href="route('logout')" method="post" as="button" class="underline text-sm">
-                    Log Out
+                    {{ $t('logout') }}
                 </Link>
             </div>
         </form>

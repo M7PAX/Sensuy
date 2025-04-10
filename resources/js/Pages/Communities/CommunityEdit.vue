@@ -41,22 +41,23 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Edit Community" />
+    <Head :title="$t('edit community')" />
 
     <LayoutPicker>
         <template #header>
             <h2 class="font-semibold text-xl leading-tight">
-                Edit Community
+                {{ $t('edit community') }}
             </h2>
         </template>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-3">
-            <div class="w-full sm:max-w-md mx-auto shadow-md overflow-hidden rounded-xl bg-base-100 p-6 border border-primary">
+            <div class="w-full sm:max-w-md mx-auto shadow-md overflow-hidden rounded-box bg-base-100 p-6 border border-primary">
                 <form @submit.prevent="submit">
                     <div class="mt-4">
                         <label class="block font-medium text-sm" for="description">
-                            Description
+                            {{ $t('description') }}
                         </label>
+
                         <label class="input input-bordered border border-secondary flex items-center gap-2">
                             <input id="description"
                                    type="text"
@@ -65,25 +66,33 @@ const submit = () => {
                                    autocomplete="description"
                             />
                         </label>
+
                         <ErrorAlert class="mt-2" :message="form.errors.description"/>
                     </div>
 
                     <div class="mt-4">
-                        <label class="block font-medium text-sm">Community icon</label>
+                        <label class="block font-medium text-sm">
+                            {{ $t('community icon') }}
+                        </label>
+
                         <fieldset class="fieldset">
-                            <input
-                                type="file"
+                            <input type="file"
                                 ref="pictureInput"
                                 class="file-input file-input-accent"
                                 accept="image/*"
                                 @input="form.picture = $event.target.files[0]"
                             />
-                            <label class="fieldset-label">Max: 100MB - Only images</label>
+
+                            <label class="fieldset-label">
+                                {{ $t('file community') }}
+                            </label>
                         </fieldset>
 
-
                         <div v-if="community.picture" class="mt-2">
-                            <label class="block text-xs">Current picture:</label>
+                            <label class="block text-xs">
+                                {{ $t('current icon') }}
+                            </label>
+
                             <img :src="`/storage/${community.picture}`" alt="Current icon" class="w-24 h-24 object-cover rounded">
                         </div>
 
@@ -91,20 +100,28 @@ const submit = () => {
                     </div>
 
                     <div class="mt-4">
-                        <label class="block font-medium text-sm">Community background</label>
+                        <label class="block font-medium text-sm">
+                            {{ $t('community background') }}
+                        </label>
+
                         <fieldset class="fieldset">
-                            <input
-                                type="file"
+                            <input type="file"
                                 ref="backgroundInput"
                                 class="file-input file-input-accent"
                                 accept="image/*"
                                 @input="form.background = $event.target.files[0]"
                             />
-                            <label class="fieldset-label">Max: 100MB - Only images</label>
+
+                            <label class="fieldset-label">
+                                {{ $t('file community') }}
+                            </label>
                         </fieldset>
 
                         <div v-if="community.background" class="mt-2">
-                            <label class="block text-xs">Current background:</label>
+                            <label class="block text-xs">
+                                {{ $t('current background') }}
+                            </label>
+
                             <img :src="`/storage/${community.background}`" alt="Current background" class="w-48 h-24 object-cover rounded">
                         </div>
 
@@ -113,7 +130,7 @@ const submit = () => {
 
                     <div class="flex items-center justify-end mt-4">
                         <button class="ms-4 btn btn-success uppercase" :disabled="form.processing">
-                            Update
+                            {{ $t('update') }}
                         </button>
                     </div>
                 </form>

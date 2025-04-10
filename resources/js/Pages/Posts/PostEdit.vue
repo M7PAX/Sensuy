@@ -20,20 +20,23 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Post Edit" />
+    <Head :title="$t('edit post')" />
 
     <LayoutPicker>
         <template #header>
-            <h2 class="font-semibold text-xl leading-tight">Edit post for {{community.name}}</h2>
+            <h2 class="font-semibold text-xl leading-tight">
+                {{ $t('edit post for') }} {{community.name}}
+            </h2>
         </template>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="w-full sm:max-w-md mx-auto shadow-md overflow-hidden rounded-xl bg-base-100 p-6 border border-primary">
+            <div class="w-full sm:max-w-md mx-auto shadow-md overflow-hidden rounded-box bg-base-100 p-6 border border-primary">
                 <form @submit.prevent="submit">
                     <div>
                         <label class="block font-medium text-sm" for="title">
-                            Title
+                            {{ $t('title') }}
                         </label>
+
                         <label class="input input-bordered border border-secondary flex items-center gap-2">
                             <input id="title"
                                    type="text"
@@ -44,13 +47,15 @@ const submit = () => {
                                    autocomplete="title"
                             />
                         </label>
+
                         <ErrorAlert class="mt-2" :message="form.errors.title"/>
                     </div>
 
                     <div class="mt-4">
                         <label class="block font-medium text-sm" for="description">
-                            Description
+                            {{ $t('description') }}
                         </label>
+
                         <label class="input input-bordered border border-secondary flex items-center gap-2">
                             <input id="description"
                                    type="text"
@@ -59,12 +64,13 @@ const submit = () => {
                                    autocomplete="description"
                             />
                         </label>
+
                         <ErrorAlert class="mt-2" :message="form.errors.description"/>
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
                         <button class="ms-4 btn btn-success uppercase" :disabled="form.processing">
-                            Update
+                            {{ $t('update') }}
                         </button>
                     </div>
                 </form>

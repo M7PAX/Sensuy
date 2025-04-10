@@ -19,16 +19,16 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Confirm Password" />
+        <Head :title="$t('confirm password')" />
 
         <div class="mb-4 text-sm">
-            This is a secure area of the application. Please confirm your password before continuing.
+            {{ $t('confirm password text') }}
         </div>
 
         <form @submit.prevent="submit">
             <div>
                 <label class="block font-medium text-sm" for="password">
-                    Password
+                    {{ $t('password') }}
                 </label>
                 <label class="input input-bordered border border-secondary flex items-center gap-2">
                     <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
@@ -46,7 +46,7 @@ const submit = () => {
 
             <div class="flex justify-end mt-4">
                 <button class="btn btn-success ms-4 uppercase" :disabled="form.processing">
-                    Confirm
+                    {{ $t('confirm') }}
                 </button>
             </div>
         </form>

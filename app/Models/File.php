@@ -11,7 +11,7 @@ class File extends Model
     use HasFactory;
 
     protected $fillable = [
-//        'name',
+        'name',
         'path',
         'mime_type',
         'post_id'
@@ -22,22 +22,27 @@ class File extends Model
         return $this->belongsTo(Post::class);
     }
 
-    public function getUrlAttribute()
+    public function getOriginalName()
+    {
+        return $this->name ?? pathinfo($this->path, PATHINFO_BASENAME);
+    }
+
+    public function getUrl()
     {
         return Storage::url($this->path);
     }
 
-    public function getMediaTypeAttribute()
+    public function getMediaType()
     {
         return explode('/', $this->mime_type)[0];
     }
 
-    public function getSizeAttribute()
+    public function getSize()
     {
         return Storage::exists($this->path) ? Storage::size($this->path) : 0;
     }
 
-    public function getFormattedSizeAttribute()
+    public function getFormattedSize()
     {
         $bytes = $this->size;
         if ($bytes >= 1073741824) {

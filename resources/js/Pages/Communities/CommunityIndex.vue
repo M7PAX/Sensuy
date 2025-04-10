@@ -8,25 +8,27 @@ defineProps({
 </script>
 
 <template>
-    <Head title="My Communities" />
+    <Head :title="$t('my communities')" />
 
     <LayoutPicker>
         <template #header>
-            <h2 class="font-semibold text-xl leading-tight">My Communities</h2>
+            <h2 class="font-semibold text-xl leading-tight">
+                {{ $t('my communities') }}
+            </h2>
         </template>
 
         <div class="flex flex-col">
-            <div class="mx-auto shadow-md rounded-xl p-6 align-middle overflow-x-auto bg-base-100 border border-primary">
+            <div class="mx-auto shadow-md rounded-box p-6 align-middle overflow-x-auto bg-base-100 border border-primary">
                 <div class="flex justify-end">
                     <Link :href="route('communities.create')" class="btn btn-success uppercase" as="button">
-                        Add Community
+                        {{ $t('add community') }}
                     </Link>
                 </div>
 
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Community Name</th>
+                            <th>{{ $t('community name') }}</th>
 <!--                            <th>Job</th>-->
 <!--                            <th>Slug</th>-->
                             <th></th>
@@ -55,10 +57,11 @@ defineProps({
 <!--                            <td>{{community.slug}}</td>-->
                             <th>
                                 <Link :href="route('communities.edit', community.slug)" class="btn btn-warning btn-sm mr-5 uppercase" method="get" as="button" type="button">
-                                    Edit
+                                    {{ $t('edit') }}
                                 </Link>
+
                                 <Link :href="route('communities.destroy', community.slug)" class="btn btn-error btn-sm uppercase" method="delete" as="button" type="button">
-                                    Delete
+                                    {{ $t('delete') }}
                                 </Link>
                             </th>
                         </tr>

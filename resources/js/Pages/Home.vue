@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Home" />
+    <Head :title="$t('home')" />
 
 <!--    <guest-layout>-->
 <!--        <section class="m-2 p-2 flex flex-col md:flex-row">-->
@@ -37,7 +37,7 @@ defineProps({
             <div class="md:w-4/12 w-full p-4">
                 <CommunityList :communities="communities.data">
                     <template #title>
-                        Top Communities
+                        {{ $t('top communities') }}
                     </template>
                 </CommunityList>
             </div>
