@@ -22,3 +22,4 @@ yarn-error.log
 devenv.local.nix
 
 .direnv
+/sensuy.tar
