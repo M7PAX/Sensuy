@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SettingsUpdateRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class SettingsController extends Controller
 {
@@ -17,6 +15,6 @@ class SettingsController extends Controller
             session(['locale' => $validated['language']]);
         }
 
-        return redirect()->back()->with('success', 'Settings updated');
+        return redirect()->back()->with('message', __('settings updated'));
     }
 }

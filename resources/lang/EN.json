@@ -33,7 +33,7 @@
     "update" : "Update",
     "my communities" : "My Communities",
     "add community" : "Add Community",
-    "community name" : "Community name",
+    "community name" : "Community Name",
     "edit" : "Edit",
     "delete" : "Delete",
     "create post" : "Create Post",
@@ -84,5 +84,15 @@
     "videos" : "Videos",
     "audios" : "Audios",
     "texts" : "Texts",
-    "your comment" : "Your comment"
+    "your comment" : "Your comment",
+    "settings updated" : "Settings updated successfully!",
+    "community created" : "Community created successfully!",
+    "community updated" : "Community updated successfully!",
+    "community deleted" : "Community deleted successfully!",
+    "post created" : "Post created successfully!",
+    "post updated" : "Post updated successfully!",
+    "post deleted" : "Post deleted successfully!",
+    "profile updated" : "Profile updated successfully!",
+    "acc deleted" : "Account deleted successfully!",
+    "no posts" : "No Posts Found"
 }

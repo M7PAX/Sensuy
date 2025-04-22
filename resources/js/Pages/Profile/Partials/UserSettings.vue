@@ -8,13 +8,13 @@ const user = usePage().props.auth.user;
 
 const form = useForm({
     theme: user?.theme || localStorage.getItem('user-theme') || 'dark',
-    language: user?.language || localStorage.getItem('user-locale') || 'en',
+    language: user?.language || localStorage.getItem('user-locale') || 'EN',
 });
 
 const availableLanguages = computed(() => [
-    { code: 'en', label: t('english') },
-    { code: 'lv', label: t('latvian') },
-    { code: 'ru', label: t('russian') },
+    { code: 'EN', label: t('english') },
+    { code: 'LV', label: t('latvian') },
+    { code: 'RU', label: t('russian') },
 ]);
 
 const availableThemes = [
@@ -27,10 +27,6 @@ const availableThemes = [
     'winter', 'dim', 'nord', 'sunset', 'caramellatte',
     'abyss', 'silk'
 ];
-
-const resetTheme = () => {
-    form.theme = 'dark';
-};
 
 const submit = () => {
     form.patch(route('settings.update'), {
@@ -78,7 +74,7 @@ watch(() => form.theme, (newTheme) => {
                 </label>
 
                 <div class="filter">
-                    <input type="reset" class="btn btn-square my-1" value="x" @click="resetTheme"/>
+                    <input type="radio" name="theme" class="btn my-1 filter-reset"/>
 
                     <input v-for="theme in availableThemes"
                            :key="theme"
@@ -105,6 +101,7 @@ watch(() => form.theme, (newTheme) => {
                                :value="lang.code"
                                v-model="form.language"
                         />
+
                         {{ lang.label }}
                     </label>
                 </fieldset>
@@ -114,12 +111,6 @@ watch(() => form.theme, (newTheme) => {
                 <button class="btn btn-success uppercase" :disabled="form.processing">
                     {{ $t('save') }}
                 </button>
-
-                <Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0" leave-active-class="transition ease-in-out" leave-to-class="opacity-0">
-                    <p v-if="form.recentlySuccessful" class="text-sm">
-                        {{ $t('saved') }}.
-                    </p>
-                </Transition>
             </div>
         </form>
     </section>

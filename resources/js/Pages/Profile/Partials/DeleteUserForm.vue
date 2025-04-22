@@ -7,24 +7,21 @@ import { addIcons } from "oh-vue-icons";
 addIcons(MdKey);
 
 const passwordInput = ref(null);
+const modalRef = ref(null);
 
 const form = useForm({
     password: '',
 });
 
-let modalRef = null;
-
 const toggleModal = (action) => {
-    if (modalRef) {
+    if (modalRef.value) {
         if (action === "open") {
-            modalRef.showModal();
+            modalRef.value.showModal();
         } else {
-            modalRef.close();
+            modalRef.value.close();
         }
     }
 }
-
-modalRef = document.querySelector('dialog');
 
 const deleteUser = () => {
     form.delete(route('profile.destroy'), {
@@ -54,49 +51,45 @@ const deleteUser = () => {
         </button>
 
         <dialog ref="modalRef" class="modal">
-            <div class="modal-box">
-                <form method="dialog" class="modal-backdrop">
-                    <div class="p-6">
-                        <h2 class="text-lg font-medium">
-                            {{ $t('delete acc text 2') }}
-                        </h2>
+            <div class="modal-box p-6">
+                <h2 class="text-lg font-medium">
+                    {{ $t('delete acc text 2') }}
+                </h2>
 
-                        <p class="mt-1 text-sm">
-                            {{ $t('delete acc text 3') }}
-                        </p>
+                <p class="mt-1 text-sm">
+                    {{ $t('delete acc text 3') }}
+                </p>
 
-                        <div class="mt-6">
-                            <label class="block font-medium text-sm" for="password">
-                                {{ $t('password') }}
-                            </label>
+                <div class="mt-6">
+                    <label class="block font-medium text-sm" for="password">
+                        {{ $t('password') }}
+                    </label>
 
-                            <label class="input input-bordered border border-secondary flex items-center gap-2">
-                                <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
+                    <label class="input input-error flex items-center gap-2 text-error">
+                        <v-icon name="md-key" class="h-4 w-4 text-error"/>
 
-                                <input id="password"
-                                       ref="passwordInput"
-                                       v-model="form.password"
-                                       type="password"
-                                       class="mt-1 block w-3/4"
-                                       placeholder="Password"
-                                       @keyup.enter="deleteUser"
-                                />
-                            </label>
+                        <input id="password"
+                               ref="passwordInput"
+                               v-model="form.password"
+                               type="password"
+                               class="mt-1 block w-3/4"
+                               placeholder="Password"
+                               @keyup.enter="deleteUser"
+                        />
+                    </label>
 
-                            <ErrorAlert class="mt-2" :message="form.errors.password" />
-                        </div>
+                    <ErrorAlert class="mt-2" :message="form.errors.password" />
+                </div>
 
-                        <div class="mt-6 flex justify-end">
-                            <button type="button" @click="toggleModal('close')" class="btn uppercase">
-                                {{ $t('cancel') }}
-                            </button>
+                <div class="mt-6 flex justify-end">
+                    <button type="button" @click="toggleModal('close')" class="btn uppercase">
+                        {{ $t('cancel') }}
+                    </button>
 
-                            <button type="button" class="btn btn-error ms-3 uppercase" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="deleteUser">
-                                {{ $t('delete acc') }}
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    <button type="button" class="btn btn-error ms-3 uppercase" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="deleteUser">
+                        {{ $t('delete acc') }}
+                    </button>
+                </div>
             </div>
         </dialog>
     </section>

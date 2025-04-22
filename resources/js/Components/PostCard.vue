@@ -16,6 +16,7 @@ defineProps({
         <div class="mr-3">
             <PostVote :post="post"/>
         </div>
+
         <div>
             <div class="flex mt-4 mb-2 text-sm">
                 <Link :href="route('communities',community)" class="font-semibold hover:text-secondary group">
@@ -27,9 +28,11 @@ defineProps({
                     </div>
                     {{ community }}
                 </Link>
+
                 <span class="ml-5 text-base-content/50 my-auto">
                         {{ post.created_at }}
                 </span>
+
                 <div class="ml-auto mr-4">
                     <div class="avatar mr-2">
                         <div class="mask mask-hexagon-2 w-8 bg-accent">
@@ -37,14 +40,17 @@ defineProps({
                             <img v-else :src="`/storage/${post.user_picture}`" alt="Profile Picture"/>
                         </div>
                     </div>
+
                     <span class="text-base-content font-semibold">
                         {{ post.username }}
                     </span>
                 </div>
             </div>
+
             <h5 class="mb-2 text-2xl font-bold tracking-tight">
                 {{ post.title }}
             </h5>
+
             <p class="mb-3 mr-3 font-normal">
                 {{ post.description }}
             </p>
@@ -54,11 +60,13 @@ defineProps({
                     <div v-if="file.mime_type.startsWith('image')" class="mt-2">
                         <img :src="file.url" class="rounded-selector max-w-full h-auto"/>
                     </div>
+
                     <div v-else-if="file.mime_type.startsWith('video')" class="mt-2">
                         <video controls class="rounded-lg max-w-full h-auto">
                             <source :src="file.url" :type="file.mime_type">
                         </video>
                     </div>
+
                     <div v-else-if="file.mime_type.startsWith('audio')" class="mt-2">
                         <audio controls class="rounded-lg w-full">
                             <source :src="file.url" :type="file.mime_type">

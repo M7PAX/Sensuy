@@ -53,7 +53,7 @@ const FileUpload = (file) => {
                             {{ $t('title') }}
                         </label>
 
-                        <label class="input input-bordered border border-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2">
                             <input id="title"
                                    type="text"
                                    class="mt-1 block w-full"
@@ -72,7 +72,7 @@ const FileUpload = (file) => {
                             {{ $t('description') }}
                         </label>
 
-                        <label class="input input-bordered border border-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2">
                             <input id="description"
                                    type="text"
                                    class="mt-1 block w-full"
@@ -89,7 +89,7 @@ const FileUpload = (file) => {
                             {{ $t('link') }}
                         </label>
 
-                        <label class="input input-bordered border border-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2">
                             <input id="url"
                                    type="text"
                                    class="mt-1 block w-full"
@@ -107,7 +107,7 @@ const FileUpload = (file) => {
                             {{ $t('file name') }}
                         </label>
 
-                        <label class="input input-bordered border border-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2">
                             <input id="file_name"
                                    type="text"
                                    class="mt-1 block w-full"

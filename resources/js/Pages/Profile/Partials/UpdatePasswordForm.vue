@@ -51,8 +51,8 @@ const updatePassword = () => {
                     {{ $t('current password') }}
                 </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
+                <label class="input input-secondary flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 text-secondary"/>
 
                     <input id="current_password"
                            ref="currentPasswordInput"
@@ -71,8 +71,8 @@ const updatePassword = () => {
                     {{ $t('new password') }}
                 </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
+                <label class="input input-secondary flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 text-secondary"/>
 
                     <input id="password"
                            ref="passwordInput"
@@ -91,8 +91,8 @@ const updatePassword = () => {
                     {{ $t('confirm password') }}
                 </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
+                <label class="input input-secondary flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 text-secondary"/>
 
                     <input id="password_confirmation"
                            v-model="form.password_confirmation"
@@ -109,12 +109,6 @@ const updatePassword = () => {
                 <button class="btn btn-success uppercase" :disabled="form.processing">
                     {{ $t('save') }}
                 </button>
-
-                <Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0" leave-active-class="transition ease-in-out" leave-to-class="opacity-0">
-                    <p v-if="form.recentlySuccessful" class="text-sm">
-                        {{ $t('saved') }}
-                    </p>
-                </Transition>
             </div>
         </form>
     </section>

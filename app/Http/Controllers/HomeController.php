@@ -13,15 +13,28 @@ class HomeController extends Controller
     public function home()
     {
         $posts = PostResource::collection(Post::with([
-            'user',
-            'community',
-            'voted' => fn($q) => $q->where('user_id', auth()->id()),
-            'files'
-        ])->withCount('comments')->orderBy('votes', 'desc')->take(10)->get()
+                'user',
+                'community',
+                'voted' => fn($q) => $q->where('user_id', auth()->id()),
+                'files'
+            ])->withCount('comments')->orderByDesc('votes')->paginate(10)
         );
 
-        $communities = CommunityResource::collection(Community::withCount('posts')->orderBy('posts_count', 'desc')->take(5)->get());
+        $communities = CommunityResource::collection(Community::withCount('posts')->orderByDesc('posts_count')->take(5)->get());
 
         return Inertia::render('Home', ['communities' => $communities, 'posts' => $posts]);
+    }
+
+    public function loadMore()
+    {
+        $posts = PostResource::collection(Post::with([
+                'user',
+                'community',
+                'voted' => fn($q) => $q->where('user_id', auth()->id()),
+                'files'
+            ])->withCount('comments')->orderByDesc('votes')->paginate(10)
+        );
+
+        return response()->json($posts);
     }
 }

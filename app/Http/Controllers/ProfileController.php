@@ -25,7 +25,7 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
-        $validated = $request->validated();
+        $validated = $request->safe()->except('picture');
 
         if ($request->hasFile('picture')) {
             if ($user->picture) {
@@ -36,8 +36,7 @@ class ProfileController extends Controller
             $user->picture = $path;
         }
 
-        unset($validated['picture']);
-        $user->fill($validated);
+        $user->update($validated);
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
@@ -45,10 +44,10 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('status', 'profile-updated')->with('message', __('profile updated'));
     }
 
-    public function destroy(Request $request): Response
+    public function destroy(Request $request)
     {
         $request->validate([
             'password' => ['required', 'current_password'],
@@ -63,6 +62,6 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Inertia::render('Home');
+        return to_route('home')->with('message', __('acc deleted'));
     }
 }

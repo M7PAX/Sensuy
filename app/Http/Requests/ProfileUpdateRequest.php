@@ -16,25 +16,9 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
-            'picture' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'theme' => ['required', 'in:' . implode(',', $this->availableThemes())],
-            'language' => ['required', 'in:en, lv, ru'],
-        ];
-    }
-
-    private function availableThemes(): array
-    {
-        return [
-            'light', 'dark', 'cupcake', 'bumblebee', 'emerald',
-            'corporate', 'synthwave', 'retro', 'cyberpunk',
-            'valentine', 'halloween', 'garden', 'forest',
-            'aqua', 'lofi', 'pastel', 'fantasy', 'wireframe',
-            'black', 'luxury', 'dracula', 'cmyk', 'autumn',
-            'business', 'acid', 'lemonade', 'night', 'coffee',
-            'winter', 'dim', 'nord', 'sunset', 'caramellatte',
-            'abyss', 'silk'
+            'username' => ['required', 'string', 'min:5', 'max:25'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:50', Rule::unique(User::class)->ignore($this->user()->id)],
+            'picture' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
         ];
     }
 }

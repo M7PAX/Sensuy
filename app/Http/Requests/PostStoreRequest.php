@@ -22,8 +22,8 @@ class PostStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'min:5'],
-            'description' => ['nullable', 'min:5'],
+            'title' => ['required', 'min:5', 'max:100'],
+            'description' => ['nullable', 'min:5', 'max:1000'],
             'url' => ['nullable', 'url'],
             'file' => [
                 'nullable',
@@ -34,7 +34,7 @@ class PostStoreRequest extends FormRequest
                 'video/mp4,video/webm,video/ogg,' .
                 'audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp3,audio/webm'
             ],
-            'file_name' => ['nullable', 'min:5'],
+            'file_name' => ['nullable', 'string', 'min:5', 'max:50'],
         ];
     }
 }

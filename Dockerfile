@@ -55,4 +55,4 @@ EXPOSE 8000
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD [ "curl", "--fail", "http://localhost:8000/up"]
 
-CMD ["sh", "-c", "php artisan env:decrypt --key=$ENCRYPTION_KEY && php -S 0.0.0.0:8000 -t public"]
+CMD ["sh", "-c", "php artisan env:decrypt --force --key=$ENCRYPTION_KEY && php -S 0.0.0.0:8000 -t public"]

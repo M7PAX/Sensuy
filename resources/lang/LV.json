@@ -33,7 +33,7 @@
     "update": "Atjaunināt",
     "my communities": "Manas kopienas",
     "add community": "Pievienot kopienu",
-    "community name": "Kopienas nosaukums",
+    "community name": "Kopienas Nosaukums",
     "edit": "Rediģēt",
     "delete": "Dzēst",
     "create post": "Izveidot ierakstu",
@@ -84,5 +84,15 @@
     "videos" : "Videos",
     "audios" : "Audios",
     "texts" : "Texts",
-    "your comment" : "Your comment"
+    "your comment" : "Your comment",
+    "settings updated" : "Settings updated successfully!",
+    "community created" : "Community created successfully!",
+    "community updated" : "Community updated successfully!",
+    "community deleted" : "Community deleted successfully!",
+    "post created" : "Post created successfully!",
+    "post updated" : "Post updated successfully!",
+    "post deleted" : "Post deleted successfully!",
+    "profile updated" : "Profile updated successfully!",
+    "acc deleted" : "Account deleted successfully!",
+    "no posts" : "No Posts Found"
 }

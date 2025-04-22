@@ -3,13 +3,16 @@ import { onMounted, ref, watch} from 'vue';
 import Logo from '@/Components/Logo.vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
+import SearchBar from "@/Components/SearchBar.vue";
 import { RiUser3Line } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
 addIcons(RiUser3Line);
 
-const { t, locale } = useI18n();
+const { locale } = useI18n();
 const user = usePage().props.auth?.user;
 const showingNavigationDropdown = ref(false);
+const showMessage = ref(false);
+const currentMessage = ref(null);
 
 const initializeLanguage = () => {
     locale.value = user.language;
@@ -29,6 +32,17 @@ watch(() => user.theme, (newTheme) => {
     document.documentElement.setAttribute('data-theme', newTheme);
 });
 
+watch(() => usePage().props.flash.message, (newMessage) => {
+    if (newMessage) {
+        showMessage.value = true;
+        currentMessage.value = newMessage;
+
+        setTimeout(() => {
+            showMessage.value = false;
+        }, 3000);
+    }
+});
+
 onMounted(() => {
     initializeLanguage();
     initializeTheme();
@@ -37,7 +51,7 @@ onMounted(() => {
 
 <template>
     <div>
-        <div v-if="$page.props.flash.message" class="bg-success">
+        <div v-if="$page.props.flash.message && showMessage" class="bg-success fade-out">
             <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between flex-wrap">
                     <div class="w-0 flex-1 flex items-center">
@@ -76,7 +90,10 @@ onMounted(() => {
 <!--                            </div>-->
                         </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <div class="hidden sm:flex sm:items-center sm:ms-6 w-full justify-between">
+                            <div></div>
+
+                            <SearchBar class="fl"/>
 
                             <!-- Settings Dropdown -->
                             <div class="ms-3 relative">
@@ -93,17 +110,19 @@ onMounted(() => {
                                     </div>
                                     <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 shadow-sm">
                                         <li>
-                                            <Link :href="route('communities.index')">
+                                            <Link :href="route('communities.index')" class="uppercase btn btn-soft btn-accent btn-sm">
                                                 {{ $t('communities') }}
                                             </Link>
                                         </li>
+
                                         <li>
-                                            <Link :href="route('profile.edit')">
+                                            <Link :href="route('profile.edit')" class="uppercase btn btn-soft btn-accent btn-sm">
                                                 {{ $t('profile n settings') }}
                                             </Link>
                                         </li>
+
                                         <li>
-                                            <Link :href="route('logout')" method="post" class="text-error">
+                                            <Link :href="route('logout')" method="post" class="uppercase btn btn-soft btn-error btn-sm">
                                                 {{ $t('logout') }}
                                             </Link>
                                         </li>
@@ -132,28 +151,30 @@ onMounted(() => {
 
                 <!-- Responsive Navigation Menu -->
                 <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
-                        <Link :href="route('communities.index')" :active="route().current('communities.index')">
-                            {{ $t('communities') }}
-                        </Link>
-                    </div>
 
                     <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t">
+                    <div class="pt-4 border-t border-primary">
                         <div class="px-4">
-                            <div class="font-medium text-base">
-                                {{ $page.props.auth.user.username }}
+                            <div class="avatar mr-2">
+                                <div class="mask mask-hexagon-2 w-8 bg-accent">
+                                    <v-icon v-if="$page.props.auth.user.picture=== null" name="ri-user-3-line" class="w-8 h-8 text-base-100 mt-0.5"/>
+                                    <img v-else :src="`/storage/${$page.props.auth.user.picture}`" alt="Profile Picture"/>
+                                </div>
                             </div>
-                            <div class="font-medium text-sm">
-                                {{ $page.props.auth.user.email }}
-                            </div>
+
+                            {{ $page.props.auth.user.username }}
                         </div>
 
-                        <div class="mt-3 space-y-1">
-                            <Link :href="route('profile.edit')">
+                        <div class="my-3 space-y-1 join join-vertical w-full">
+                            <Link :href="route('communities.index')" class="max-w-full btn btn-wide btn-soft btn-accent join-item uppercase">
+                                {{ $t('communities') }}
+                            </Link>
+
+                            <Link :href="route('profile.edit')" class="max-w-full btn btn-wide btn-soft btn-accent join-item uppercase">
                                 {{ $t('profile n settings') }}
                             </Link>
-                            <Link :href="route('logout')" method="post" as="button">
+
+                            <Link :href="route('logout')" class="max-w-full btn btn-wide btn-soft btn-error join-item uppercase" method="post">
                                 {{ $t('logout') }}
                             </Link>
                         </div>

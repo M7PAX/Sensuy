@@ -2,9 +2,10 @@
 import { Head, Link } from '@inertiajs/vue3';
 import LayoutPicker from "@/Components/LayoutPicker.vue";
 
-defineProps({
+const props = defineProps({
     communities: Object,
 });
+
 </script>
 
 <template>
@@ -18,9 +19,9 @@ defineProps({
         </template>
 
         <div class="flex flex-col">
-            <div class="mx-auto shadow-md rounded-box p-6 align-middle overflow-x-auto bg-base-100 border border-primary">
+            <div class="mx-auto shadow-md rounded-box p-6 align-middle overflow-x-auto bg-base-100 border border-primary min-w-24 max-w-6xl">
                 <div class="flex justify-end">
-                    <Link :href="route('communities.create')" class="btn btn-success uppercase" as="button">
+                    <Link :href="route('communities.create')" class="btn btn-success uppercase">
                         {{ $t('add community') }}
                     </Link>
                 </div>
@@ -29,7 +30,7 @@ defineProps({
                     <thead>
                         <tr>
                             <th>{{ $t('community name') }}</th>
-<!--                            <th>Job</th>-->
+                            <th>{{ $t('description') }}</th>
 <!--                            <th>Slug</th>-->
                             <th></th>
                         </tr>
@@ -54,13 +55,13 @@ defineProps({
 <!--                                <br />-->
 <!--                                <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>-->
 <!--                            </td>-->
-<!--                            <td>{{community.slug}}</td>-->
+                            <td>{{ community.description }}</td>
                             <th>
-                                <Link :href="route('communities.edit', community.slug)" class="btn btn-warning btn-sm mr-5 uppercase" method="get" as="button" type="button">
+                                <Link :href="route('communities.edit', community.slug)" class="btn btn-warning btn-sm mr-5 uppercase" method="get" type="button">
                                     {{ $t('edit') }}
                                 </Link>
 
-                                <Link :href="route('communities.destroy', community.slug)" class="btn btn-error btn-sm uppercase" method="delete" as="button" type="button">
+                                <Link :href="route('communities.destroy', community.slug)" class="btn btn-error btn-sm uppercase" method="delete" type="button">
                                     {{ $t('delete') }}
                                 </Link>
                             </th>

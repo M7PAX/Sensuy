@@ -38,8 +38,8 @@ const submit = () => {
                     {{ $t('email') }}
                 </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2">
-                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
+                <label class="input input-secondary flex items-center gap-2">
+                    <v-icon name="hi-mail" class="h-4 w-4 text-secondary"/>
                     <input id="email"
                            type="email"
                            class="mt-1 block w-full"

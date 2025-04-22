@@ -44,8 +44,8 @@ const submit = () => {
                     {{ $t('email') }}
                 </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2">
-                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
+                <label class="input input-secondary flex items-center gap-2">
+                    <v-icon name="hi-mail" class="h-4 w-4 text-secondary"/>
                     <input id="email"
                            type="email"
                            class="mt-1 w-full grow"
@@ -63,8 +63,8 @@ const submit = () => {
                     {{ $t('password') }}
                 </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
+                <label class="input input-secondary flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 text-secondary"/>
                     <input id="password"
                            required
                            v-model="form.password"

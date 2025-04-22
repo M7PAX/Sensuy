@@ -1,15 +1,15 @@
 import { createI18n } from 'vue-i18n';
 
-import en from './langs/en.json';
-import lv from './langs/lv.json';
-import ru from './langs/ru.json';
+import EN from '../lang/EN.json';
+import LV from '../lang/LV.json';
+import RU from '../lang/RU.json';
 
 export const i18n = createI18n({
-    locale: 'en',
-    fallbackLocale: 'en',
+    locale: 'EN',
+    fallbackLocale: 'EN',
     messages: {
-        en,
-        lv,
-        ru,
+        EN,
+        LV,
+        RU,
     },
 });

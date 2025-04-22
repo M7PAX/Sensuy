@@ -30,3 +30,20 @@
     border-color: var(--color-gray-200, currentColor);
   }
 }
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Apply the animation to a class */
+.fade-out {
+    animation: fadeOut 3s ease-in-out forwards;
+}

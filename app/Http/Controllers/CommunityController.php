@@ -18,6 +18,7 @@ class CommunityController extends Controller
             'id' => $community->id,
             'name' => $community->name,
             'slug' => $community->slug,
+            'description' => $community->description,
             'picture' => $community->picture,
         ]);
 
@@ -44,7 +45,7 @@ class CommunityController extends Controller
             $community->update(['background' => $backgroundPath]);
         }
 
-        return to_route('communities.index')->with('message', 'Community created successfully!');
+        return to_route('communities.index')->with('message', __('community created'));
     }
 
     public function show($slug)
@@ -85,7 +86,7 @@ class CommunityController extends Controller
             $community->update(['background' => $backgroundPath]);
         }
 
-        return to_route('communities.index')->with('message', 'Community updated successfully!');
+        return to_route('communities.index')->with('message', __('community updated'));
     }
 
     public function destroy(Community $community)
@@ -93,6 +94,6 @@ class CommunityController extends Controller
         Gate::authorize('delete', $community);
         $community->delete();
 
-        return back()->with('message', 'Community terminated successfully!');
+        return back()->with('message', __('community deleted'));
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 
-class CommentController extends Controller
+class  CommentController extends Controller
 {
     public function store(Post $post)
     {

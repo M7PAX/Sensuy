@@ -27,7 +27,7 @@ class FileController extends Controller
             'mime_type' => $mimeType,
         ]);
 
-        return response()->with('success', 'File uploaded successfully.');
+        return response();
     }
 
     public function download(File $file)

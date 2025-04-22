@@ -37,7 +37,7 @@ const submit = () => {
                             {{ $t('title') }}
                         </label>
 
-                        <label class="input input-bordered border border-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2">
                             <input id="title"
                                    type="text"
                                    class="mt-1 block w-full"
@@ -56,7 +56,7 @@ const submit = () => {
                             {{ $t('description') }}
                         </label>
 
-                        <label class="input input-bordered border border-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2">
                             <input id="description"
                                    type="text"
                                    class="mt-1 block w-full"

@@ -4,7 +4,7 @@ import PostCard from "@/Components/PostCard.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
 import { HiUserGroup } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
-import { ref, onMounted, watch } from "vue";
+import {ref, onMounted, watch, computed} from "vue";
 addIcons(HiUserGroup);
 
 const props = defineProps({
@@ -17,6 +17,7 @@ const form = ref({
 });
 
 const titleRef = ref(null);
+const selectedTab = ref('all');
 
 const textInverter = async () => {
     if (!titleRef.value || !props.community?.background) return;
@@ -43,6 +44,26 @@ const textInverter = async () => {
     const textColor = luminance > 128 ? "#000000" : "#ffffff";
     titleRef.value.style.color = textColor;
 };
+
+const filteredPosts = computed(() => {
+    const { posts } = props;
+
+    if (selectedTab.value === 'all') {
+        return posts.data;
+    }
+
+    return posts.data.filter(post => {
+        if (selectedTab.value === 'text') {
+            return (
+                post.files.length === 0 || !post.files.some(file =>
+                    ['image/', 'video/', 'audio/'].some(type => file.mime_type.startsWith(type))
+                )
+            );
+        }
+
+        return post.files.some(file => file.mime_type.startsWith(selectedTab.value));
+    });
+});
 
 onMounted(() => {
     textInverter();
@@ -107,13 +128,18 @@ watch(
 
             <div class="w-full md:w-8/12 order-2 md:order-1">
                 <div class="tabs tabs-border">
-                    <input type="radio" name="radio1" class="tab" :aria-label="$t('all')" checked="checked" />
-                    <input type="radio" name="radio1" class="tab" :aria-label="$t('images')" />
-                    <input type="radio" name="radio1" class="tab" :aria-label="$t('videos')" />
-                    <input type="radio" name="radio1" class="tab" :aria-label="$t('audios')" />
-                    <input type="radio" name="radio1" class="tab" :aria-label="$t('texts')" />
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('all')" value="all" v-model="selectedTab" checked="checked"/>
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('images')" value="image" v-model="selectedTab"/>
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('videos')" value="video" v-model="selectedTab"/>
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('audios')" value="audio" v-model="selectedTab"/>
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('texts')" value="text" v-model="selectedTab"/>
                 </div>
-                <PostCard v-for="post in posts.data" :post="post" :community="community.slug" :key="post.id"/>
+
+                <PostCard v-if="filteredPosts.length" v-for="post in filteredPosts" :post="post" :community="community.slug" :key="post.id"/>
+
+                <div v-else class="flex items-center justify-center p-5 text-warning text-xl">
+                    {{ $t('no posts') }}
+                </div>
             </div>
         </div>
     </LayoutPicker>

@@ -50,9 +50,9 @@ onMounted(() => {
 <!--                            </div>-->
                         </div>
 
-                        <div class="sm:flex sm:items-center sm:ms-6">
+                        <div class="hidden sm:flex sm:items-center sm:ms-6">
                             <div class="join join-horizontal">
-                                <input v-for="lang in ['en', 'lv', 'ru']" :key="lang" type="radio" name="language" class="btn btn-sm join-item"
+                                <input v-for="lang in ['EN', 'LV', 'RU']" type="radio" class="btn btn-sm join-item w-12"
                                        :aria-label="lang" :value="lang" v-model="selectedLanguage"
                                 />
                             </div>
@@ -62,6 +62,7 @@ onMounted(() => {
                             <Link :href="route('login')" class="btn btn-soft btn-secondary btn-sm mr-4 uppercase">
                                 {{ $t('login') }}
                             </Link>
+
                             <Link :href="route('register')" class="btn btn-soft btn-secondary btn-sm uppercase">
                                 {{ $t('register') }}
                             </Link>
@@ -69,30 +70,22 @@ onMounted(() => {
 
                         <!-- Hamburger -->
                         <div class="-me-2 flex items-center sm:hidden">
-                            <button
-                                @click="showingNavigationDropdown = !showingNavigationDropdown"
-                                class="inline-flex items-center justify-center p-2 rounded-md"
-                            >
+                            <div class="join join-horizontal">
+                                <input v-for="lang in ['EN', 'LV', 'RU']" :key="lang" type="radio" class="btn btn-sm join-item w-12"
+                                       :aria-label="lang" :value="lang" v-model="selectedLanguage"
+                                />
+                            </div>
+
+                            <ThemeToggle class="mx-5"/>
+
+                            <button @click="showingNavigationDropdown = !showingNavigationDropdown" class="inline-flex items-center justify-center p-2 rounded-md">
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path
-                                        :class="{
-                                            hidden: showingNavigationDropdown,
-                                            'inline-flex': !showingNavigationDropdown,
-                                        }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
+                                    <path :class="{hidden: showingNavigationDropdown, 'inline-flex': !showingNavigationDropdown,}"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"
                                     />
-                                    <path
-                                        :class="{
-                                            hidden: !showingNavigationDropdown,
-                                            'inline-flex': showingNavigationDropdown,
-                                        }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"
+
+                                    <path :class="{hidden: !showingNavigationDropdown, 'inline-flex': showingNavigationDropdown,}"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"
                                     />
                                 </svg>
                             </button>
@@ -102,14 +95,18 @@ onMounted(() => {
 
                 <!-- Responsive Navigation Menu -->
                 <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
-                    <div class="mt-3 space-y-1">
-                        <Link :href="route('login')">
-                            {{ $t('login') }}
-                        </Link>
-                        <Link :href="route('register')">
-                            {{ $t('register') }}
-                        </Link>
+                    <div class="border-t border-primary">
+                        <div class="my-3 space-y-1 join join-vertical w-full">
+                            <Link :href="route('login')" class="max-w-full btn btn-wide btn-soft btn-secondary join-item uppercase" as="button">
+                                {{ $t('login') }}
+                            </Link>
+
+                            <Link :href="route('register')" class="max-w-full btn btn-wide btn-soft btn-secondary join-item uppercase" as="button">
+                                {{ $t('register') }}
+                            </Link>
+                        </div>
                     </div>
+
                 </div>
             </nav>
 

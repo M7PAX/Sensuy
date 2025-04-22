@@ -33,7 +33,6 @@ const copyLink = async () => {
     }
 };
 
-// console.log(props.post.data.files[0].path.value)
 </script>
 
 <template>

@@ -17,6 +17,7 @@ class CommunityResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->description,
             'slug' => $this->slug,
             'posts_count' => $this->posts_count,
             'picture' => $this->picture,

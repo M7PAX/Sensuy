@@ -23,7 +23,6 @@ class PostResource extends JsonResource
             'username' => $this->user->username,
             'user_picture' => $this->user->picture,
             'community' => $this->community->slug,
-            'community_slug' => $this->community->slug, // WHY
             'community_picture' => $this->community->picture,
             'slug' => $this->slug,
             'votes' => $this->votes,

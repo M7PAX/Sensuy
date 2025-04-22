@@ -23,7 +23,7 @@ class SettingsUpdateRequest extends FormRequest
     {
         return [
             'theme' => ['required', 'in:' . implode(',', $this->availableThemes())],
-            'language' => ['required', 'in:en,lv,ru'],
+            'language' => ['required', 'in:EN,LV,RU'],
         ];
     }
 

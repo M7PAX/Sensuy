@@ -13,9 +13,9 @@ use Inertia\Inertia;
 
 class PostController extends Controller
 {
-    public function show($community_slug, $slug)
+    public function show($community, $slug)
     {
-        $community = Community::where('slug', $community_slug)->first();
+        $community = Community::where('slug', $community)->first();
 
         $community_post = Post::with([
             'comments',
@@ -68,7 +68,7 @@ class PostController extends Controller
             ]);
         }
 
-        return Redirect::route('communities', $community->slug);
+        return Redirect::route('communities', $community->slug)->with('message', __('post created'));
     }
 
     public function edit(Community $community, Post $post)
@@ -82,7 +82,7 @@ class PostController extends Controller
         Gate::authorize('update', $post);
         $post->update($request->validated());
 
-        return Redirect::route('posts', [$community->slug, $post->slug]);
+        return Redirect::route('posts', [$community->slug, $post->slug])->with('message', __('post updated'));
     }
 
     public function destroy(Community $community, Post $post)
@@ -90,6 +90,6 @@ class PostController extends Controller
         Gate::authorize('delete', $post);
         $post->delete();
 
-        return Redirect::route('communities', $community->slug);
+        return Redirect::route('communities', $community->slug)->with('message', __('post deleted'));
     }
 }

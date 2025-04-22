@@ -31,8 +31,8 @@ const submit = () => {
                     {{ $t('username') }}
                 </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2">
-                    <v-icon name="ri-user-3-line" class="h-4 w-4 opacity-70"/>
+                <label class="input input-secondary flex items-center gap-2">
+                    <v-icon name="ri-user-3-line" class="h-4 w-4 text-secondary"/>
                     <input id="name"
                            type="text"
                            class="mt-1 block w-full"
@@ -51,8 +51,8 @@ const submit = () => {
                     {{ $t('email') }}
                 </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2">
-                    <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
+                <label class="input input-secondary flex items-center gap-2">
+                    <v-icon name="hi-mail" class="h-4 w-4 text-secondary"/>
                     <input id="email"
                            type="email"
                            class="mt-1 block w-full"
@@ -70,8 +70,8 @@ const submit = () => {
                     {{ $t('password') }}
                 </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
+                <label class="input input-secondary flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 text-secondary"/>
                     <input id="password"
                            ref="password"
                            v-model="form.password"
@@ -89,8 +89,8 @@ const submit = () => {
                     {{ $t('confirm password') }}
                 </label>
 
-                <label class="input input-bordered border border-secondary flex items-center gap-2">
-                    <v-icon name="md-key" class="h-4 w-4 opacity-70"/>
+                <label class="input input-secondary flex items-center gap-2">
+                    <v-icon name="md-key" class="h-4 w-4 text-secondary"/>
                     <input id="password_confirmation"
                            v-model="form.password_confirmation"
                            type="password"

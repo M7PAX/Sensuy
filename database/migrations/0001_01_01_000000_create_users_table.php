@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('is_admin')->default(false);
             $table->string('picture')->nullable();
             $table->string('theme')->default('dark');
-            $table->string('language')->default('en');
+            $table->string('language')->default('EN');
 
             $table->rememberToken();
             $table->timestamps();

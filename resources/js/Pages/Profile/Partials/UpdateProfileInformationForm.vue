@@ -1,6 +1,7 @@
 <script setup>
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 import ErrorAlert from "@/Components/ErrorAlert.vue";
+import {ref} from "vue";
 import {HiMail, RiUser3Line} from "oh-vue-icons/icons";
 import {addIcons} from "oh-vue-icons";
 addIcons(RiUser3Line, HiMail);
@@ -15,12 +16,29 @@ defineProps({
 });
 
 const user = usePage().props.auth.user;
+const previewImage = ref(null);
 
 const form = useForm({
-    name: user.name,
+    username: user.username,
     email: user.email,
     picture: null,
 });
+
+const handleFileInput = (event) => {
+    const file = event.target.files[0];
+    form.picture = file;
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            previewImage.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        previewImage.value = null;
+    }
+};
+
 </script>
 
 <template>
@@ -43,36 +61,38 @@ const form = useForm({
                             {{ $t('username') }}
                         </label>
 
-                        <label class="input input-bordered border border-secondary flex items-center gap-2">
-                            <v-icon name="ri-user-3-line" class="h-4 w-4 opacity-70"/>
+                        <label class="input input-secondary flex items-center gap-2">
+                            <v-icon name="ri-user-3-line" class="h-4 w-4 text-secondary"/>
 
                             <input id="name"
                                    type="text"
                                    class="mt-1 block w-full"
-                                   v-model="form.name"
+                                   v-model="form.username"
                                    required
                                    autofocus
                                    autocomplete="name"
                             />
                         </label>
 
-                        <ErrorAlert class="mt-2" :message="form.errors.name"/>
+                        <ErrorAlert class="mt-2" :message="form.errors.username"/>
                     </div>
 
                     <div>
                         <label class="block font-medium text-sm" for="email">
                             {{ $t('email') }}
                         </label>
-                        <label class="input input-bordered border border-secondary flex items-center gap-2">
-                            <v-icon name="hi-mail" class="h-4 w-4 opacity-70"/>
+
+                        <label class="input input-secondary flex items-center gap-2">
+                            <v-icon name="hi-mail" class="h-4 w-4 text-secondary"/>
                             <input id="email"
                                    type="email"
                                    class="mt-1 block w-full"
                                    v-model="form.email"
                                    required
-                                   autocomplete="username"
+                                   autocomplete="email"
                             />
                         </label>
+
                         <ErrorAlert class="mt-2" :message="form.errors.email"/>
                     </div>
                 </div>
@@ -82,8 +102,9 @@ const form = useForm({
                         <label for="picture" class=" w-42 h-42">
                             <div class="avatar">
                                 <div class="mask mask-hexagon-2 bg-accent">
-                                    <v-icon v-if="user.picture === null" name="ri-user-3-line" class="w-40 h-40 mt-1 text-base-100"/>
-                                    <img v-else :src="`/storage/${user.picture}`" alt="Current profile picture">
+                                    <img v-if="previewImage" :src="previewImage" alt="Preview" class="w-40 h-40 mt-1 object-cover"/>
+                                    <img v-else-if="user.picture" :src="`/storage/${user.picture}`" alt="Current profile picture" class="w-40 h-40 mt-1 object-cover"/>
+                                    <v-icon v-else name="ri-user-3-line" class="w-40 h-40 mt-1 text-base-100"/>
                                 </div>
                             </div>
 
@@ -94,7 +115,12 @@ const form = useForm({
                             </div>
 
                             <fieldset class="fieldset" hidden>
-                                <input id="picture" type="file" class="file-input" @input="form.picture = $event.target.files[0]" accept="image/*"/>
+                                <input id="picture"
+                                       type="file"
+                                       class="file-input"
+                                       @input="handleFileInput"
+                                       accept="image/*"
+                                />
                             </fieldset>
 
                             <ErrorAlert class="mt-2" :message="form.errors.picture"/>
@@ -121,12 +147,6 @@ const form = useForm({
                 <button class="btn btn-success uppercase" :disabled="form.processing">
                     {{ $t('save') }}
                 </button>
-
-                <Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0" leave-active-class="transition ease-in-out" leave-to-class="opacity-0">
-                    <p v-if="form.recentlySuccessful" class="text-sm">
-                        {{ $t('saved') }}.
-                    </p>
-                </Transition>
             </div>
         </form>
     </section>
