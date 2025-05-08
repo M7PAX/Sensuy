@@ -1,6 +1,9 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import LayoutPicker from "@/Components/LayoutPicker.vue";
+import { HiUserGroup } from "oh-vue-icons/icons";
+import { addIcons } from "oh-vue-icons";
+addIcons(HiUserGroup);
 
 const props = defineProps({
     communities: Object,
@@ -38,17 +41,17 @@ const props = defineProps({
                     <tbody>
                         <tr v-for="community in communities.data" :key="community.id">
                             <td>
-                                <div class="flex items-center gap-3">
+                                <Link :href="route('communities', community.slug)" class="flex items-center gap-3 hover:text-secondary group">
                                     <div class="avatar mr-2">
                                         <div class="mask mask-heart w-12 bg-primary group-hover:bg-secondary">
                                             <v-icon v-if="community.picture === null" name="hi-user-group" class="w-12 h-12 text-base-100 mt-1"/>
                                             <img v-else :src="`/storage/${community.picture}`" alt="Community Picture"/>
                                         </div>
                                     </div>
-                                    <Link :href="route('communities', community.slug)" class="font-bold">
+                                    <div class="font-bold">
                                         {{ community.name }}
-                                    </Link>
-                                </div>
+                                    </div>
+                                </Link>
                             </td>
 <!--                            <td>-->
 <!--                                Zemlak, Daniel and Leannon-->

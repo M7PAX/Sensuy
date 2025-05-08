@@ -13,7 +13,6 @@ const backgroundInput = ref(null);
 
 const form = useForm({
     description: props.community.description,
-    slug: props.community.slug,
     picture: props.community.picture,
     background: props.community.background,
 });
@@ -22,7 +21,6 @@ const submit = () => {
     const formData = new FormData();
 
     formData.append('description', form.description);
-    formData.append('slug', form.slug);
 
     if (pictureInput.value?.files[0]) {
         formData.append('picture', pictureInput.value.files[0]);
@@ -31,11 +29,7 @@ const submit = () => {
         formData.append('background', backgroundInput.value.files[0]);
     }
 
-    router.put(route('communities.update', { community: props.community.slug }), formData, {
-        onSuccess: () => form.reset(),
-        onError: (errors) => Object.assign(form.errors, errors),
-        preserveState: true,
-    });
+    router.post(route('communities.update', [props.community.slug]), formData, {method: 'put'});
 };
 
 </script>

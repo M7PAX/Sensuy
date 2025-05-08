@@ -52,15 +52,24 @@ class CommunityController extends Controller
     {
         $community = Community::where('slug', $slug)->firstOrFail();
 
+        $isFollowing = auth()->check() ? auth()->user()->communities()->where('community_id', $community->id)->exists() : false;
+
         $posts = PostResource::collection($community->posts()->with([
             'user',
             'voted' => fn($q) => $q->where('user_id', auth()->id()),
             'files'
         ])->withCount('comments')->paginate(10));
 
+        $can_delete = Auth::check() ? Auth::user()->can('delete', $community) : false;
+
+        $followers = $community->followers()->count();
+
         return Inertia::render('Communities/CommunityShow', [
             'community' => $community,
             'posts' => $posts,
+            'isFollowing' => $isFollowing,
+            'can_delete' => $can_delete,
+            'followers' => $followers,
         ]);
     }
 
@@ -73,8 +82,8 @@ class CommunityController extends Controller
     public function update(CommunityUpdateRequest $request, Community $community)
     {
         Gate::authorize('update', $community);
-        $data = $request->validated();
-        $community->update($data);
+
+        $community->update($request->validated());
 
         if ($request->hasFile('picture')) {
             $picturePath = $request->file('picture')->store('community_pictures', 'public');
@@ -94,6 +103,6 @@ class CommunityController extends Controller
         Gate::authorize('delete', $community);
         $community->delete();
 
-        return back()->with('message', __('community deleted'));
+        return to_route('home')->with('message', __('community deleted'));
     }
 }

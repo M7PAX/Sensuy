@@ -4,6 +4,7 @@ import PostVote from "@/Components/PostVote.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
 import {HiDownload, FaShare, HiUserGroup} from "oh-vue-icons/icons";
 import {addIcons} from "oh-vue-icons";
+import CommentSection from "@/Components/CommentSection.vue";
 addIcons(HiDownload, FaShare, HiUserGroup);
 
 const props = defineProps({
@@ -11,6 +12,7 @@ const props = defineProps({
     post: Object,
     can_update: Boolean,
     can_delete: Boolean,
+    comments: Object,
 });
 
 const form = useForm({
@@ -43,7 +45,7 @@ const copyLink = async () => {
                     <div class="avatar mr-2">
                         <div class="mask mask-heart w-10 bg-primary group-hover:bg-secondary">
                             <v-icon v-if="community.picture === null" name="hi-user-group" class="w-10 h-10 text-base-100 mt-1"/>
-<!--                            <img v-else :src="`/storage/${community_picture}`" alt="Community Picture"/>-->
+                            <img v-else :src="`/storage/${community.picture}`" alt="Community Picture"/>
                         </div>
                     </div>
                     s/{{ community.name }}
@@ -102,19 +104,19 @@ const copyLink = async () => {
                             </a>
 
                             <div v-if="post.data.files.length" class="m-4">
-                                <div v-for="file in post.data.files" :key="file.id" class="mb-4">
-                                    <div v-if="file.mime_type.startsWith('image')" class="mt-2">
+                                <div v-for="file in post.data.files" :key="file.id">
+                                    <div v-if="file.mime_type.startsWith('image')">
                                         <img :src="file.url" class="rounded-selector max-w-full h-auto"/>
                                     </div>
 
-                                    <div v-else-if="file.mime_type.startsWith('video')" class="mt-2">
-                                        <video controls class="rounded-lg max-w-full h-auto">
+                                    <div v-else-if="file.mime_type.startsWith('video')">
+                                        <video controls class="rounded-selector max-w-full h-auto">
                                             <source :src="file.url" :type="file.mime_type">
                                         </video>
                                     </div>
 
-                                    <div v-else-if="file.mime_type.startsWith('audio')" class="mt-2">
-                                        <audio controls class="rounded-lg w-full">
+                                    <div v-else-if="file.mime_type.startsWith('audio')">
+                                        <audio controls class="rounded-selector w-full">
                                             <source :src="file.url" :type="file.mime_type">
                                         </audio>
                                     </div>
@@ -125,20 +127,20 @@ const copyLink = async () => {
                                         </div>
 
                                         <div>
-                                            <a :href="route('download', file.id)" class="btn btn-circle" as="button">
-                                                <v-icon name="hi-download" class="hover:text-success"/>
+                                            <a :href="route('download', file.id)" class="btn btn-circle mr-2 hover:text-success">
+                                                <v-icon name="hi-download"/>
                                             </a>
 
-                                            <button class="btn btn-circle" @click="copyLink">
-                                                <v-icon name="fa-share" class="hover:text-secondary"/>
+                                            <button class="btn btn-circle hover:text-info" @click="copyLink">
+                                                <v-icon name="fa-share"/>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div v-else class="flex justify-end">
-                                <button class="btn btn-circle" @click="copyLink">
-                                    <v-icon name="fa-share" class="hover:text-secondary"/>
+                                <button class="btn btn-circle hover:text-info" @click="copyLink">
+                                    <v-icon name="fa-share"/>
                                 </button>
                             </div>
                         </div>
@@ -171,28 +173,8 @@ const copyLink = async () => {
                     </form>
                 </div>
 
-                <div v-if="post.data.comments !== undefined" class="bg-base-100 rounded-box border border-secondary shadow-md my-5">
-                    <ul role="list" class="divide-y divide-secondary mx-5">
-                        <li v-for="(comment, index) in post.data.comments" :key="index" class="py-4 flex flex-col">
-                            <div class="text-sm ml-3 mb-1">
-                                <div class="avatar mr-2">
-                                    <div class="mask mask-hexagon-2 w-8 bg-accent">
-                                        <v-icon v-if="comment.user_picture === null" name="ri-user-3-line" class="w-8 h-8 text-base-100 mt-0.5"/>
-                                        <img v-else :src="`/storage/${comment.user_picture}`" alt="Profile Picture"/>
-                                    </div>
-                                </div>
+                <CommentSection :post :community="community.slug" :key="post.id" :comments />
 
-                                <span class="font-semibold text-base-content">
-                                    {{ comment.username }}
-                                </span>
-                            </div>
-
-                            <div class="ml-5">
-                                {{ comment.content }}
-                            </div>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </section>
     </LayoutPicker>

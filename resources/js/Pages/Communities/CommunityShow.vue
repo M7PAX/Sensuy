@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import {Link, router} from "@inertiajs/vue3";
 import PostCard from "@/Components/PostCard.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
 import { HiUserGroup } from "oh-vue-icons/icons";
@@ -10,6 +10,9 @@ addIcons(HiUserGroup);
 const props = defineProps({
     community: Object,
     posts: Object,
+    isFollowing: Boolean,
+    can_delete: Boolean,
+    followers: Number,
 });
 
 const form = ref({
@@ -65,6 +68,22 @@ const filteredPosts = computed(() => {
     });
 });
 
+const follow = () => {
+    router.post(route('communities.follow', props.community.slug), {
+        onSuccess: () => {
+            props.isFollowing = true;
+        },
+    });
+};
+
+const unfollow = () => {
+    router.delete(route('communities.unfollow', props.community.slug), {
+        onSuccess: () => {
+            props.isFollowing = false;
+        },
+    });
+};
+
 onMounted(() => {
     textInverter();
 });
@@ -87,18 +106,34 @@ watch(
                     <div class="avatar mr-2">
                         <div :class="['mask', 'mask-heart', 'w-10', {'bg-primary': community.picture === null}, {'backdrop-invert': community.picture !== null}]">
                             <v-icon v-if="community.picture === null" name="hi-user-group" class="w-10 h-10 text-base-100 mt-1"/>
-                            <img v-else class="w-10 h-10 mt-1" :src="`/storage/${community.picture}`" alt="Community Icon"/>
+                            <img v-else class="w-10 h-10" :src="`/storage/${community.picture}`" alt="Community Icon"/>
                         </div>
                     </div>
 
                     <h2 ref="titleRef" class="font-semibold text-xl leading-tight">
                         s/{{ community.name }}
                     </h2>
+
+                    <div class="badge badge-soft badge-secondary text-xs ml-3">
+                        {{ $t('followers') }}: {{ followers }}
+                    </div>
                 </div>
 
                 <div v-if="$page.props.auth.auth_check" class="z-10">
-                    <Link :href="route('communities.posts.create', community.slug)" class="btn btn-success uppercase">
+                    <button v-if="isFollowing && !can_delete" @click="unfollow" class="btn btn-error btn-soft uppercase mr-5">
+                        {{ $t('unfollow') }}
+                    </button>
+
+                    <button v-if="!can_delete && !isFollowing" @click="follow" class="btn btn-info uppercase mr-5">
+                        {{ $t('follow') }}
+                    </button>
+
+                    <Link v-if="isFollowing || can_delete" :href="route('communities.posts.create', community.slug)" class="btn btn-success uppercase">
                         {{ $t('create post') }}
+                    </Link>
+
+                    <Link v-if="can_delete" :href="route('communities.destroy', community.slug)" class="btn btn-error uppercase ml-5" method="delete" type="button">
+                        {{ $t('delete') }}
                     </Link>
                 </div>
             </div>

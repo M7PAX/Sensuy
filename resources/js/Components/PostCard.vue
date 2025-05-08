@@ -17,8 +17,8 @@ defineProps({
             <PostVote :post="post"/>
         </div>
 
-        <div>
-            <div class="flex mt-4 mb-2 text-sm">
+        <div class="w-full">
+            <div class="flex mt-4 mb-2 text-sm mr-4">
                 <Link :href="route('communities',community)" class="font-semibold hover:text-secondary group">
                     <div class="avatar mr-2">
                         <div class="mask mask-heart w-8 bg-primary group-hover:bg-secondary">
@@ -33,9 +33,9 @@ defineProps({
                         {{ post.created_at }}
                 </span>
 
-                <div class="ml-auto mr-4">
+                <div class="ml-auto">
                     <div class="avatar mr-2">
-                        <div class="mask mask-hexagon-2 w-8 bg-accent">
+                        <div :class="['mask', 'w-8', 'bg-accent', post.is_admin ? 'mask-hexagon' : 'mask-hexagon-2']">
                             <v-icon v-if="post.user_picture === null" name="ri-user-3-line" class="w-8 h-8 text-base-100 mt-0.5"/>
                             <img v-else :src="`/storage/${post.user_picture}`" alt="Profile Picture"/>
                         </div>
@@ -47,27 +47,27 @@ defineProps({
                 </div>
             </div>
 
-            <h5 class="mb-2 text-2xl font-bold tracking-tight">
+            <h5 class="mb-2 mr-4 text-2xl font-bold tracking-tight">
                 {{ post.title }}
             </h5>
 
-            <p class="mb-3 mr-3 font-normal">
+            <p class="mb-2 mr-4 font-normal">
                 {{ post.description }}
             </p>
 
-            <div v-if="post.files.length" class="m-4">
-                <div v-for="file in post.files" :key="file.id" class="mb-4">
-                    <div v-if="file.mime_type.startsWith('image')" class="mt-2">
+            <div v-if="post.files.length" class="m-4 mr-8">
+                <div v-for="file in post.files" :key="file.id">
+                    <div v-if="file.mime_type.startsWith('image')">
                         <img :src="file.url" class="rounded-selector max-w-full h-auto"/>
                     </div>
 
-                    <div v-else-if="file.mime_type.startsWith('video')" class="mt-2">
+                    <div v-else-if="file.mime_type.startsWith('video')">
                         <video controls class="rounded-lg max-w-full h-auto">
                             <source :src="file.url" :type="file.mime_type">
                         </video>
                     </div>
 
-                    <div v-else-if="file.mime_type.startsWith('audio')" class="mt-2">
+                    <div v-else-if="file.mime_type.startsWith('audio')">
                         <audio controls class="rounded-lg w-full">
                             <source :src="file.url" :type="file.mime_type">
                         </audio>
@@ -75,7 +75,7 @@ defineProps({
                 </div>
             </div>
 
-            <div class="flex my-2 py-2 text-accent">
+            <div class="flex my-2 py-2 text-secondary">
                 {{ $t('comments') }} - {{ post.comments_count }}
             </div>
         </div>

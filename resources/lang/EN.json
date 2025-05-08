@@ -94,5 +94,11 @@
     "post deleted" : "Post deleted successfully!",
     "profile updated" : "Profile updated successfully!",
     "acc deleted" : "Account deleted successfully!",
-    "no posts" : "No Posts Found"
+    "no posts" : "No Posts Found",
+    "follow" : "Follow",
+    "unfollow" : "Unfollow",
+    "edit comment" : "Edit Comment",
+    "edit comment for" : "Edit Comment For Post",
+    "followers" : "Followers",
+    "no comments" : "No Comments Found"
 }

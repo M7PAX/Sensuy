@@ -18,9 +18,9 @@ defineProps({
         <ul role="list" class="divide-y">
             <li v-for="community in communities" :key="community.id" class="py-3 px-5 sm:py-4">
                 <div class="flex items-center">
-                    <Link :href="route('communities', community.slug)" class="font-semibold truncate text-sm w-3/4   hover:text-accent group">
+                    <Link :href="route('communities', community.slug)" class="font-semibold truncate text-sm w-3/4 hover:text-secondary group">
                         <div class="avatar mr-2">
-                            <div class="mask mask-heart w-8 bg-primary group-hover:bg-accent">
+                            <div class="mask mask-heart w-8 bg-primary group-hover:bg-secondary">
                                 <v-icon v-if="community.picture === null" name="hi-user-group" class="w-8 h-8 text-base-100 mt-1"/>
                                 <img v-else :src="`/storage/${community.picture}`" alt="Community Picture"/>
                             </div>

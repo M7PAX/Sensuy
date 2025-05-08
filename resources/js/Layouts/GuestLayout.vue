@@ -4,6 +4,7 @@ import Logo from '@/Components/Logo.vue';
 import { Link } from '@inertiajs/vue3';
 import ThemeToggle from "@/Components/ThemeToggle.vue";
 import {useI18n} from "vue-i18n";
+import SearchBar from "@/Components/SearchBar.vue";
 
 const showingNavigationDropdown = ref(false);
 
@@ -93,6 +94,10 @@ onMounted(() => {
                     </div>
                 </div>
 
+<!--                <div class="absolute max-w-7xl mx-auto inset-x-0 top-0 flex justify-center items-center h-16 pointer-events-none">-->
+<!--                    <SearchBar class="mx-auto" />-->
+<!--                </div>-->
+
                 <!-- Responsive Navigation Menu -->
                 <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
                     <div class="border-t border-primary">
@@ -116,7 +121,7 @@ onMounted(() => {
             </header>
 
             <!-- Page Content -->
-            <main class="max-w-7xl mx-auto mt-6 px-4 sm:px-6 lg:px-8">
+            <main class="max-w-7xl mx-auto mt-2 px-4 sm:px-6 lg:px-8">
                 <slot />
             </main>
         </div>

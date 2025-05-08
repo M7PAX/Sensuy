@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Resources\PostResource;
+use App\Models\Comment;
 use App\Models\Community;
 use App\Models\Post;
+use App\Policies\CommentPolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;

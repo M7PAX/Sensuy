@@ -49,6 +49,18 @@ COPY .env.encrypted /var/www/.env.encrypted
 #RUN if [ ! -f /var/www/.env ]; then cp /var/www/.env.example /var/www/.env; fi
 #RUN php artisan key:generate
 
+# Set environment variables for PHP settings
+ENV PHP_UPLOAD_MAX_FILESIZE=20M
+ENV PHP_POST_MAX_SIZE=20M
+
+# Alternatively, you can modify the php.ini settings directly
+RUN { \
+    echo 'upload_max_filesize = '"$PHP_UPLOAD_MAX_FILESIZE"; \
+    echo 'post_max_size = '"$PHP_POST_MAX_SIZE"; \
+} > /usr/local/etc/php/conf.d/uploads.ini
+
+RUN php artisan storage:link
+
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 EXPOSE 8000

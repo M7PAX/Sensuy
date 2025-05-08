@@ -90,17 +90,15 @@ onMounted(() => {
 <!--                            </div>-->
                         </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ms-6 w-full justify-between">
-                            <div></div>
-
-                            <SearchBar class="fl"/>
+                        <div class="hidden sm:flex sm:items-center sm:ms-6 w-full justify-end">
+<!--                            <SearchBar class="mx-auto"/>-->
 
                             <!-- Settings Dropdown -->
                             <div class="ms-3 relative">
                                 <div class="dropdown dropdown-bottom dropdown-hover">
                                     <div tabindex="0" role="button" class="btn btn-ghost m-1">
                                         <div class="avatar mr-2">
-                                            <div class="mask mask-hexagon-2 w-8 bg-accent">
+                                            <div :class="['mask', 'w-8', 'bg-accent', $page.props.auth.user.is_admin ? 'mask-hexagon' : 'mask-hexagon-2']">
                                                 <v-icon v-if="$page.props.auth.user.picture=== null" name="ri-user-3-line" class="w-8 h-8 text-base-100 mt-0.5"/>
                                                 <img v-else :src="`/storage/${$page.props.auth.user.picture}`" alt="Profile Picture"/>
                                             </div>
@@ -188,7 +186,7 @@ onMounted(() => {
             </header>
 
             <!-- Page Content -->
-            <main class="max-w-7xl mx-auto mt-6 px-4 sm:px-6 lg:px-8">
+            <main class="max-w-7xl mx-auto mt-2 px-4 sm:px-6 lg:px-8">
                 <slot />
             </main>
         </div>

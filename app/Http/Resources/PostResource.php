@@ -21,6 +21,7 @@ class PostResource extends JsonResource
             'url' => $this->url,
             'files' => FileResource::collection($this->whenLoaded('files')),
             'username' => $this->user->username,
+            'is_admin' => $this->user->is_admin,
             'user_picture' => $this->user->picture,
             'community' => $this->community->slug,
             'community_picture' => $this->community->picture,

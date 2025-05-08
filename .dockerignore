@@ -5,3 +5,10 @@ Dockerfile
 .gitignore
 .env
 dist
+devenv.lock
+devenv.nix
+.devenv.flake.nix
+devenv.yaml
+.devenv
+tests
+.idea

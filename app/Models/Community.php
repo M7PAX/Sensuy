@@ -46,4 +46,9 @@ class Community extends Model
     {
         return $this->background ? asset('storage/' . $this->background) : null;
     }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers');
+    }
 }
