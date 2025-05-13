@@ -17,9 +17,8 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-
 .devenv*
 devenv.local.nix
-
 .direnv
 /sensuy.tar
+.env.encrypted

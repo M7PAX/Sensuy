@@ -21,7 +21,7 @@ class FileResource extends JsonResource
             'name' => $this->name,
             'mime_type' => $this->mime_type,
             'url' => $this->getUrl(),
-            'formatted_size' => $this->formatted_size,
+            'size' => $this->getFormattedSize(),
         ];
     }
 }

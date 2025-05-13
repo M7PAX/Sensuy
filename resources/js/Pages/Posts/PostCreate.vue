@@ -53,10 +53,10 @@ const FileUpload = (file) => {
                             {{ $t('title') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2 w-full">
                             <input id="title"
                                    type="text"
-                                   class="mt-1 block w-full"
+                                   class="mt-1"
                                    v-model="form.title"
                                    required
                                    autofocus
@@ -72,13 +72,14 @@ const FileUpload = (file) => {
                             {{ $t('description') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
-                            <input id="description"
-                                   type="text"
-                                   class="mt-1 block w-full"
-                                   v-model="form.description"
-                                   autocomplete="description"
-                            />
+                        <label class="flex items-center gap-2">
+                            <textarea id="description"
+                                      type="text"
+                                      rows="3"
+                                      class="textarea textarea-secondary w-full"
+                                      v-model="form.description"
+                                      autocomplete="description">
+                            </textarea>
                         </label>
 
                         <ErrorAlert class="mt-2" :message="form.errors.description"/>
@@ -89,10 +90,10 @@ const FileUpload = (file) => {
                             {{ $t('link') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2 w-full">
                             <input id="url"
                                    type="text"
-                                   class="mt-1 block w-full"
+                                   class="mt-1"
                                    v-model="form.url"
                                    autofocus
                                    autocomplete="url"
@@ -107,10 +108,10 @@ const FileUpload = (file) => {
                             {{ $t('file name') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2 w-full">
                             <input id="file_name"
                                    type="text"
-                                   class="mt-1 block w-full"
+                                   class="mt-1"
                                    v-model="form.file_name"
                                    autofocus
                                    autocomplete="file_name"
@@ -127,7 +128,7 @@ const FileUpload = (file) => {
 
                         <fieldset class="fieldset">
                             <input type="file"
-                                   class="file-input file-input-accent"
+                                   class="file-input file-input-accent w-full"
                                    accept="image/*,video/*,audio/*"
                                    @input="FileUpload($event.target.files[0])"
                             />

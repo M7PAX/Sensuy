@@ -22,19 +22,19 @@ class PostStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'min:5', 'max:100'],
-            'description' => ['nullable', 'min:5', 'max:1000'],
+            'title' => ['required', 'min:5', 'max:50'],
+            'description' => ['nullable', 'max:1000'],
             'url' => ['nullable', 'url'],
             'file' => [
                 'nullable',
                 'file',
                 'max:1048576', // 1GB
                 'mimetypes:' .
-                'image/jpeg,image/png,image/gif,image/webp,' .
+                'image/jpeg,image/png,image/jpg' .
                 'video/mp4,video/webm,video/ogg,' .
                 'audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp3,audio/webm'
             ],
-            'file_name' => ['nullable', 'string', 'min:5', 'max:50'],
+            'file_name' => ['nullable', 'string', 'max:100'],
         ];
     }
 }

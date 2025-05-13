@@ -51,10 +51,10 @@ const submit = () => {
                             {{ $t('name') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2 w-full">
                             <input id="name"
                                    type="text"
-                                   class="mt-1 block w-full"
+                                   class="mt-1"
                                    v-model="form.name"
                                    required
                                    autofocus
@@ -70,13 +70,14 @@ const submit = () => {
                             {{ $t('description') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
-                            <input id="description"
-                                   type="text"
-                                   class="mt-1 block w-full"
-                                   v-model="form.description"
-                                   autocomplete="description"
-                            />
+                        <label class="flex items-center gap-2 w-full">
+                            <textarea id="description"
+                                      type="text"
+                                      rows="3"
+                                      class="textarea textarea-secondary w-full"
+                                      v-model="form.description"
+                                      autocomplete="description">
+                            </textarea>
                         </label>
 
                         <ErrorAlert class="mt-2" :message="form.errors.description"/>
@@ -90,7 +91,7 @@ const submit = () => {
                         <fieldset class="fieldset">
                             <input type="file"
                                 ref="pictureInput"
-                                class="file-input file-input-accent"
+                                class="file-input file-input-accent w-full"
                                 accept="image/*"
                             />
 
@@ -111,7 +112,7 @@ const submit = () => {
                             <input
                                 type="file"
                                 ref="backgroundInput"
-                                class="file-input file-input-accent"
+                                class="file-input file-input-accent w-full"
                                 accept="image/*"
                             />
 

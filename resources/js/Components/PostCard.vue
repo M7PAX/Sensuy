@@ -47,11 +47,11 @@ defineProps({
                 </div>
             </div>
 
-            <h5 class="mb-2 mr-4 text-2xl font-bold tracking-tight">
+            <h5 class="mb-2 mr-4 text-2xl font-bold tracking-tight text-wrap wrap-break-word">
                 {{ post.title }}
             </h5>
 
-            <p class="mb-2 mr-4 font-normal">
+            <p class="mb-2 mr-4 font-normal whitespace-pre-wrap text-wrap wrap-break-word">
                 {{ post.description }}
             </p>
 

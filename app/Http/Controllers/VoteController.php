@@ -30,6 +30,7 @@ class VoteController extends Controller
                 'user_id' => auth()->id(),
                 'vote' => 1
             ]);
+
             $post->increment('votes', 1);
             return redirect()->back();
         }
@@ -58,9 +59,27 @@ class VoteController extends Controller
                 'user_id' => auth()->id(),
                 'vote' => -1
             ]);
+
             $post->decrement('votes', 1);
             return redirect()->back();
         }
+    }
+
+    public function removeVote(Post $post)
+    {
+        $isVoted = PostVotes::where('post_id', $post->id)->where('user_id', auth()->id())->first();
+
+        if (!is_null($isVoted)) {
+            if ($isVoted->vote === 1) {
+                $post->decrement('votes', 1);
+            } elseif ($isVoted->vote === -1) {
+                $post->increment('votes', 1);
+            }
+
+            $isVoted->delete();
+        }
+
+        return redirect()->back();
     }
 
 }

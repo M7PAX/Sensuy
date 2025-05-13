@@ -37,10 +37,10 @@ const submit = () => {
                             {{ $t('title') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2 w-full">
                             <input id="title"
                                    type="text"
-                                   class="mt-1 block w-full"
+                                   class="mt-1"
                                    v-model="form.title"
                                    required
                                    autofocus
@@ -56,13 +56,14 @@ const submit = () => {
                             {{ $t('description') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
-                            <input id="description"
-                                   type="text"
-                                   class="mt-1 block w-full"
-                                   v-model="form.description"
-                                   autocomplete="description"
-                            />
+                        <label class="flex items-center gap-2">
+                            <textarea id="description"
+                                      type="text"
+                                      rows="3"
+                                      class="textarea textarea-secondary w-full"
+                                      v-model="form.description"
+                                      autocomplete="description">
+                            </textarea>
                         </label>
 
                         <ErrorAlert class="mt-2" :message="form.errors.description"/>

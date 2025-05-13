@@ -77,8 +77,11 @@ onMounted(() => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <Logo class="block h-9 w-auto fill-current"/>
+                                <Link href="/" class="flex items-center text-primary hover:text-secondary">
+                                    <Logo class="h-10 w-auto"/>
+                                    <div class="text-2xl ml-2">
+                                        SENSUY
+                                    </div>
                                 </Link>
                             </div>
 
@@ -95,7 +98,7 @@ onMounted(() => {
 
                             <!-- Settings Dropdown -->
                             <div class="ms-3 relative">
-                                <div class="dropdown dropdown-bottom dropdown-hover">
+                                <div class="dropdown dropdown-bottom dropdown-hover dropdown-end">
                                     <div tabindex="0" role="button" class="btn btn-ghost m-1">
                                         <div class="avatar mr-2">
                                             <div :class="['mask', 'w-8', 'bg-accent', $page.props.auth.user.is_admin ? 'mask-hexagon' : 'mask-hexagon-2']">

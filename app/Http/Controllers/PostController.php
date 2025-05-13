@@ -7,7 +7,6 @@ use App\Http\Resources\PostResource;
 use App\Models\Comment;
 use App\Models\Community;
 use App\Models\Post;
-use App\Policies\CommentPolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +14,7 @@ use Inertia\Inertia;
 
 class PostController extends Controller
 {
-    public function show($community, $slug)
+    public function show($community, $post_slug)
     {
         $community = Community::where('slug', $community)->first();
 
@@ -24,7 +23,7 @@ class PostController extends Controller
             'voted' => fn($q) => $q->where('user_id', auth()->id()),
             'files',
             'user'
-        ])->where('slug', $slug)->first();
+        ])->when($post_slug)->first();
 
         $post = new PostResource($community_post);
 

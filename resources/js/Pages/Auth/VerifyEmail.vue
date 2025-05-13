@@ -22,14 +22,15 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
     <GuestLayout>
         <Head :title="$t('email verification')" />
 
-        <div class="mb-4 text-sm">
-            {{ $t('email verification text 1') }}
-        </div>
-        <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400" v-if="verificationLinkSent">
-            {{ $t('email verification text 2') }}
-        </div>
+        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-md rounded-box p-6 bg-base-100 border border-primary">
+            <div class="mb-4 text-sm">
+                {{ $t('email verification text 1') }}
+            </div>
 
-        <form @submit.prevent="submit">
+            <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400" v-if="verificationLinkSent">
+                {{ $t('email verification text 2') }}
+            </div>
+
             <div class="mt-4 flex items-center justify-between">
                 <button class="btn btn-warning uppercase" :disabled="form.processing">
                     {{ $t('resend verification') }}

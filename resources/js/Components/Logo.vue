@@ -6,5 +6,5 @@ addIcons(GiHandheldFan);
 </script>
 
 <template>
-    <v-icon name="gi-handheld-fan" flip="vertical" class="text-primary hover:text-secondary"/>
+    <v-icon name="gi-handheld-fan" flip="vertical"/>
 </template>

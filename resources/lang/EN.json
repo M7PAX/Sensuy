@@ -100,5 +100,9 @@
     "edit comment" : "Edit Comment",
     "edit comment for" : "Edit Comment For Post",
     "followers" : "Followers",
-    "no comments" : "No Comments Found"
+    "no comments" : "No Comments Found",
+    "texts or links" : "Texts or Links",
+    "comment created" : "Comment updated successfully!",
+    "comment deleted" : "Comment updated successfully!",
+    "comment edited" : "Comment updated successfully!"
 }

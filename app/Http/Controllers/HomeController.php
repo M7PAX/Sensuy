@@ -32,8 +32,7 @@ class HomeController extends Controller
                 'community',
                 'voted' => fn($q) => $q->where('user_id', auth()->id()),
                 'files'
-            ])->withCount('comments')->orderByDesc('votes')->paginate(10)
-        );
+        ])->withCount('comments')->orderByDesc('votes')->paginate(10));
 
         return response()->json($posts);
     }

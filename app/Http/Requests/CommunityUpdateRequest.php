@@ -22,7 +22,7 @@ class CommunityUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => ['nullable', 'string', 'min:10', 'max:500'],
+            'description' => ['string', 'min:5', 'max:500'],
             'picture' => ['nullable', 'image', 'max:10240'],
             'background' => ['nullable', 'image', 'max:10240'],
         ];

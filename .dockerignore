@@ -12,3 +12,10 @@ devenv.yaml
 .devenv
 tests
 .idea
+storage/app/public/**
+.env.production
+public/storage/**
+public/build
+sensuy.tar
+.env.example
+.envrc

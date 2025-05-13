@@ -22,8 +22,8 @@ class CommunityStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'unique:communities', 'min:5', 'max:25'],
-            'description' => ['nullable', 'string', 'min:10', 'max:500'],
+            'name' => ['required', 'unique:communities', 'min:2', 'max:25'],
+            'description' => ['string', 'min:5', 'max:500'],
             'picture' => ['nullable', 'image', 'max:10240'],
             'background' => ['nullable', 'image', 'max:10240'],
         ];

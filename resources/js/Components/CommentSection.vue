@@ -44,7 +44,7 @@ const props = defineProps({
                     </div>
                 </div>
 
-                <div class="ml-5">
+                <div class="ml-5 whitespace-pre-wrap text-wrap wrap-break-word">
                     {{ comment.content }}
                 </div>
             </li>

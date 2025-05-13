@@ -1,10 +1,11 @@
 <script setup>
-import { Link, useForm } from "@inertiajs/vue3";
+import {Link, useForm, usePage} from "@inertiajs/vue3";
 import PostVote from "@/Components/PostVote.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
 import {HiDownload, FaShare, HiUserGroup} from "oh-vue-icons/icons";
 import {addIcons} from "oh-vue-icons";
 import CommentSection from "@/Components/CommentSection.vue";
+import {ref} from "vue";
 addIcons(HiDownload, FaShare, HiUserGroup);
 
 const props = defineProps({
@@ -19,9 +20,11 @@ const form = useForm({
     content: ""
 });
 
+let isVisible = ref(false);
+
 const submit = () => {
     form.post(
-        route('comments', [props.community.slug, props.post.data.slug]),{
+        route('comments', [props.post.data.slug]),{
             onSuccess: () => form.reset('content')
         }
     );
@@ -30,6 +33,9 @@ const submit = () => {
 const copyLink = async () => {
     try {
         await navigator.clipboard.writeText(window.location.href);
+
+        isVisible.value = true;
+        setTimeout(() => {isVisible.value = false;}, 2000);
     } catch (err) {
         console.error('Failed to copy link: ', err);
     }
@@ -91,11 +97,11 @@ const copyLink = async () => {
                         </div>
 
                         <div class="p-2">
-                            <h1 class="font-semibold text-3xl">
+                            <h1 class="font-bold text-3xl text-wrap wrap-break-word">
                                 {{ post.data.title }}
                             </h1>
 
-                            <p class="my-2 text-base">
+                            <p class="my-2 text-base whitespace-pre-wrap text-wrap wrap-break-word">
                                 {{ post.data.description }}
                             </p>
 
@@ -123,14 +129,20 @@ const copyLink = async () => {
 
                                     <div class="mt-2 flex justify-between">
                                         <div class="text-sm text-base-content/70">
-                                            {{ file.formatted_size }}
+                                            {{ file.size }}
                                         </div>
 
-                                        <div>
-                                            <a :href="route('download', file.id)" class="btn btn-circle mr-2 hover:text-success">
-                                                <v-icon name="hi-download"/>
-                                            </a>
+                                        <div class="text-sm text-base-content/70">
+                                            {{ file.name }}
+                                        </div>
+                                    </div>
 
+                                    <div class="mt-2 flex justify-end">
+                                        <a :href="route('download', file.id)" class="btn btn-circle mr-2 hover:text-success">
+                                            <v-icon name="hi-download"/>
+                                        </a>
+
+                                        <div :class="{ 'tooltip tooltip-open': isVisible}" data-tip="Link copied!">
                                             <button class="btn btn-circle hover:text-info" @click="copyLink">
                                                 <v-icon name="fa-share"/>
                                             </button>
@@ -138,10 +150,13 @@ const copyLink = async () => {
                                     </div>
                                 </div>
                             </div>
+
                             <div v-else class="flex justify-end">
-                                <button class="btn btn-circle hover:text-info" @click="copyLink">
-                                    <v-icon name="fa-share"/>
-                                </button>
+                                <div :class="{ 'tooltip tooltip-open': isVisible}" data-tip="Link copied!">
+                                    <button class="btn btn-circle hover:text-info" @click="copyLink">
+                                        <v-icon name="fa-share"/>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -155,12 +170,12 @@ const copyLink = async () => {
 <!--            </div>-->
 
             <div class="w-full md:w-8/12 my-5">
-                <div v-if="$page.props.auth.auth_check" class="ml-3">
-                    <form class="max-w-md" @submit.prevent="submit">
+                <div v-if="$page.props.auth.auth_check" class="mx-3">
+                    <form class="" @submit.prevent="submit">
                         <div class="flex items-end">
                             <div class="flex-grow">
-                                <textarea v-model="form.content" id="comment" rows="3"  :placeholder="$t('your comment')+'...'"
-                                          class="block p-2 w-full text-sm rounded-selector bg-base-300 resize-none border border-accent shadow-md shadow-accent">
+                                <textarea v-model="form.content" id="comment" rows="5" :placeholder="$t('your comment')+'...'"
+                                          class="p-2 w-full text-sm textarea textarea-accent rounded-selector bg-base-300 shadow-md shadow-accent">
                                 </textarea>
                             </div>
 

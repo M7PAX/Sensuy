@@ -25,14 +25,15 @@ const submit = () => {
     <GuestLayout>
         <Head :title="$t('forgot password')" />
 
-        <div class="mb-4 text-sm">
-            {{ $t('forgot password text') }}
-        </div>
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ status }}
-        </div>
+        <form @submit.prevent="submit" class="max-w-md mx-auto shadow-md rounded-box p-6 bg-base-100 border border-primary">
+            <div class="mb-4 text-sm">
+                {{ $t('forgot password text') }}
+            </div>
 
-        <form @submit.prevent="submit">
+            <div v-if="status" class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
+                {{ status }}
+            </div>
+
             <div>
                 <label class="block font-medium text-sm" for="email">
                     {{ $t('email') }}

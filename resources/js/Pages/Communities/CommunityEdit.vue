@@ -52,13 +52,14 @@ const submit = () => {
                             {{ $t('description') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
-                            <input id="description"
-                                   type="text"
-                                   class="mt-1 block w-full"
-                                   v-model="form.description"
-                                   autocomplete="description"
-                            />
+                        <label class="flex items-center gap-2 w-full">
+                            <textarea id="description"
+                                      type="text"
+                                      rows="3"
+                                      class="textarea textarea-secondary w-full"
+                                      v-model="form.description"
+                                      autocomplete="description">
+                            </textarea>
                         </label>
 
                         <ErrorAlert class="mt-2" :message="form.errors.description"/>
@@ -72,7 +73,7 @@ const submit = () => {
                         <fieldset class="fieldset">
                             <input type="file"
                                 ref="pictureInput"
-                                class="file-input file-input-accent"
+                                class="file-input file-input-accent w-full"
                                 accept="image/*"
                                 @input="form.picture = $event.target.files[0]"
                             />
@@ -101,7 +102,7 @@ const submit = () => {
                         <fieldset class="fieldset">
                             <input type="file"
                                 ref="backgroundInput"
-                                class="file-input file-input-accent"
+                                class="file-input file-input-accent w-full"
                                 accept="image/*"
                                 @input="form.background = $event.target.files[0]"
                             />
@@ -116,7 +117,7 @@ const submit = () => {
                                 {{ $t('current background') }}
                             </label>
 
-                            <img :src="`/storage/${community.background}`" alt="Current background" class="w-48 h-24 object-cover rounded">
+                            <img :src="`/storage/${community.background}`" alt="Current background" class="w-120 h-8 object-cover rounded">
                         </div>
 
                         <ErrorAlert class="mt-2" :message="form.errors.background"/>

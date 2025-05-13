@@ -1,10 +1,11 @@
 <script setup>
-import {Link, router} from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
 import PostCard from "@/Components/PostCard.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
 import { HiUserGroup } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
-import {ref, onMounted, watch, computed} from "vue";
+import { ref, onMounted, watch, computed } from "vue";
+import { useScroll } from "@vueuse/core";
 addIcons(HiUserGroup);
 
 const props = defineProps({
@@ -15,12 +16,28 @@ const props = defineProps({
     followers: Number,
 });
 
-const form = ref({
-    processing: false,
-});
-
 const titleRef = ref(null);
-const selectedTab = ref('all');
+const selectedTab = ref("all");
+
+const posts = ref(new Map());
+let page = ref(0);
+const Newposts = ref(props.followers);
+
+const follow = () => {
+    router.post(route('communities.follow', props.community.slug), {
+        onSuccess: () => {
+            props.isFollowing = true;
+        },
+    });
+};
+
+const unfollow = () => {
+    router.delete(route('communities.unfollow', props.community.slug), {
+        onSuccess: () => {
+            props.isFollowing = false;
+        },
+    });
+};
 
 const textInverter = async () => {
     if (!titleRef.value || !props.community?.background) return;
@@ -49,13 +66,13 @@ const textInverter = async () => {
 };
 
 const filteredPosts = computed(() => {
-    const { posts } = props;
+    const postsArray = Array.from(posts.value.values());
 
     if (selectedTab.value === 'all') {
-        return posts.data;
+        return postsArray;
     }
 
-    return posts.data.filter(post => {
+    return postsArray.filter(post => {
         if (selectedTab.value === 'text') {
             return (
                 post.files.length === 0 || !post.files.some(file =>
@@ -68,32 +85,29 @@ const filteredPosts = computed(() => {
     });
 });
 
-const follow = () => {
-    router.post(route('communities.follow', props.community.slug), {
-        onSuccess: () => {
-            props.isFollowing = true;
-        },
-    });
+const onLoadMore = async () => {
+    const response = await fetch(route("load-community-posts", { slug: props.community.slug }) + `?page=${page.value+1}`);
+    const newPosts = await response.json();
+
+    newPosts.forEach((post) => posts.value.set(post.id,post));
+    page.value = page.value + 1;
 };
 
-const unfollow = () => {
-    router.delete(route('communities.unfollow', props.community.slug), {
-        onSuccess: () => {
-            props.isFollowing = false;
-        },
-    });
-};
+const { arrivedState } = useScroll(document, {
+    throttle: 100,
+    behavior: "smooth",
+});
 
 onMounted(() => {
     textInverter();
+    onLoadMore();
 });
 
-watch(
-    () => props.community?.background,
-    () => {
-        textInverter();
-    }
-);
+watch(arrivedState, (state) => state.bottom && onLoadMore());
+
+watch(() => props.community?.background, () => {
+    textInverter();
+});
 </script>
 
 <template>
@@ -146,7 +160,7 @@ watch(
                         {{ $t('about') }} {{ community.name }}
                     </h2>
 
-                    <p class="p-4 rounded-b-xl">
+                    <p class="p-4 rounded-selector whitespace-pre-wrap text-wrap wrap-break-word">
                         {{ community.description }}
                     </p>
                 </div>
@@ -167,7 +181,7 @@ watch(
                     <input type="radio" name="radio1" class="tab" :aria-label="$t('images')" value="image" v-model="selectedTab"/>
                     <input type="radio" name="radio1" class="tab" :aria-label="$t('videos')" value="video" v-model="selectedTab"/>
                     <input type="radio" name="radio1" class="tab" :aria-label="$t('audios')" value="audio" v-model="selectedTab"/>
-                    <input type="radio" name="radio1" class="tab" :aria-label="$t('texts')" value="text" v-model="selectedTab"/>
+                    <input type="radio" name="radio1" class="tab" :aria-label="$t('texts or links')" value="text" v-model="selectedTab"/>
                 </div>
 
                 <PostCard v-if="filteredPosts.length" v-for="post in filteredPosts" :post="post" :community="community.slug" :key="post.id"/>

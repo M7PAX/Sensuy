@@ -37,14 +37,9 @@ class File extends Model
         return explode('/', $this->mime_type)[0];
     }
 
-    public function getSize()
-    {
-        return Storage::exists($this->path) ? Storage::size($this->path) : 0;
-    }
-
     public function getFormattedSize()
     {
-        $bytes = $this->size;
+        $bytes = Storage::exists($this->path) ? Storage::size($this->path) : 0;
         if ($bytes >= 1073741824) {
             return number_format($bytes / 1073741824, 2) . ' GB';
         } elseif ($bytes >= 1048576) {

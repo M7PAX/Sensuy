@@ -12,19 +12,21 @@ use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::get('/s/{community:slug}', [CommunityController::class, 'show'])->name('communities');
+Route::get('/s/{community}', [CommunityController::class, 'show'])->name('communities');
 Route::get('/s/{community}/{post:slug}', [PostController::class, 'show'])->name('posts');
 Route::post('/s/{community}/{post:slug}/comments', [CommentController::class, 'store'])->name('comments');
 Route::get('/download/{file}', [FileController::class, 'download'])->name('download');
+
 Route::get('/load-posts', [HomeController::class, 'loadMore'])->name('load-posts');
+Route::get('/{community:slug}/load-posts', [CommunityController::class, 'loadMore'])->name('load-community-posts');
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::post('/communities/{community:slug}/update', [CommunityController::class, 'update'])->name('communities.update');
+    Route::post('/communities/create', [CommunityController::class, 'store'])->name('communities.store');
+
     Route::resource('/communities', CommunityController::class)->except(['update', 'store']);
     Route::resource('/communities.posts', PostController::class);
     Route::resource('/communities.posts.comments', CommentController::class)->except(['show', 'create', 'index']);
-
-    Route::post('/communities/{community:slug}', [CommunityController::class, 'update'])->name('communities.update');
-    Route::post('/communities/create', [CommunityController::class, 'store'])->name('communities.store');
 });
 
 Route::middleware('auth')->group(function () {
@@ -36,6 +38,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/{post:slug}/upVote', [VoteController::class, 'upVote'])->name('posts.upVote');
     Route::post('/{post:slug}/downVote', [VoteController::class, 'downVote'])->name('posts.downVote');
+    Route::post('/{post:slug}/removeVote', [VoteController::class, 'removeVote'])->name('posts.removeVote');
 
     Route::post('/s/{community:slug}/follow', [FollowController::class, 'follow'])->name('communities.follow');
     Route::delete('/s/{community:slug}/unfollow', [FollowController::class, 'unfollow'])->name('communities.unfollow');

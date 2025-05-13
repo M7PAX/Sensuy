@@ -11,24 +11,18 @@ use Inertia\Inertia;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, $community_slug, $post_slug)
+    public function store(Request $request, Post $post)
     {
         $validated = $request->validate([
             'content' => 'required|string|max:1000|min:5',
         ]);
-
-        $community = Community::where('slug', $community_slug)->firstOrFail();
-
-        $post = Post::where('slug', $post_slug)
-            ->where('community_id', $community->id)
-            ->firstOrFail();
 
         $post->comments()->create([
             'user_id' => auth()->id(),
             'content' => $validated['content'],
         ]);
 
-        return back();
+        return back()->with('message', __('comment created'));
     }
 
     public function edit(Community $community, Post $post, Comment $comment)
@@ -47,7 +41,7 @@ class CommentController extends Controller
 
         $comment->update($validated);
 
-        return redirect()->route('posts', [$community_slug, $post_slug]);
+        return redirect()->route('posts', [$community_slug, $post_slug])->with('message', __('comment updated'));
     }
 
     public function destroy($community_slug, $post_slug, Comment $comment)
@@ -56,6 +50,6 @@ class CommentController extends Controller
 
         $comment->delete();
 
-        return back();
+        return back()->with('message', __('comment deleted'));
     }
 }

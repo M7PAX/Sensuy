@@ -38,8 +38,11 @@ onMounted(() => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <Logo class="block h-9 w-auto fill-current"/>
+                                <Link href="/" class="flex items-center text-primary hover:text-secondary">
+                                    <Logo class="h-10 w-auto"/>
+                                    <div class="text-2xl ml-2">
+                                        SENSUY
+                                    </div>
                                 </Link>
                             </div>
 
@@ -60,11 +63,13 @@ onMounted(() => {
 
                             <ThemeToggle class="mx-5"/>
 
-                            <Link :href="route('login')" class="btn btn-soft btn-secondary btn-sm mr-4 uppercase">
+                            <Link :href="route('login')" :class="['btn', 'btn-sm', 'mr-4', 'uppercase',
+                                route().current('login') ? 'btn-secondary' : ['btn-soft', 'btn-secondary'] ]">
                                 {{ $t('login') }}
                             </Link>
 
-                            <Link :href="route('register')" class="btn btn-soft btn-secondary btn-sm uppercase">
+                            <Link :href="route('register')" :class="['btn', 'btn-sm', 'mr-4', 'uppercase',
+                                route().current('register') ? 'btn-secondary' : ['btn-soft', 'btn-secondary'] ]">
                                 {{ $t('register') }}
                             </Link>
                         </div>

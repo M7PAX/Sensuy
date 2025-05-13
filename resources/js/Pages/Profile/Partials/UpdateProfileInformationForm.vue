@@ -61,12 +61,12 @@ const handleFileInput = (event) => {
                             {{ $t('username') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2 w-96">
                             <v-icon name="ri-user-3-line" class="h-4 w-4 text-secondary"/>
 
                             <input id="name"
                                    type="text"
-                                   class="mt-1 block w-full"
+                                   class="mt-1"
                                    v-model="form.username"
                                    required
                                    autofocus
@@ -82,11 +82,11 @@ const handleFileInput = (event) => {
                             {{ $t('email') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
+                        <label class="input input-secondary flex items-center gap-2 w-96">
                             <v-icon name="hi-mail" class="h-4 w-4 text-secondary"/>
                             <input id="email"
                                    type="email"
-                                   class="mt-1 block w-full"
+                                   class="mt-1"
                                    v-model="form.email"
                                    required
                                    autocomplete="email"

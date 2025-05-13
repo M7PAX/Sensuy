@@ -44,11 +44,11 @@ const submit = () => {
                     {{ $t('email') }}
                 </label>
 
-                <label class="input input-secondary flex items-center gap-2">
+                <label class="input input-secondary flex items-center gap-2 w-full">
                     <v-icon name="hi-mail" class="h-4 w-4 text-secondary"/>
                     <input id="email"
                            type="email"
-                           class="mt-1 w-full grow"
+                           class="mt-1"
                            v-model="form.email"
                            required
                            autocomplete="username"
@@ -63,13 +63,13 @@ const submit = () => {
                     {{ $t('password') }}
                 </label>
 
-                <label class="input input-secondary flex items-center gap-2">
+                <label class="input input-secondary flex items-center gap-2 w-full">
                     <v-icon name="md-key" class="h-4 w-4 text-secondary"/>
                     <input id="password"
                            required
                            v-model="form.password"
                            type="password"
-                           class="mt-1 w-full grow"
+                           class="mt-1"
                            autocomplete="current-password"
                     />
                 </label>

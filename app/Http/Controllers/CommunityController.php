@@ -6,6 +6,7 @@ use App\Http\Requests\CommunityStoreRequest;
 use App\Http\Requests\CommunityUpdateRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Community;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -32,7 +33,7 @@ class CommunityController extends Controller
 
     public function store(CommunityStoreRequest $request)
     {
-        $data = $request->validated() + ['user_id' => Auth::user()->id];
+        $data = array_merge($request->validated(), ['user_id' => Auth::id()]);
         $community = Community::create($data);
 
         if ($request->hasFile('picture')) {
@@ -48,10 +49,8 @@ class CommunityController extends Controller
         return to_route('communities.index')->with('message', __('community created'));
     }
 
-    public function show($slug)
+    public function show(Community $community)
     {
-        $community = Community::where('slug', $slug)->firstOrFail();
-
         $isFollowing = auth()->check() ? auth()->user()->communities()->where('community_id', $community->id)->exists() : false;
 
         $posts = PostResource::collection($community->posts()->with([
@@ -71,6 +70,20 @@ class CommunityController extends Controller
             'can_delete' => $can_delete,
             'followers' => $followers,
         ]);
+    }
+
+    public function loadMore(Community $community)
+    {
+        $posts = $community->posts()->with([
+            'user',
+            'voted' => fn($q) => $q->where('user_id', auth()->id()),
+            'files'
+        ])->withCount('comments')->orderBy('created_at', 'desc')->paginate(10);
+
+        // Debugging: Log the posts
+        \Log::info('Loaded posts:', $posts->toArray());
+
+        return response()->json(PostResource::collection($posts));
     }
 
     public function edit(Community $community)

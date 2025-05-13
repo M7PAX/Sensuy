@@ -51,14 +51,14 @@ const updatePassword = () => {
                     {{ $t('current password') }}
                 </label>
 
-                <label class="input input-secondary flex items-center gap-2">
+                <label class="input input-secondary flex items-center gap-2 w-96">
                     <v-icon name="md-key" class="h-4 w-4 text-secondary"/>
 
                     <input id="current_password"
                            ref="currentPasswordInput"
                            v-model="form.current_password"
                            type="password"
-                           class="mt-1 block w-full"
+                           class="mt-1"
                            autocomplete="current-password"
                     />
                 </label>
@@ -71,14 +71,14 @@ const updatePassword = () => {
                     {{ $t('new password') }}
                 </label>
 
-                <label class="input input-secondary flex items-center gap-2">
+                <label class="input input-secondary flex items-center gap-2 w-96">
                     <v-icon name="md-key" class="h-4 w-4 text-secondary"/>
 
                     <input id="password"
                            ref="passwordInput"
                            v-model="form.password"
                            type="password"
-                           class="mt-1 block w-full"
+                           class="mt-1"
                            autocomplete="new-password"
                     />
                 </label>
@@ -91,13 +91,13 @@ const updatePassword = () => {
                     {{ $t('confirm password') }}
                 </label>
 
-                <label class="input input-secondary flex items-center gap-2">
+                <label class="input input-secondary flex items-center gap-2 w-96">
                     <v-icon name="md-key" class="h-4 w-4 text-secondary"/>
 
                     <input id="password_confirmation"
                            v-model="form.password_confirmation"
                            type="password"
-                           class="mt-1 block w-full"
+                           class="mt-1"
                            autocomplete="new-password"
                     />
                 </label>
