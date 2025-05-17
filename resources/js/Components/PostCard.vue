@@ -7,26 +7,25 @@ addIcons(RiUser3Line, HiUserGroup);
 
 defineProps({
     post: Object,
-    community: String,
 });
 </script>
 
 <template>
-    <Link :href="route('posts', [community, post.slug])" class="mt-4 max-w-4xl flex shadow-md bg-base-100 border border-primary rounded-box">
+    <Link :href="route('posts', [post.community_slug, post.slug])" class="mt-4 max-w-4xl flex shadow-md bg-base-100 border border-primary rounded-box">
         <div class="mr-3">
             <PostVote :post="post"/>
         </div>
 
         <div class="w-full">
             <div class="flex mt-4 mb-2 text-sm mr-4">
-                <Link :href="route('communities',community)" class="font-semibold hover:text-secondary group">
+                <Link :href="route('communities', post.community_slug)" class="font-semibold hover:text-secondary group">
                     <div class="avatar mr-2">
                         <div class="mask mask-heart w-8 bg-primary group-hover:bg-secondary">
                             <v-icon v-if="post.community_picture === null" name="hi-user-group" class="w-8 h-8 text-base-100 mt-1"/>
                             <img v-else :src="`/storage/${post.community_picture}`" alt="Community Picture"/>
                         </div>
                     </div>
-                    {{ community }}
+                    {{ post.community_name }}
                 </Link>
 
                 <span class="ml-5 text-base-content/50 my-auto">

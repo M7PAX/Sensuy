@@ -13,6 +13,7 @@
         "laravel/pail": "^1.2",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "orchid/platform": "^14.52",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {

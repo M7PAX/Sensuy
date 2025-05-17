@@ -54,7 +54,7 @@ watch(arrivedState, (state) => state.bottom && onLoadMore())
     <LayoutPicker>
         <section class="pb-5 flex flex-col md:flex-row">
             <div class="md:w-8/12 w-full">
-                <PostCard v-for="post in posts.values()" :key="post.id" :post="post" :community="post.community"/>
+                <PostCard v-for="post in posts.values()" :key="post.id" :post="post"/>
 
                 <div class="w-full flex my-5">
                     <span class="loading loading-infinity text-info mx-auto w-12"></span>

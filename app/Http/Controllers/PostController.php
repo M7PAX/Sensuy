@@ -14,16 +14,16 @@ use Inertia\Inertia;
 
 class PostController extends Controller
 {
-    public function show($community, $post_slug)
+    public function show($community_slug, $post_slug)
     {
-        $community = Community::where('slug', $community)->first();
+        $community = Community::where('slug', $community_slug)->first();
 
         $community_post = Post::with([
             'comments',
             'voted' => fn($q) => $q->where('user_id', auth()->id()),
             'files',
             'user'
-        ])->when($post_slug)->first();
+        ])->where('slug', $post_slug)->first();
 
         $post = new PostResource($community_post);
 
