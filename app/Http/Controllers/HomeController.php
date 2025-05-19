@@ -6,6 +6,7 @@ use App\Http\Resources\CommunityResource;
 use App\Http\Resources\PostResource;
 use App\Models\Community;
 use App\Models\Post;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -13,27 +14,78 @@ class HomeController extends Controller
     public function home()
     {
         $posts = PostResource::collection(Post::with([
-                'user',
-                'community',
-                'voted' => fn($q) => $q->where('user_id', auth()->id()),
-                'files'
-            ])->withCount('comments')->orderByDesc('votes')->paginate(10)
-        );
+            'user',
+            'community',
+            'voted' => fn($q) => $q->where('user_id', auth()->id()),
+            'files'
+        ])->withCount('comments')->orderByDesc('votes')->paginate(10));
 
-        $communities = CommunityResource::collection(Community::withCount('posts')->orderByDesc('posts_count')->take(5)->get());
+        $communities = CommunityResource::collection(Community::withCount('posts')->orderByDesc('created_at')->take(10)->get());
 
         return Inertia::render('Home', ['communities' => $communities, 'posts' => $posts]);
     }
 
-    public function loadMore()
+    public function sortCommunities(Request $request)
     {
-        $posts = PostResource::collection(Post::with([
-                'user',
-                'community',
-                'voted' => fn($q) => $q->where('user_id', auth()->id()),
-                'files'
-        ])->withCount('comments')->orderByDesc('votes')->paginate(10));
+        $sortOption = $request->query('sort', 'New');
 
-        return response()->json($posts);
+        $query = Community::withCount('posts', 'followers');
+
+        switch ($sortOption) {
+            case 'Old':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'Most Posts':
+                $query->orderBy('posts_count', 'desc');
+                break;
+            case 'Least Posts':
+                $query->orderBy('posts_count', 'asc');
+                break;
+            case 'Most Followers':
+                $query->orderBy('followers_count', 'desc');
+                break;
+            case 'Least Followers':
+                $query->orderBy('followers_count', 'asc');
+                break;
+            default:
+                $query->orderBy('created_at', 'desc');
+                break;
+        }
+
+        $communities = $query->take(10)->get();
+
+        return response()->json(CommunityResource::collection($communities));
+    }
+
+    public function loadPosts(Request $request)
+    {
+        $sort = $request->input('sort', 'New');
+        $page = $request->input('page', 1);
+
+        $query = Post::with([
+            'user',
+            'community',
+            'voted' => fn($q) => $q->where('user_id', auth()->id()),
+            'files'
+        ])->withCount('comments');
+
+        switch ($sort) {
+            case 'Old':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'Most Ups':
+                $query->orderBy('votes', 'desc');
+                break;
+            case 'Most Downs':
+                $query->orderBy('votes', 'asc');
+                break;
+            default: // 'New'
+                $query->orderBy('created_at', 'desc');
+                break;
+        }
+
+        $posts = $query->paginate(10, ['*'], 'page', $page);
+
+        return response()->json(PostResource::collection($posts));
     }
 }

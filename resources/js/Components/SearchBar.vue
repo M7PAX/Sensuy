@@ -27,14 +27,6 @@ const { results } = useFuse(input, data)
             </div>
         </div>
 
-        <select class="select join-item w-fit select-secondary">
-            <option selected>{{ $t('all') }}</option>
-            <option>{{ $t('images') }}</option>
-            <option>{{ $t('videos') }}</option>
-            <option>{{ $t('audios') }}</option>
-            <option>{{ $t('texts') }}</option>
-        </select>
-
         <div class="indicator">
             <button class="btn join-item btn-secondary">
                 <v-icon name="io-search"/>

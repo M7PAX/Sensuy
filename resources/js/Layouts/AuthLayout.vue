@@ -93,7 +93,7 @@ onMounted(() => {
 <!--                            </div>-->
                         </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ms-6 w-full justify-end">
+                        <div class="hidden sm:flex sm:items-center w-full justify-end">
 <!--                            <SearchBar class="mx-auto"/>-->
 
                             <!-- Settings Dropdown -->
@@ -103,7 +103,7 @@ onMounted(() => {
                                         <div class="avatar mr-2">
                                             <div :class="['mask', 'w-8', 'bg-accent', $page.props.auth.user.is_admin ? 'mask-hexagon' : 'mask-hexagon-2']">
                                                 <v-icon v-if="$page.props.auth.user.picture=== null" name="ri-user-3-line" class="w-8 h-8 text-base-100 mt-0.5"/>
-                                                <img v-else :src="`/storage/${$page.props.auth.user.picture}`" alt="Profile Picture"/>
+                                                <img v-else :src="`/storage/${$page.props.auth.user.picture}`"/>
                                             </div>
                                         </div>
 

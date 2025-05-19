@@ -30,7 +30,7 @@ class PostStoreRequest extends FormRequest
                 'file',
                 'max:1048576', // 1GB
                 'mimetypes:' .
-                'image/jpeg,image/png,image/jpg' .
+                'image/jpeg,image/png,image/jpg,' .
                 'video/mp4,video/webm,video/ogg,' .
                 'audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp3,audio/webm'
             ],

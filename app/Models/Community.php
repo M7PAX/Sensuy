@@ -28,13 +28,18 @@ class Community extends Model
         ];
     }
 
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers');
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';
-    }
-
-    public function posts(){
-        return $this->hasMany(Post::class);
     }
 
     public function getPictureUrlAttribute()
@@ -45,10 +50,5 @@ class Community extends Model
     public function getBackgroundUrlAttribute()
     {
         return $this->background ? asset('storage/' . $this->background) : null;
-    }
-
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'followers');
     }
 }

@@ -102,8 +102,8 @@ const handleFileInput = (event) => {
                         <label for="picture" class=" w-42 h-42">
                             <div class="avatar">
                                 <div :class="['mask', 'bg-accent', user.is_admin ? 'mask-hexagon' : 'mask-hexagon-2']">
-                                    <img v-if="previewImage" :src="previewImage" alt="Preview" class="w-40 h-40 mt-1 object-cover"/>
-                                    <img v-else-if="user.picture" :src="`/storage/${user.picture}`" alt="Current profile picture" class="w-40 h-40 object-cover"/>
+                                    <img v-if="previewImage" :src="previewImage" class="w-40 h-40 mt-1 object-cover"/>
+                                    <img v-else-if="user.picture" :src="`/storage/${user.picture}`" class="w-40 h-40 object-cover"/>
                                     <v-icon v-else name="ri-user-3-line" class="w-40 h-40 mt-1 text-base-100"/>
                                 </div>
                             </div>

@@ -3,8 +3,11 @@ import PostCard from "@/Components/PostCard.vue";
 import CommunityList from "@/Components/CommunityList.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
 import { Head } from "@inertiajs/vue3";
-import { onMounted, ref, watch } from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import { useScroll } from "@vueuse/core";
+import { BiCaretDown } from "oh-vue-icons/icons";
+import { addIcons } from "oh-vue-icons";
+addIcons(BiCaretDown);
 
 const props = defineProps({
     communities: Object,
@@ -14,22 +17,45 @@ const props = defineProps({
 const posts = ref(new Map());
 let page = ref(0);
 
-async function onLoadMore() {
-    const response = await fetch(route("load-posts", {page: page.value+1}));
-    console.log(route("load-posts", {page: page.value+1}));
+async function loadPosts() {
+    const response = await fetch(route("load-posts", { page: page.value + 1, sort: selected.value }));
     const newPosts = await response.json();
 
-    newPosts.forEach((post) => posts.value.set(post.id,post));
+    newPosts.forEach((post) => posts.value.set(post.id, post));
     page.value = page.value + 1;
+}
+
+const selected = ref('New');
+const options = ref([
+    { value: 'New', label: 'New' },
+    { value: 'Old', label: 'Old' },
+    { value: 'Most Ups', label: 'Most Ups' },
+    { value: 'Most Downs', label: 'Most Downs' },
+]);
+
+const selectedLabel = computed(() => {
+    const opt = options.value.find(o => o.value === selected.value);
+    return opt ? opt.label : 'New';
+});
+
+function selectOption(option) {
+    selected.value = option.value;
+    document.activeElement?.blur();
 }
 
 const { arrivedState } = useScroll(document, {
     throttle: 100,
-    behavior: 'smooth'
-})
+    behavior: 'smooth',
+});
 
-onMounted(() => onLoadMore())
-watch(arrivedState, (state) => state.bottom && onLoadMore())
+onMounted(() => loadPosts());
+
+watch(arrivedState, (state) => state.bottom && loadPosts());
+watch(selected, () => {
+    posts.value.clear();
+    page.value = 0;
+    loadPosts();
+});
 
 </script>
 
@@ -54,17 +80,32 @@ watch(arrivedState, (state) => state.bottom && onLoadMore())
     <LayoutPicker>
         <section class="pb-5 flex flex-col md:flex-row">
             <div class="md:w-8/12 w-full">
+                <div class="dropdown dropdown-start" ref="dropdownRef">
+                    <div tabindex="0" class="btn btn-secondary mt-4 justify-between w-40">
+                        {{ selectedLabel }}
+                        <v-icon name="bi-caret-down"/>
+                    </div>
+
+                    <ul tabindex="0" class="dropdown-content menu bg-secondary rounded-box z-10 w-40 p-2 shadow-sm">
+                        <li v-for="option in options" :key="option.value">
+                            <button @click="selectOption(option)" class="w-full text-left">
+                                {{ option.label }}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
                 <PostCard v-for="post in posts.values()" :key="post.id" :post="post"/>
 
-                <div class="w-full flex my-5">
-                    <span class="loading loading-infinity text-info mx-auto w-12"></span>
-                </div>
+<!--                <div class="w-full flex my-5">-->
+<!--                    <span class="loading loading-infinity text-info mx-auto w-12"></span>-->
+<!--                </div>-->
             </div>
 
             <div class="md:w-4/12 w-full p-4">
                 <CommunityList :communities="communities.data">
                     <template #title>
-                        {{ $t('top communities') }}
+                        {{ $t('communities') }}
                     </template>
                 </CommunityList>
             </div>

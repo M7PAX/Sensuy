@@ -17,8 +17,10 @@ Route::get('/s/{community}/{post:slug}', [PostController::class, 'show'])->name(
 Route::post('/s/{community}/{post:slug}/comments', [CommentController::class, 'store'])->name('comments');
 Route::get('/download/{file}', [FileController::class, 'download'])->name('download');
 
-Route::get('/load-posts', [HomeController::class, 'loadMore'])->name('load-posts');
-Route::get('/{community:slug}/load-posts', [CommunityController::class, 'loadMore'])->name('load-community-posts');
+Route::get('/sort', [HomeController::class, 'sortCommunities'])->name('sort-communities');
+
+Route::get('/load-posts', [HomeController::class, 'loadPosts'])->name('load-posts');
+Route::get('/load-posts/{community:slug}', [CommunityController::class, 'loadMore'])->name('load-community-posts');
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/communities/{community:slug}/update', [CommunityController::class, 'update'])->name('communities.update');

@@ -45,7 +45,7 @@ const props = defineProps({
                                     <div class="avatar mr-2">
                                         <div class="mask mask-heart w-12 bg-primary group-hover:bg-secondary">
                                             <v-icon v-if="community.picture === null" name="hi-user-group" class="w-12 h-12 text-base-100 mt-1"/>
-                                            <img v-else :src="`/storage/${community.picture}`" alt="Community Picture"/>
+                                            <img v-else :src="`/storage/${community.picture}`"/>
                                         </div>
                                     </div>
                                     <div class="font-bold">

@@ -120,7 +120,7 @@ watch(() => props.community?.background, () => {
                     <div class="avatar mr-2">
                         <div :class="['mask', 'mask-heart', 'w-10', {'bg-primary': community.picture === null}, {'backdrop-invert': community.picture !== null}]">
                             <v-icon v-if="community.picture === null" name="hi-user-group" class="w-10 h-10 text-base-100 mt-1"/>
-                            <img v-else class="w-10 h-10" :src="`/storage/${community.picture}`" alt="Community Icon"/>
+                            <img v-else class="w-10 h-10" :src="`/storage/${community.picture}`"/>
                         </div>
                     </div>
 

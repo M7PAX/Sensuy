@@ -51,7 +51,7 @@ const copyLink = async () => {
                     <div class="avatar mr-2">
                         <div class="mask mask-heart w-10 bg-primary group-hover:bg-secondary">
                             <v-icon v-if="community.picture === null" name="hi-user-group" class="w-10 h-10 text-base-100 mt-1"/>
-                            <img v-else :src="`/storage/${community.picture}`" alt="Community Picture"/>
+                            <img v-else :src="`/storage/${community.picture}`"/>
                         </div>
                     </div>
                     s/{{ community.name }}
@@ -72,7 +72,7 @@ const copyLink = async () => {
                                 <div class="avatar mr-2">
                                     <div class="mask mask-hexagon-2 w-8 bg-accent">
                                         <v-icon v-if="post.data.user_picture === null" name="ri-user-3-line" class="w-8 h-8 text-base-100 mt-0.5"/>
-                                        <img v-else :src="`/storage/${post.data.user_picture}`" alt="Profile Picture"/>
+                                        <img v-else :src="`/storage/${post.data.user_picture}`"/>
                                     </div>
                                 </div>
 
@@ -81,7 +81,11 @@ const copyLink = async () => {
                                 </span>
 
                                 <span class="text-base-content/50 ml-5">
-                                    {{ post.data.created_at }}
+                                    {{ post.data.created_at_hum }}
+                                </span>
+
+                                <span v-if="post.data.created_at !== post.data.updated_at" class="text-sm text-base-content/50 font-normal ml-1">
+                                    ({{ $t('edited') }})
                                 </span>
                             </div>
 
@@ -105,7 +109,7 @@ const copyLink = async () => {
                                 {{ post.data.description }}
                             </p>
 
-                            <a :href="post.data.url" class="btn-link hover:text-accent">
+                            <a :href="post.data.url" class="link link-secondary">
                                 {{ post.data.url }}
                             </a>
 

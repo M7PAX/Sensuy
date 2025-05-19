@@ -22,21 +22,21 @@ defineProps({
                     <div class="avatar mr-2">
                         <div class="mask mask-heart w-8 bg-primary group-hover:bg-secondary">
                             <v-icon v-if="post.community_picture === null" name="hi-user-group" class="w-8 h-8 text-base-100 mt-1"/>
-                            <img v-else :src="`/storage/${post.community_picture}`" alt="Community Picture"/>
+                            <img v-else :src="`/storage/${post.community_picture}`"/>
                         </div>
                     </div>
                     {{ post.community_name }}
                 </Link>
 
                 <span class="ml-5 text-base-content/50 my-auto">
-                        {{ post.created_at }}
+                        {{ post.created_at_hum }}
                 </span>
 
                 <div class="ml-auto">
                     <div class="avatar mr-2">
                         <div :class="['mask', 'w-8', 'bg-accent', post.is_admin ? 'mask-hexagon' : 'mask-hexagon-2']">
                             <v-icon v-if="post.user_picture === null" name="ri-user-3-line" class="w-8 h-8 text-base-100 mt-0.5"/>
-                            <img v-else :src="`/storage/${post.user_picture}`" alt="Profile Picture"/>
+                            <img v-else :src="`/storage/${post.user_picture}`"/>
                         </div>
                     </div>
 
@@ -53,6 +53,10 @@ defineProps({
             <p class="mb-2 mr-4 font-normal whitespace-pre-wrap text-wrap wrap-break-word">
                 {{ post.description }}
             </p>
+
+            <a :href="post.url" class="link">
+                {{ post.url }}
+            </a>
 
             <div v-if="post.files.length" class="m-4 mr-8">
                 <div v-for="file in post.files" :key="file.id">
