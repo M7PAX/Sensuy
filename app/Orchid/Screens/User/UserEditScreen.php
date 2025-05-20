@@ -74,11 +74,11 @@ class UserEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make(__('Impersonate user'))
-                ->icon('bg.box-arrow-in-right')
-                ->confirm(__('You can revert to your original state by logging out.'))
-                ->method('loginAs')
-                ->canSee($this->user->exists && $this->user->id !== \request()->user()->id),
+//            Button::make(__('Impersonate user'))
+//                ->icon('bg.box-arrow-in-right')
+//                ->confirm(__('You can revert to your original state by logging out.'))
+//                ->method('loginAs')
+//                ->canSee($this->user->exists && $this->user->id !== \request()->user()->id),
 
             Button::make(__('Remove'))
                 ->icon('bs.trash3')
@@ -121,16 +121,16 @@ class UserEditScreen extends Screen
                         ->method('save')
                 ),
 
-            Layout::block(UserRoleLayout::class)
-                ->title(__('Roles'))
-                ->description(__('A Role defines a set of tasks a user assigned the role is allowed to perform.'))
-                ->commands(
-                    Button::make(__('Save'))
-                        ->type(Color::BASIC)
-                        ->icon('bs.check-circle')
-                        ->canSee($this->user->exists)
-                        ->method('save')
-                ),
+//            Layout::block(UserRoleLayout::class)
+//                ->title(__('Roles'))
+//                ->description(__('A Role defines a set of tasks a user assigned the role is allowed to perform.'))
+//                ->commands(
+//                    Button::make(__('Save'))
+//                        ->type(Color::BASIC)
+//                        ->icon('bs.check-circle')
+//                        ->canSee($this->user->exists)
+//                        ->method('save')
+//                ),
 
             Layout::block(RolePermissionLayout::class)
                 ->title(__('Permissions'))

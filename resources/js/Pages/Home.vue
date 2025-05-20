@@ -7,6 +7,7 @@ import {computed, onMounted, ref, watch} from "vue";
 import { useScroll } from "@vueuse/core";
 import { BiCaretDown } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
+import {useI18n} from "vue-i18n";
 addIcons(BiCaretDown);
 
 const props = defineProps({
@@ -16,6 +17,7 @@ const props = defineProps({
 
 const posts = ref(new Map());
 let page = ref(0);
+const { t } = useI18n();
 
 async function loadPosts() {
     const response = await fetch(route("load-posts", { page: page.value + 1, sort: selected.value }));
@@ -27,15 +29,15 @@ async function loadPosts() {
 
 const selected = ref('New');
 const options = ref([
-    { value: 'New', label: 'New' },
-    { value: 'Old', label: 'Old' },
-    { value: 'Most Ups', label: 'Most Ups' },
-    { value: 'Most Downs', label: 'Most Downs' },
+    { value: 'n', label: t('new') },
+    { value: 'o', label: t('old') },
+    { value: 'mu', label: t('most ups') },
+    { value: 'md', label: t('most downs') },
 ]);
 
 const selectedLabel = computed(() => {
     const opt = options.value.find(o => o.value === selected.value);
-    return opt ? opt.label : 'New';
+    return opt ? opt.label : t('new');
 });
 
 function selectOption(option) {
@@ -88,7 +90,7 @@ watch(selected, () => {
 
                     <ul tabindex="0" class="dropdown-content menu bg-secondary rounded-box z-10 w-40 p-2 shadow-sm">
                         <li v-for="option in options" :key="option.value">
-                            <button @click="selectOption(option)" class="w-full text-left">
+                            <button @click="selectOption(option)" class="btn btn-secondary w-full text-left">
                                 {{ option.label }}
                             </button>
                         </li>

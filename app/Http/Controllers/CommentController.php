@@ -11,11 +11,13 @@ use Inertia\Inertia;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, Post $post)
+    public function store(Request $request, $community_slug, $post_slug)
     {
         $validated = $request->validate([
-            'content' => 'required|string|max:1000|min:5',
+            'content' => 'required|string|max:1000|min:1',
         ]);
+
+        $post = Post::where('slug', $post_slug)->firstOrFail();
 
         $post->comments()->create([
             'user_id' => auth()->id(),
@@ -36,7 +38,7 @@ class CommentController extends Controller
         Gate::authorize('update', $comment);
 
         $validated = $request->validate([
-            'content' => 'required|string|max:1000|min:5',
+            'content' => 'required|string|max:1000|min:1',
         ]);
 
         $comment->update($validated);

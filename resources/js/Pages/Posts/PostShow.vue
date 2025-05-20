@@ -24,7 +24,7 @@ let isVisible = ref(false);
 
 const submit = () => {
     form.post(
-        route('comments', [props.post.data.slug]),{
+        route('comments', [props.community.slug, props.post.data.slug]),{
             onSuccess: () => form.reset('content')
         }
     );
@@ -175,7 +175,7 @@ const copyLink = async () => {
 
             <div class="w-full md:w-8/12 my-5">
                 <div v-if="$page.props.auth.auth_check" class="mx-3">
-                    <form class="" @submit.prevent="submit">
+                    <form @submit.prevent="submit">
                         <div class="flex items-end">
                             <div class="flex-grow">
                                 <textarea v-model="form.content" id="comment" rows="5" :placeholder="$t('your comment')+'...'"

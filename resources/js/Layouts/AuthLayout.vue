@@ -123,6 +123,12 @@ onMounted(() => {
                                         </li>
 
                                         <li>
+                                            <a v-if="$page.props.auth.user.is_admin === true" href="/admin/users" class="uppercase btn btn-soft btn-accent btn-sm">
+                                                {{ $t('admin panel') }}
+                                            </a>
+                                        </li>
+
+                                        <li>
                                             <Link :href="route('logout')" method="post" class="uppercase btn btn-soft btn-error btn-sm">
                                                 {{ $t('logout') }}
                                             </Link>
@@ -174,6 +180,10 @@ onMounted(() => {
                             <Link :href="route('profile.edit')" class="max-w-full btn btn-wide btn-soft btn-accent join-item uppercase">
                                 {{ $t('profile n settings') }}
                             </Link>
+
+                            <a v-if="$page.props.auth.user.is_admin === true" href="/admin/users" class="max-w-full btn btn-wide btn-soft btn-accent join-item uppercase">
+                                {{ $t('admin panel') }}
+                            </a>
 
                             <Link :href="route('logout')" class="max-w-full btn btn-wide btn-soft btn-error join-item uppercase" method="post">
                                 {{ $t('logout') }}

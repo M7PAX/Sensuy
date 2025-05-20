@@ -104,5 +104,15 @@
     "texts or links": "Teksti vai saites",
     "comment created": "Komentārs izveidots veiksmīgi!",
     "comment deleted": "Komentārs izdzēsts veiksmīgi!",
-    "comment edited": "Komentārs rediģēts veiksmīgi!"
+    "comment edited": "Komentārs rediģēts veiksmīgi!",
+    "edited": "Rediģēts",
+    "new": "Jauns",
+    "old": "Vecs",
+    "most ups": "Visvairāk pozitīvo",
+    "most downs": "Visvairāk negatīvo",
+    "most posts": "Visvairāk ierakstu",
+    "least posts": "Vismazāk ierakstu",
+    "most followers": "Visvairāk sekotāju",
+    "least followers": "Vismazāk sekotāju",
+    "admin panel": "Administratora panelis"
 }

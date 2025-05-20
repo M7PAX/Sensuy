@@ -22,7 +22,7 @@ class PostStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'min:5', 'max:50'],
+            'title' => ['required', 'min:1', 'max:50'],
             'description' => ['nullable', 'max:1000'],
             'url' => ['nullable', 'url'],
             'file' => [

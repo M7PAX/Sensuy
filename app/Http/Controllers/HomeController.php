@@ -32,23 +32,23 @@ class HomeController extends Controller
         $query = Community::withCount('posts', 'followers');
 
         switch ($sortOption) {
-            case 'Old':
+            case 'n':
+                $query->orderBy('created_at', 'desc');
+                break;
+            case 'o':
                 $query->orderBy('created_at', 'asc');
                 break;
-            case 'Most Posts':
+            case 'mp':
                 $query->orderBy('posts_count', 'desc');
                 break;
-            case 'Least Posts':
+            case 'lp':
                 $query->orderBy('posts_count', 'asc');
                 break;
-            case 'Most Followers':
-                $query->orderBy('followers_count', 'desc');
-                break;
-            case 'Least Followers':
+            case 'lf':
                 $query->orderBy('followers_count', 'asc');
                 break;
             default:
-                $query->orderBy('created_at', 'desc');
+                $query->orderBy('followers_count', 'desc');
                 break;
         }
 
@@ -70,16 +70,16 @@ class HomeController extends Controller
         ])->withCount('comments');
 
         switch ($sort) {
-            case 'Old':
+            case 'o':
                 $query->orderBy('created_at', 'asc');
                 break;
-            case 'Most Ups':
+            case 'mu':
                 $query->orderBy('votes', 'desc');
                 break;
-            case 'Most Downs':
+            case 'md':
                 $query->orderBy('votes', 'asc');
                 break;
-            default: // 'New'
+            default:
                 $query->orderBy('created_at', 'desc');
                 break;
         }

@@ -3,26 +3,30 @@ import { Link } from "@inertiajs/vue3";
 import { HiUserGroup, BiCaretDown } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
 import {computed, onMounted, ref} from "vue";
+import {useI18n} from "vue-i18n";
 addIcons(HiUserGroup, BiCaretDown);
 
 defineProps({
     communities: Object
 })
 
+const { t } = useI18n();
 const communities = ref(new Map());
-const selected = ref('Most Followers');
+const selected = ref('mf');
+let option = 'mf';
 const options = ref([
-    { value: 'New', label: 'New' },
-    { value: 'Old', label: 'Old' },
-    { value: 'Most Posts', label: 'Most Posts' },
-    { value: 'Least Posts', label: 'Least Posts' },
-    { value: 'Most Followers', label: 'Most Followers' },
-    { value: 'Least Followers', label: 'Least Followers' },
+    { value: 'n', label: t('new') },
+    { value: 'o', label: t('old') },
+    { value: 'mp', label: t('most posts') },
+    { value: 'lp', label: t('least posts') },
+    { value: 'mf', label: t('most followers') },
+    { value: 'lf', label: t('least followers') },
 ]);
 
 const selectedLabel = computed(() => {
     const opt = options.value.find(o => o.value === selected.value);
-    return opt ? opt.label : 'Most Followers';
+    option = opt?.value;
+    return opt ? opt.label : t('most followers');
 });
 
 function selectOption(option) {
@@ -54,7 +58,7 @@ onMounted(() => fetchCommunities('Most Followers'));
 
                 <ul tabindex="0" class="dropdown-content menu bg-primary rounded-box z-10 w-40 p-2 shadow-sm">
                     <li v-for="option in options" :key="option.value">
-                        <button @click="selectOption(option)" class="w-full text-left">
+                        <button @click="selectOption(option)" class="btn btn-primary w-full text-left">
                             {{ option.label }}
                         </button>
                     </li>
@@ -79,15 +83,15 @@ onMounted(() => fetchCommunities('Most Followers'));
                         {{ community.name }}
                     </Link>
 
-                    <div v-if="'Most Posts' === selectedLabel || 'Least Posts' === selectedLabel">
+                    <div v-if="'mp' === option || 'lp' === option">
                         {{ $t('posts') }} - {{ community.posts_count }}
                     </div>
 
-                    <div v-if="'Most Followers' === selectedLabel || 'Least Followers' === selectedLabel">
+                    <div v-if="'mf' === option || 'lf' === option">
                         {{ $t('followers') }} - {{ community.followers_count }}
                     </div>
 
-                    <div v-else>
+                    <div v-if="'n' === option || 'o' === option">
                         {{ community.created_at }}
                     </div>
                 </div>

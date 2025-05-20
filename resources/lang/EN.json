@@ -105,5 +105,14 @@
     "comment created" : "Comment updated successfully!",
     "comment deleted" : "Comment updated successfully!",
     "comment edited" : "Comment updated successfully!",
-    "edited" : "Edited"
+    "edited" : "Edited",
+    "new" : "New",
+    "old" : "Old",
+    "most ups" : "Most Ups",
+    "most downs" : "Most Downs",
+    "most posts" : "Most Posts",
+    "least posts" : "Least Posts",
+    "most followers" : "Most Followers",
+    "least followers" : "Least Followers",
+    "admin panel" : "Admin Panel"
 }
