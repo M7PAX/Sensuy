@@ -23,7 +23,8 @@ class CommunityResource extends JsonResource
             'picture' => $this->picture,
             'background' => $this->background,
             'followers_count' => $this->followers_count,
-            'created_at' => $this->created_at->diffForHumans()
+            'created_at' => $this->created_at->diffForHumans(),
+            'type' => 'c'
         ];
     }
 }

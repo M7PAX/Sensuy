@@ -7,6 +7,7 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,7 @@ Route::post('/s/{community}/{post:slug}/comments', [CommentController::class, 's
 Route::get('/download/{file}', [FileController::class, 'download'])->name('download');
 
 Route::get('/sort', [HomeController::class, 'sortCommunities'])->name('sort-communities');
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get('/load-posts', [HomeController::class, 'loadPosts'])->name('load-posts');
 Route::get('/load-posts/{community:slug}', [CommunityController::class, 'loadMore'])->name('load-community-posts');

@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory, Sluggable, Searchable;
 
     protected $fillable = [
         'user_id',
@@ -33,6 +34,15 @@ class Post extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function toSearchableArray()
+    {
+        // Define what data should be searchable
+        return [
+            'title' => $this->title,
+            'description' => $this->description,
+        ];
     }
 
     public function user()

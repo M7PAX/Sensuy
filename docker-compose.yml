@@ -1,27 +1,31 @@
+name: "sensuy"
+
 services:
     sensuy:
         build:
             context: .
             dockerfile: Dockerfile
-            target: production  # Matches the stage name in your Dockerfile
-        container_name: sensuy-app
         ports:
-            - "8000:8000"
+            - "127.0.0.1:8001:8000"
         volumes:
-            - .:/var/www:delegated  # For development hot-reloading [[9]]
-        environment:
-            APP_NAME: Sensuy
-            APP_ENV: production
-            # Add other environment variables here if needed
-        healthcheck:
-            test: ["CMD", "curl", "--fail", "http://localhost:8000/up"]
-            interval: 30s
-            timeout: 10s
-            retries: 3
-            start_period: 5s
+            - sensuy:/var/www/storage
         networks:
-            - sensuy-network
+            - db-network
+
+    meilisearch:
+        image: getmeili/meilisearch:latest
+        ports:
+            - "127.0.0.1:7700:7700"
+        environment:
+            MEILI_MASTER_KEY: "masterKey"
+        volumes:
+            - meili_data:/data.ms
+        restart: unless-stopped
+
+volumes:
+    sensuy:
+    meili_data:
 
 networks:
-    sensuy-network:
+    db-network:
         driver: bridge

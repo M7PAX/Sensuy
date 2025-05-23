@@ -1,35 +1,53 @@
 <script setup>
-import { useFuse } from '@vueuse/integrations/useFuse'
-import { shallowRef } from 'vue'
+import { ref } from 'vue';
 import { IoSearch } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
 addIcons(IoSearch);
 
-const data = [
-    'John Smith',
-    'John Doe',
-    'Jane Doe',
-    'Phillip Green',
-    'Peter Brown',
-]
+const searchQuery = ref('');
+const searchResults = ref([]);
+const searchError = ref(null);
+const emit = defineEmits(['search-results', 'search-error']);
 
-const input = shallowRef('Jhon D')
+async function performSearch() {
+    if (searchQuery.value.trim() === '') {
+        searchResults.value = [];
+        searchError.value = null;
+        emit('search-results', []);
+        return;
+    }
 
-const { results } = useFuse(input, data)
+    searchError.value = null;
+    try {
+        const response = await fetch(route("search", { query: encodeURIComponent(searchQuery.value) }));
+
+        searchResults.value = await response.json();
+        emit('search-results', searchResults.value);
+
+    } catch (error) {
+        console.error("Search failed:", error);
+        searchResults.value = [];
+        searchError.value = error.message;
+        emit('search-error', error.message);
+    }
+}
 
 </script>
 
 <template>
-    <div class="join">
-        <div>
-            <div>
-                <input class="input join-item input-secondary" placeholder="Search" />
-            </div>
+    <div class="join w-96">
+        <div class="w-full">
+            <input
+                v-model="searchQuery"
+                @keyup.enter="performSearch"
+                class="input join-item input-secondary w-full"
+                placeholder="Search"
+            />
         </div>
 
         <div class="indicator">
-            <button class="btn join-item btn-secondary">
-                <v-icon name="io-search"/>
+            <button @click="performSearch" class="btn join-item btn-secondary">
+                <v-icon name="io-search" />
             </button>
         </div>
     </div>

@@ -12,7 +12,9 @@
         "laravel/framework": "^12.0",
         "laravel/pail": "^1.2",
         "laravel/sanctum": "^4.0",
+        "laravel/scout": "^10.15",
         "laravel/tinker": "^2.9",
+        "meilisearch/meilisearch-php": "^1.14",
         "orchid/platform": "^14.52",
         "tightenco/ziggy": "^2.0"
     },

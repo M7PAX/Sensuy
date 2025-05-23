@@ -13,6 +13,9 @@ const user = usePage().props.auth?.user;
 const showingNavigationDropdown = ref(false);
 const showMessage = ref(false);
 const currentMessage = ref(null);
+const searchResultsFromChild = ref([]);
+const searchErrorFromChild = ref(null);
+const modalRef = ref(null);
 
 const initializeLanguage = () => {
     locale.value = user.language;
@@ -22,6 +25,18 @@ const initializeLanguage = () => {
 const initializeTheme = () => {
     document.documentElement.setAttribute('data-theme', user.theme);
 };
+
+function handleSearchResults(results) {
+    searchResultsFromChild.value = results;
+    searchErrorFromChild.value = null;
+    modalRef.value.showModal();
+}
+
+function handleSearchError(errorMessage) {
+    searchErrorFromChild.value = errorMessage;
+    searchResultsFromChild.value = [];
+    console.error("Search Error in Parent:", errorMessage);
+}
 
 watch(() => user.language, (newLanguage) => {
     locale.value = newLanguage;
@@ -94,7 +109,70 @@ onMounted(() => {
                         </div>
 
                         <div class="hidden sm:flex sm:items-center w-full justify-end">
-<!--                            <SearchBar class="mx-auto"/>-->
+                            <div class="mx-auto">
+                                <SearchBar @search-results="handleSearchResults" @search-error="handleSearchError" />
+
+                                <dialog ref="modalRef" class="modal">
+                                    <div class="modal-box flex flex-col items-center">
+                                        <form method="dialog">
+                                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
+
+                                        <SearchBar @search-results="handleSearchResults" @search-error="handleSearchError" />
+
+                                        <div v-if="searchResultsFromChild.length > 0">
+                                            <div class="mt-4 mx-auto max-md-w">
+                                                <ul class="menu bg-base-100 rounded-box">
+                                                    <li>
+                                                        <h2 class="menu-title">Posts</h2>
+
+                                                        <ul v-for="result in searchResultsFromChild" :key="result.type + '-' + result.id">
+                                                            <li v-if="result.type === 'p'">
+                                                                <Link :href="route('posts', [result.community_slug, result.slug])" class="font-bold">
+                                                                    <div>
+                                                                        {{ result.title }}
+
+                                                                        <p class="text-xs font-normal">
+                                                                            {{ result.description }}
+                                                                        </p>
+                                                                    </div>
+                                                                </Link>
+                                                            </li>
+                                                        </ul>
+
+                                                        <h2 class="menu-title">Communities</h2>
+
+                                                        <ul v-for="result in searchResultsFromChild" :key="result.type + '-' + result.id">
+                                                            <li v-if="result.type === 'c'">
+                                                                <Link :href="route('communities', result.slug)" class="font-bold">
+                                                                    <div>
+                                                                        <div class="avatar mr-2">
+                                                                            <div class="mask mask-heart w-8 bg-primary group-hover:bg-secondary">
+                                                                                <v-icon v-if="result.community_picture === undefined" name="hi-user-group" class="w-8 h-8 text-base-100 mt-1"/>
+                                                                                <img v-else :src="`/storage/${result.community_picture}`"/>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        {{ result.name }}
+
+                                                                        <p class="text-xs font-normal">
+                                                                            {{ result.description }}
+                                                                        </p>
+                                                                    </div>
+                                                                </Link>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div v-else class="text-xl text-warning flex items-center justify-center m-5">
+                                            No Results Found
+                                        </div>
+                                    </div>
+                                </dialog>
+                            </div>
 
                             <!-- Settings Dropdown -->
                             <div class="ms-3 relative">
@@ -199,7 +277,7 @@ onMounted(() => {
             </header>
 
             <!-- Page Content -->
-            <main class="max-w-7xl mx-auto mt-2 px-4 sm:px-6 lg:px-8">
+            <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <slot />
             </main>
         </div>

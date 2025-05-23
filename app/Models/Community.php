@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Laravel\Scout\Searchable;
 
 class Community extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory, Sluggable, Searchable;
 
     protected $fillable = [
         'user_id',
@@ -25,6 +26,14 @@ class Community extends Model
             'slug' => [
                 'source' => 'name'
             ]
+        ];
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
         ];
     }
 
