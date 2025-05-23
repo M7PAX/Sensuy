@@ -98,7 +98,7 @@ const handleFileInput = (event) => {
                 </div>
 
                 <div class="flex-1 space-y-4">
-                    <div class="flex justify-center ">
+                    <div class="flex items-center justify-center">
                         <label for="picture" class=" w-42 h-42">
                             <div class="avatar">
                                 <div :class="['mask', 'bg-accent', user.is_admin ? 'mask-hexagon' : 'mask-hexagon-2']">
@@ -109,10 +109,16 @@ const handleFileInput = (event) => {
                             </div>
 
                             <div class="flex justify-center">
-                                <label class="font-medium text-sm justify-center">
-                                    {{ $t('profile picture') }}
-                                </label>
+                                <div class="font-medium text-sm text-center">
+                                    <div class="mt-1">
+                                        {{ $t('profile picture') }}
+                                    </div>
+                                    <div class="text-base-content/70">
+                                        {{ $t('file community') }}
+                                    </div>
+                                </div>
                             </div>
+
 
                             <fieldset class="fieldset" hidden>
                                 <input id="picture"

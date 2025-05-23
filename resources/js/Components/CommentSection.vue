@@ -14,7 +14,7 @@ const props = defineProps({
 <template>
     <div v-if="post.data.comments.length !== 0" class="bg-base-100 rounded-box border border-secondary shadow-md my-5">
         <ul role="list" class="divide-y divide-secondary mx-5">
-            <li v-for="(comment, index) in post.data.comments" :key="index" class="py-4 flex flex-col">
+            <li v-for="comment in post.data.comments" :key="comment.id" class="py-4 flex flex-col">
                 <div class="text-sm ml-3 mb-1 justify-between flex flex-row">
                     <div class="flex">
                         <div class="avatar mr-2">
@@ -38,9 +38,15 @@ const props = defineProps({
                             {{ $t('edit') }}
                         </Link>
 
-                        <Link v-if="comment.can_delete" :href="route('communities.posts.comments.destroy', [community, post.data.slug, comment.id])" class="btn btn-xs btn-error uppercase" method="delete" type="button">
-                            {{ $t('delete') }}
-                        </Link>
+                        <div class="indicator">
+                            <div class="indicator-item">
+                                <input type="checkbox" class="checkbox checkbox-error checkbox-xs bg-base-100" @click="(e) => e.target.parentNode?.parentNode?.querySelector('div>button.bt')?.classList.toggle('btn-disabled')" />
+                            </div>
+
+                            <Link v-if="comment.can_delete" :href="route('communities.posts.comments.destroy', [community, post.data.slug, comment.id])" class="uppercase btn btn-xs btn-error bt btn-disabled" method="delete" type="button">
+                                {{ $t('delete') }}
+                            </Link>
+                        </div>
                     </div>
                 </div>
 

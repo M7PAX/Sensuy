@@ -163,7 +163,7 @@ onMounted(() => {
 
                             <ThemeToggle class="mx-5"/>
 
-                            <button @click="showingNavigationDropdown = !showingNavigationDropdown" class="inline-flex items-center justify-center p-2 rounded-md">
+                            <button @click="showingNavigationDropdown = !showingNavigationDropdown" class="inline-flex items-center justify-center p-2 rounded-selector">
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path :class="{hidden: showingNavigationDropdown, 'inline-flex': !showingNavigationDropdown,}"
                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"

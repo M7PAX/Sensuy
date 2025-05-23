@@ -18,10 +18,9 @@ const props = defineProps({
 
 const titleRef = ref(null);
 const selectedTab = ref("all");
-
 const posts = ref(new Map());
 let page = ref(0);
-const Newposts = ref(props.followers);
+const isChecked = ref(false);
 
 const follow = () => {
     router.post(route('communities.follow', props.community.slug), {
@@ -114,7 +113,7 @@ watch(() => props.community?.background, () => {
     <LayoutPicker>
         <template #header>
             <div class="relative flex justify-between p-5 rounded-box" :style="{ backgroundImage: community.background ? `url(/storage/${community.background})` : '' }">
-                <div v-if="community.background" class="absolute inset-0 bg-cover bg-center opacity-65 rounded-selector" :style="{ backgroundImage: `url(/storage/${community.background})` }"></div>
+                <div v-if="community.background" class="absolute inset-0 bg-cover bg-center opacity-65 rounded-field" :style="{ backgroundImage: `url(/storage/${community.background})` }"></div>
 
                 <div class="flex items-center justify-center my-auto z-10">
                     <div class="avatar mr-2">
@@ -146,9 +145,15 @@ watch(() => props.community?.background, () => {
                         {{ $t('create post') }}
                     </Link>
 
-                    <Link v-if="can_delete" :href="route('communities.destroy', community.slug)" class="btn btn-error uppercase ml-5" method="delete" type="button">
-                        {{ $t('delete') }}
-                    </Link>
+                    <div class="indicator">
+                        <div class="indicator-item indicator-top">
+                            <input type="checkbox" v-model="isChecked" class="checkbox checkbox-error checkbox-sm bg-base-100" />
+                        </div>
+
+                        <Link v-if="can_delete" :href="route('communities.destroy', community.slug)" class="btn btn-error uppercase ml-5" method="delete" type="button" :disabled="!isChecked">
+                            {{ $t('delete') }}
+                        </Link>
+                    </div>
                 </div>
             </div>
         </template>
@@ -160,7 +165,7 @@ watch(() => props.community?.background, () => {
                         {{ $t('about') }} {{ community.name }}
                     </h2>
 
-                    <p class="p-4 rounded-selector whitespace-pre-wrap text-wrap wrap-break-word">
+                    <p class="p-4 rounded-field whitespace-pre-wrap text-wrap wrap-break-word">
                         {{ community.description }}
                     </p>
                 </div>

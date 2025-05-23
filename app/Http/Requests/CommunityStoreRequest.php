@@ -24,8 +24,8 @@ class CommunityStoreRequest extends FormRequest
         return [
             'name' => ['required', 'unique:communities', 'min:2', 'max:25'],
             'description' => ['string', 'min:5', 'max:500'],
-            'picture' => ['nullable', 'image', 'max:10240'],
-            'background' => ['nullable', 'image', 'max:10240'],
+            'picture' => ['nullable', 'image', 'max:20480'],
+            'background' => ['nullable', 'image', 'max:20480'],
         ];
     }
 }

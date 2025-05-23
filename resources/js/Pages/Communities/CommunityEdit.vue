@@ -88,7 +88,11 @@ const submit = () => {
                                 {{ $t('current icon') }}
                             </label>
 
-                            <img :src="`/storage/${community.picture}`" class="w-24 h-24 object-cover rounded">
+                            <div class="avatar">
+                                <div class="mask mask-heart w-24 bg-primary">
+                                    <img :src="`/storage/${community.picture}`"/>
+                                </div>
+                            </div>
                         </div>
 
                         <ErrorAlert class="mt-2" :message="form.errors.picture"/>
@@ -117,7 +121,7 @@ const submit = () => {
                                 {{ $t('current background') }}
                             </label>
 
-                            <img :src="`/storage/${community.background}`" class="w-120 h-8 object-cover rounded">
+                            <img :src="`/storage/${community.background}`" class="w-120 h-8 object-cover rounded-field">
                         </div>
 
                         <ErrorAlert class="mt-2" :message="form.errors.background"/>

@@ -49,14 +49,14 @@ onMounted(() => fetchCommunities('Most Followers'));
 
 <template>
     <div class="w-full shadow-md rounded-box border border-secondary bg-base-100">
-        <div class="p-6 rounded-field bg-secondary flex items-center">
+        <div class="p-6 rounded-box bg-secondary flex items-center">
             <div class="dropdown dropdown-start" ref="dropdownRef">
                 <div tabindex="0" class="btn btn-primary w-40 justify-between">
                     {{ selectedLabel }}
                     <v-icon name="bi-caret-down"/>
                 </div>
 
-                <ul tabindex="0" class="dropdown-content menu bg-primary rounded-box z-10 w-40 p-2 shadow-sm">
+                <ul tabindex="0" class="dropdown-content menu bg-primary rounded-field z-10 w-40 p-2 shadow-sm">
                     <li v-for="option in options" :key="option.value">
                         <button @click="selectOption(option)" class="btn btn-primary w-full text-left">
                             {{ option.label }}

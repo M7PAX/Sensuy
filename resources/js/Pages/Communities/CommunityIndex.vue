@@ -22,7 +22,7 @@ const props = defineProps({
         </template>
 
         <div class="flex flex-col">
-            <div class="mx-auto shadow-md rounded-box p-6 align-middle overflow-x-auto bg-base-100 border border-primary min-w-24 max-w-6xl">
+            <div class="mx-auto shadow-md rounded-box p-5 align-middle overflow-x-auto bg-base-100 border border-primary min-w-xl max-w-6xl">
                 <div class="flex justify-end">
                     <Link :href="route('communities.create')" class="btn btn-success uppercase">
                         {{ $t('add community') }}
@@ -64,9 +64,15 @@ const props = defineProps({
                                     {{ $t('edit') }}
                                 </Link>
 
-                                <Link :href="route('communities.destroy', community.slug)" class="btn btn-error btn-sm uppercase" method="delete" type="button">
-                                    {{ $t('delete') }}
-                                </Link>
+                                <div class="indicator">
+                                    <div class="indicator-item">
+                                        <input type="checkbox" class="checkbox checkbox-error checkbox-sm bg-base-100" @click="(e) => e.target.parentNode?.parentNode?.querySelector('div>button.bt')?.classList.toggle('btn-disabled')" />
+                                    </div>
+
+                                    <Link :href="route('communities.destroy', community.slug)" class="btn btn-error btn-sm uppercase bt btn-disabled" method="delete" type="button">
+                                        {{ $t('delete') }}
+                                    </Link>
+                                </div>
                             </th>
                         </tr>
                     </tbody>

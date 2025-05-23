@@ -23,8 +23,8 @@ class CommunityUpdateRequest extends FormRequest
     {
         return [
             'description' => ['string', 'min:5', 'max:500'],
-            'picture' => ['nullable', 'image', 'max:10240'],
-            'background' => ['nullable', 'image', 'max:10240'],
+            'picture' => ['nullable', 'image', 'max:20480'],
+            'background' => ['nullable', 'image', 'max:20480'],
         ];
     }
 }

@@ -21,6 +21,7 @@ const form = useForm({
 });
 
 let isVisible = ref(false);
+const isChecked = ref(false);
 
 const submit = () => {
     form.post(
@@ -94,9 +95,15 @@ const copyLink = async () => {
                                     {{ $t('edit') }}
                                 </Link>
 
-                                <Link v-if="can_delete" :href="route('communities.posts.destroy', [community.slug, post.data.slug])" class="btn btn-error btn-sm uppercase" method="delete" type="button">
-                                    {{ $t('delete') }}
-                                </Link>
+                                <div class="indicator">
+                                    <div class="indicator-item indicator-top">
+                                        <input type="checkbox" v-model="isChecked" class="checkbox checkbox-error checkbox-sm bg-base-100" />
+                                    </div>
+
+                                    <Link v-if="can_delete" :href="route('communities.posts.destroy', [community.slug, post.data.slug])" class="btn btn-error btn-sm uppercase ml-1" method="delete" type="button" :disabled="!isChecked">
+                                        {{ $t('delete') }}
+                                    </Link>
+                                </div>
                             </div>
                         </div>
 
@@ -116,17 +123,17 @@ const copyLink = async () => {
                             <div v-if="post.data.files.length" class="m-4">
                                 <div v-for="file in post.data.files" :key="file.id">
                                     <div v-if="file.mime_type.startsWith('image')">
-                                        <img :src="file.url" class="rounded-selector max-w-full h-auto"/>
+                                        <img :src="file.url" class="rounded-field max-w-full max-h-screen"/>
                                     </div>
 
                                     <div v-else-if="file.mime_type.startsWith('video')">
-                                        <video controls class="rounded-selector max-w-full h-auto">
+                                        <video controls class="rounded-field max-w-full max-h-screen">
                                             <source :src="file.url" :type="file.mime_type">
                                         </video>
                                     </div>
 
                                     <div v-else-if="file.mime_type.startsWith('audio')">
-                                        <audio controls class="rounded-selector w-full">
+                                        <audio controls class="rounded-field w-full">
                                             <source :src="file.url" :type="file.mime_type">
                                         </audio>
                                     </div>
@@ -179,7 +186,7 @@ const copyLink = async () => {
                         <div class="flex items-end">
                             <div class="flex-grow">
                                 <textarea v-model="form.content" id="comment" rows="5" :placeholder="$t('your comment')+'...'"
-                                          class="p-2 w-full text-sm textarea textarea-accent rounded-selector bg-base-300 shadow-md shadow-accent">
+                                          class="p-2 w-full text-sm textarea textarea-accent rounded-field bg-base-300 shadow-md shadow-accent">
                                 </textarea>
                             </div>
 

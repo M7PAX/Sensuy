@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-    <Link :href="route('posts', [post.community_slug, post.slug])" class="mt-4 max-w-4xl flex shadow-md bg-base-100 border border-primary rounded-box">
+    <Link :href="route('posts', [post.community_slug, post.slug])" class="mt-4 max-w-4xl flex shadow-md bg-base-100 border border-primary rounded-field">
         <div class="mr-3">
             <PostVote :post="post"/>
         </div>
@@ -61,17 +61,17 @@ defineProps({
             <div v-if="post.files.length" class="m-4 mr-8">
                 <div v-for="file in post.files" :key="file.id">
                     <div v-if="file.mime_type.startsWith('image')">
-                        <img :src="file.url" class="rounded-selector max-w-full h-auto"/>
+                        <img :src="file.url" class="rounded-field max-w-full max-h-screen"/>
                     </div>
 
                     <div v-else-if="file.mime_type.startsWith('video')">
-                        <video controls class="rounded-lg max-w-full h-auto">
+                        <video controls class="rounded-field max-w-full max-h-screen">
                             <source :src="file.url" :type="file.mime_type">
                         </video>
                     </div>
 
                     <div v-else-if="file.mime_type.startsWith('audio')">
-                        <audio controls class="rounded-lg w-full">
+                        <audio controls class="rounded-field w-full">
                             <source :src="file.url" :type="file.mime_type">
                         </audio>
                     </div>

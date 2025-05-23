@@ -219,7 +219,7 @@ onMounted(() => {
                         <!-- Hamburger -->
                         <div class="-me-2 flex items-center sm:hidden">
                             <button @click="showingNavigationDropdown = !showingNavigationDropdown"
-                                class="inline-flex items-center justify-center p-2 rounded-md"
+                                class="inline-flex items-center justify-center p-2 rounded-selector"
                             >
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path :class="{ hidden: showingNavigationDropdown,'inline-flex': !showingNavigationDropdown }"
