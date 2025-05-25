@@ -2,8 +2,10 @@
 import { ref } from 'vue';
 import { IoSearch } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
+import {useI18n} from "vue-i18n";
 addIcons(IoSearch);
 
+const { t } = useI18n();
 const searchQuery = ref('');
 const searchResults = ref([]);
 const searchError = ref(null);
@@ -29,6 +31,8 @@ async function performSearch() {
         searchResults.value = [];
         searchError.value = error.message;
         emit('search-error', error.message);
+    } finally {
+        searchQuery.value = '';
     }
 }
 
@@ -41,7 +45,7 @@ async function performSearch() {
                 v-model="searchQuery"
                 @keyup.enter="performSearch"
                 class="input join-item input-secondary w-full"
-                placeholder="Search"
+                :placeholder="$t('search')"
             />
         </div>
 

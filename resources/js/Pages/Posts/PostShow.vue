@@ -1,5 +1,5 @@
 <script setup>
-import {Link, useForm, usePage} from "@inertiajs/vue3";
+import {Link, useForm} from "@inertiajs/vue3";
 import PostVote from "@/Components/PostVote.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
 import {HiDownload, FaShare, HiUserGroup} from "oh-vue-icons/icons";
@@ -116,7 +116,7 @@ const copyLink = async () => {
                                 {{ post.data.description }}
                             </p>
 
-                            <a :href="post.data.url" class="link link-secondary">
+                            <a :href="post.data.url" class="link link-secondary text-wrap wrap-anywhere">
                                 {{ post.data.url }}
                             </a>
 

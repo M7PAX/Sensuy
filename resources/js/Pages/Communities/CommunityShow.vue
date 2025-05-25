@@ -2,11 +2,11 @@
 import { Link, router } from "@inertiajs/vue3";
 import PostCard from "@/Components/PostCard.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
-import { HiUserGroup } from "oh-vue-icons/icons";
+import { HiUserGroup, FaShare } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
 import { ref, onMounted, watch, computed } from "vue";
 import { useScroll } from "@vueuse/core";
-addIcons(HiUserGroup);
+addIcons(HiUserGroup, FaShare);
 
 const props = defineProps({
     community: Object,
@@ -21,6 +21,7 @@ const selectedTab = ref("all");
 const posts = ref(new Map());
 let page = ref(0);
 const isChecked = ref(false);
+let isVisible = ref(false);
 
 const follow = () => {
     router.post(route('communities.follow', props.community.slug), {
@@ -97,6 +98,17 @@ const { arrivedState } = useScroll(document, {
     behavior: "smooth",
 });
 
+const copyLink = async () => {
+    try {
+        await navigator.clipboard.writeText(window.location.href);
+
+        isVisible.value = true;
+        setTimeout(() => {isVisible.value = false;}, 2000);
+    } catch (err) {
+        console.error('Failed to copy link: ', err);
+    }
+};
+
 onMounted(() => {
     textInverter();
     onLoadMore();
@@ -132,29 +144,38 @@ watch(() => props.community?.background, () => {
                     </div>
                 </div>
 
-                <div v-if="$page.props.auth.auth_check" class="z-10">
-                    <button v-if="isFollowing && !can_delete" @click="unfollow" class="btn btn-error btn-soft uppercase mr-5">
-                        {{ $t('unfollow') }}
-                    </button>
+                <div class="z-10 flex flex-col">
+                    <div v-if="$page.props.auth.auth_check" class="flex flex-wrap items-center">
+                        <button v-if="isFollowing && !can_delete" @click="unfollow" class="btn btn-error btn-soft uppercase mr-5">
+                            {{ $t('unfollow') }}
+                        </button>
 
-                    <button v-if="!can_delete && !isFollowing" @click="follow" class="btn btn-info uppercase mr-5">
-                        {{ $t('follow') }}
-                    </button>
+                        <button v-if="!can_delete && !isFollowing" @click="follow" class="btn btn-info uppercase mr-5">
+                            {{ $t('follow') }}
+                        </button>
 
-                    <Link v-if="isFollowing || can_delete" :href="route('communities.posts.create', community.slug)" class="btn btn-success uppercase">
-                        {{ $t('create post') }}
-                    </Link>
+                        <Link v-if="isFollowing || can_delete" :href="route('communities.posts.create', community.slug)" class="btn btn-success uppercase">
+                            {{ $t('create post') }}
+                        </Link>
 
-                    <div class="indicator">
-                        <div class="indicator-item indicator-top">
-                            <input type="checkbox" v-model="isChecked" class="checkbox checkbox-error checkbox-sm bg-base-100" />
+                        <div class="indicator">
+                            <div class="indicator-item indicator-top">
+                                <input type="checkbox" v-model="isChecked" class="checkbox checkbox-error checkbox-sm bg-base-100" />
+                            </div>
+
+                            <Link v-if="can_delete" :href="route('communities.destroy', community.slug)" class="btn btn-error uppercase ml-5" method="delete" type="button" :disabled="!isChecked">
+                                {{ $t('delete') }}
+                            </Link>
                         </div>
 
-                        <Link v-if="can_delete" :href="route('communities.destroy', community.slug)" class="btn btn-error uppercase ml-5" method="delete" type="button" :disabled="!isChecked">
-                            {{ $t('delete') }}
-                        </Link>
+                        <div :class="{ 'tooltip tooltip-open': isVisible }" :data-tip="$t('link copied')" class="ml-5">
+                            <button class="btn btn-circle hover:text-info" @click="copyLink">
+                                <v-icon name="fa-share" />
+                            </button>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </template>
 

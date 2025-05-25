@@ -14,7 +14,7 @@ class CommentController extends Controller
     public function store(Request $request, $community_slug, $post_slug)
     {
         $validated = $request->validate([
-            'content' => 'required|string|max:1000|min:1',
+            'content' => 'required|string|max:500|min:1',
         ]);
 
         $post = Post::where('slug', $post_slug)->firstOrFail();
@@ -38,7 +38,7 @@ class CommentController extends Controller
         Gate::authorize('update', $comment);
 
         $validated = $request->validate([
-            'content' => 'required|string|max:1000|min:1',
+            'content' => 'required|string|max:500|min:1',
         ]);
 
         $comment->update($validated);

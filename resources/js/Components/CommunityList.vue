@@ -58,7 +58,7 @@ onMounted(() => fetchCommunities('Most Followers'));
 
                 <ul tabindex="0" class="dropdown-content menu bg-primary rounded-field z-10 w-40 p-2 shadow-sm">
                     <li v-for="option in options" :key="option.value">
-                        <button @click="selectOption(option)" class="btn btn-primary w-full text-left">
+                        <button @click="selectOption(option)" class="btn btn-primary w-full">
                             {{ option.label }}
                         </button>
                     </li>

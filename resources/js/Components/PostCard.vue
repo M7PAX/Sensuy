@@ -54,7 +54,7 @@ defineProps({
                 {{ post.description }}
             </p>
 
-            <a :href="post.url" class="link">
+            <a :href="post.url" class="link text-wrap wrap-anywhere">
                 {{ post.url }}
             </a>
 
