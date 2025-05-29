@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use HasFactory, Sluggable, Searchable;
+    use HasFactory, Searchable, Sluggable;
 
     protected $fillable = [
         'user_id',
@@ -19,15 +19,15 @@ class Post extends Model
         'slug',
         'description',
         'url',
-        'votes'
+        'votes',
     ];
 
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
 
@@ -65,7 +65,8 @@ class Post extends Model
         return $this->hasMany(PostVotes::class);
     }
 
-    public function files() {
+    public function files()
+    {
         return $this->hasMany(File::class);
     }
 

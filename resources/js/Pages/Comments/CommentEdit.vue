@@ -36,16 +36,18 @@ const submit = () => {
                             {{ $t('comment') }}
                         </label>
 
-                        <label class="input input-secondary flex items-center gap-2">
-                            <input id="title"
-                                   type="text"
-                                   class="mt-1 block w-full"
-                                   v-model="form.content"
-                                   required
-                                   autofocus
-                                   autocomplete="content"
-                            />
+                        <label class="flex items-center gap-2 w-full">
+                            <textarea id="description"
+                                      type="text"
+                                      rows="3"
+                                      class="textarea textarea-secondary w-full"
+                                      v-model="form.content"
+                                      required
+                                      autofocus
+                                      autocomplete="content">
+                            </textarea>
                         </label>
+
 
                         <ErrorAlert class="mt-2" :message="form.errors.content"/>
                     </div>

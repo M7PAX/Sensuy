@@ -21,8 +21,8 @@ class CommentResource extends JsonResource
             'user_picture' => $this->user->picture,
             'content' => $this->content,
             'created_at' => $this->created_at->diffForHumans(),
-            'can_update' => $request->user()?->can('update', $this->resource)?? false,
-            'can_delete' => $request->user()?->can('delete', $this->resource)?? false,
+            'can_update' => $request->user()?->can('update', $this->resource) ?? false,
+            'can_delete' => $request->user()?->can('delete', $this->resource) ?? false,
         ];
     }
 }

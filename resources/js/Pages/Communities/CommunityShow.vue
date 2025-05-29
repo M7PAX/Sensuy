@@ -145,27 +145,29 @@ watch(() => props.community?.background, () => {
                 </div>
 
                 <div class="z-10 flex flex-col">
-                    <div v-if="$page.props.auth.auth_check" class="flex flex-wrap items-center">
-                        <button v-if="isFollowing && !can_delete" @click="unfollow" class="btn btn-error btn-soft uppercase mr-5">
-                            {{ $t('unfollow') }}
-                        </button>
+                    <div class="flex flex-wrap items-center">
+                        <div v-if="$page.props.auth.auth_check">
+                            <button v-if="isFollowing && !can_delete" @click="unfollow" class="btn btn-error btn-soft uppercase mr-5">
+                                {{ $t('unfollow') }}
+                            </button>
 
-                        <button v-if="!can_delete && !isFollowing" @click="follow" class="btn btn-info uppercase mr-5">
-                            {{ $t('follow') }}
-                        </button>
+                            <button v-if="!can_delete && !isFollowing" @click="follow" class="btn btn-info uppercase mr-5">
+                                {{ $t('follow') }}
+                            </button>
 
-                        <Link v-if="isFollowing || can_delete" :href="route('communities.posts.create', community.slug)" class="btn btn-success uppercase">
-                            {{ $t('create post') }}
-                        </Link>
-
-                        <div class="indicator">
-                            <div class="indicator-item indicator-top">
-                                <input type="checkbox" v-model="isChecked" class="checkbox checkbox-error checkbox-sm bg-base-100" />
-                            </div>
-
-                            <Link v-if="can_delete" :href="route('communities.destroy', community.slug)" class="btn btn-error uppercase ml-5" method="delete" type="button" :disabled="!isChecked">
-                                {{ $t('delete') }}
+                            <Link v-if="isFollowing || can_delete" :href="route('communities.posts.create', community.slug)" class="btn btn-success uppercase">
+                                {{ $t('create post') }}
                             </Link>
+
+                            <div v-if="can_delete" class="indicator">
+                                <div class="indicator-item indicator-top">
+                                    <input type="checkbox" v-model="isChecked" class="checkbox checkbox-error checkbox-sm bg-base-100" />
+                                </div>
+
+                                <Link :href="route('communities.destroy', community.slug)" class="btn btn-error uppercase ml-5" method="delete" type="button" :disabled="!isChecked">
+                                    {{ $t('delete') }}
+                                </Link>
+                            </div>
                         </div>
 
                         <div :class="{ 'tooltip tooltip-open': isVisible }" :data-tip="$t('link copied')" class="ml-5">
@@ -175,7 +177,6 @@ watch(() => props.community?.background, () => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </template>
 

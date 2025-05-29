@@ -4,73 +4,46 @@ declare(strict_types=1);
 
 namespace App\Orchid\Layouts\Role;
 
-use Illuminate\Support\Collection;
+// Remove Illuminate\Support\Collection if not used elsewhere after changes
+// use Illuminate\Support\Collection;
 use App\Models\User;
 use Orchid\Screen\Field;
-use Orchid\Screen\Fields\CheckBox;
-use Orchid\Screen\Fields\Group;
+use Orchid\Screen\Fields\CheckBox; // You can also use Switcher here if you prefer
+// use Orchid\Screen\Fields\Group; // No longer needed for a single checkbox
 use Orchid\Screen\Layouts\Rows;
-use Throwable;
+// use Throwable; // No longer throwing complex errors
 
 class RolePermissionLayout extends Rows
 {
     /**
-     * @var User|null
-     */
-    private $user;
-
-    /**
      * The screen's layout elements.
-     *
-     * @throws Throwable
      *
      * @return Field[]
      */
     public function fields(): array
     {
-        $this->user = $this->query->get('user');
+        /** @var User|null $user */
+        $user = $this->query->get('user');
 
-        return $this->generatedPermissionFields(
-            $this->query->getContent('permission')
-        );
+        // If there's no user context (e.g., on a create screen before user exists),
+        // you might want to not show this or default it.
+        // For editing, user should always exist.
+        $isAdmin = $user && $user->exists ? $user->is_admin : false;
+
+        return [
+            CheckBox::make('user.is_admin') // IMPORTANT: Name it 'user.is_admin'
+            ->value($isAdmin)
+                ->title(__('Make this user an Administrator'))
+                ->placeholder(__('Grant Administrator Privileges'))
+                ->help(__('If checked, the user will have all administrative privileges. This overrides any granular permissions or roles for access control if your application logic prioritizes is_admin.'))
+                ->sendTrueOrFalse(), // Ensures true/false (or 1/0) is sent
+        ];
     }
 
-    private function generatedPermissionFields(Collection $permissionsRaw): array
-    {
-        return $permissionsRaw
-            ->map(fn (Collection $permissions, $title) => $this->makeCheckBoxGroup($permissions, $title))
-            ->flatten()
-            ->toArray();
-    }
-
-    private function makeCheckBoxGroup(Collection $permissions, string $title): Collection
-    {
-        return $permissions
-            ->map(fn (array $chunks) => $this->makeCheckBox(collect($chunks)))
-            ->flatten()
-            ->map(fn (CheckBox $checkbox, $key) => $key === 0
-                ? $checkbox->title($title)
-                : $checkbox)
-            ->chunk(4)
-            ->map(fn (Collection $checkboxes) => Group::make($checkboxes->toArray())
-                ->alignEnd()
-                ->autoWidth());
-    }
-
-    private function makeCheckBox(Collection $chunks): CheckBox
-    {
-        return CheckBox::make('permissions.'.base64_encode($chunks->get('slug')))
-            ->placeholder($chunks->get('description'))
-            ->value($chunks->get('active'))
-            ->sendTrueOrFalse()
-            ->indeterminate($this->getIndeterminateStatus(
-                $chunks->get('slug'),
-                $chunks->get('active')
-            ));
-    }
-
-    private function getIndeterminateStatus($slug, $value): bool
-    {
-        return optional($this->user)->hasAccess($slug) === true && $value === false;
-    }
+    // The following methods are no longer needed as we are not generating
+    // a list of permission checkboxes:
+    // - generatedPermissionFields
+    // - makeCheckBoxGroup
+    // - makeCheckBox
+    // - getIndeterminateStatus
 }

@@ -29,10 +29,10 @@ class PostStoreRequest extends FormRequest
                 'nullable',
                 'file',
                 'max:20480', // 20MB
-                'mimetypes:' .
-                'image/jpeg,image/png,image/jpg,image/gif,' .
-                'video/mp4,video/webm,video/ogg,' .
-                'audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp3,audio/webm'
+                'mimetypes:'.
+                'image/jpeg,image/png,image/jpg,image/gif,'.
+                'video/mp4,video/webm,video/ogg,'.
+                'audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp3,audio/webm',
             ],
             'file_name' => ['nullable', 'string', 'max:100'],
         ];

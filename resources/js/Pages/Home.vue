@@ -2,12 +2,13 @@
 import PostCard from "@/Components/PostCard.vue";
 import CommunityList from "@/Components/CommunityList.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
-import { Head } from "@inertiajs/vue3";
+import {Head} from "@inertiajs/vue3";
 import {computed, onMounted, ref, watch} from "vue";
 import { useScroll } from "@vueuse/core";
 import { BiCaretDown } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
 import {useI18n} from "vue-i18n";
+import {useEchoPublic} from "@laravel/echo-vue";
 addIcons(BiCaretDown);
 
 const props = defineProps({
@@ -28,7 +29,7 @@ async function loadPosts() {
 }
 
 const selected = ref('New');
-const options = ref([
+const options = computed( () =>[
     { value: 'n', label: t('new') },
     { value: 'o', label: t('old') },
     { value: 'mu', label: t('most ups') },
@@ -59,6 +60,12 @@ watch(selected, () => {
     loadPosts();
 });
 
+// echo.channel('votes')
+//     .listen('.up', (post) => {posts.value.set(post.id, post)})
+//     .listen('.down', (post) => {posts.value.set(post.id, post)})
+//     .listen('.remove', (post) => {posts.value.set(post.id, post)})
+// useEchoPublic("votes", ['.up', '.down', '.remove'],(post) => { console.log(post); posts.value.set(post.id, post)})
+
 </script>
 
 <template>
@@ -80,8 +87,8 @@ watch(selected, () => {
 <!--    </guest-layout>-->
 
     <LayoutPicker>
-        <section class="pb-5 flex flex-col md:flex-row">
-            <div class="md:w-8/12 w-full">
+        <section class="pb-5 flex flex-col xl:flex-row">
+            <div class="xl:w-8/12 w-full">
                 <div class="dropdown dropdown-start" ref="dropdownRef">
                     <div tabindex="0" class="btn btn-secondary mt-4 justify-between w-40">
                         {{ selectedLabel }}
@@ -90,7 +97,7 @@ watch(selected, () => {
 
                     <ul tabindex="0" class="dropdown-content menu bg-secondary rounded-box z-10 w-40 p-2 shadow-sm">
                         <li v-for="option in options" :key="option.value">
-                            <button @click="selectOption(option)" class="btn btn-secondary w-full text-left">
+                            <button @click="selectOption(option)" class="btn btn-secondary w-full">
                                 {{ option.label }}
                             </button>
                         </li>
@@ -104,7 +111,7 @@ watch(selected, () => {
 <!--                </div>-->
             </div>
 
-            <div class="md:w-4/12 w-full p-4">
+            <div class="xl:w-4/12 w-full p-4">
                 <CommunityList :communities="communities.data">
                     <template #title>
                         {{ $t('communities') }}

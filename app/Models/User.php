@@ -21,7 +21,8 @@ class User extends Authenticatable
         'is_admin',
         'picture',
         'theme',
-        'language'
+        'language',
+        'permissions',
     ];
 
     /**
@@ -46,7 +47,7 @@ class User extends Authenticatable
             'permissions' => 'array',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'is_admin' => 'boolean'
+            'is_admin' => 'boolean',
         ];
     }
 
@@ -56,11 +57,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $allowedFilters = [
-           'id'         => Where::class,
-           'username'       => Like::class,
-           'email'      => Like::class,
-           'updated_at' => WhereDateStartEnd::class,
-           'created_at' => WhereDateStartEnd::class,
+        'id' => Where::class,
+        'username' => Like::class,
+        'email' => Like::class,
+        'updated_at' => WhereDateStartEnd::class,
+        'created_at' => WhereDateStartEnd::class,
     ];
 
     /**

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Resources\PostResource;
-use App\Models\Comment;
 use App\Models\Community;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
@@ -20,9 +19,9 @@ class PostController extends Controller
 
         $community_post = Post::with([
             'comments',
-            'voted' => fn($q) => $q->where('user_id', auth()->id()),
+            'voted' => fn ($q) => $q->where('user_id', auth()->id()),
             'files',
-            'user'
+            'user',
         ])->where('slug', $post_slug)->first();
 
         $post = new PostResource($community_post);
@@ -54,7 +53,7 @@ class PostController extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $directory = match($file->getMimeType()[0]) {
+            $directory = match ($file->getMimeType()[0]) {
                 'i' => 'images',
                 'v' => 'videos',
                 'a' => 'audio'
@@ -75,6 +74,7 @@ class PostController extends Controller
     public function edit(Community $community, Post $post)
     {
         Gate::authorize('update', $post);
+
         return Inertia::render('Posts/PostEdit', ['community' => $community, 'post' => $post]);
     }
 

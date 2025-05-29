@@ -34,7 +34,7 @@ class PostResource extends JsonResource
             'created_at_hum' => $this->created_at->diffForHumans(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'type' => 'p'
+            'type' => 'p',
         ];
     }
 }

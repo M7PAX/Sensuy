@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import {Link} from "@inertiajs/vue3";
 import { BiArrowUpCircleFill, BiArrowDownCircleFill } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
 addIcons(BiArrowUpCircleFill, BiArrowDownCircleFill);
@@ -7,6 +7,7 @@ addIcons(BiArrowUpCircleFill, BiArrowDownCircleFill);
 defineProps({
     post: Object
 });
+
 </script>
 
 <template>

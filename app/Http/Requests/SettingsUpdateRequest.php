@@ -22,7 +22,7 @@ class SettingsUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'theme' => ['required', 'in:' . implode(',', $this->availableThemes())],
+            'theme' => ['required', 'in:'.implode(',', $this->availableThemes())],
             'language' => ['required', 'in:EN,LV,RU'],
         ];
     }
@@ -37,7 +37,7 @@ class SettingsUpdateRequest extends FormRequest
             'black', 'luxury', 'dracula', 'cmyk', 'autumn',
             'business', 'acid', 'lemonade', 'night', 'coffee',
             'winter', 'dim', 'nord', 'sunset', 'caramellatte',
-            'abyss', 'silk'
+            'abyss', 'silk',
         ];
     }
 }

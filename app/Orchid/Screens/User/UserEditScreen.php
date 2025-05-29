@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace App\Orchid\Screens\User;
 
-use App\Orchid\Layouts\Role\RolePermissionLayout;
+use App\Models\User; // Correct model namespace
 use App\Orchid\Layouts\User\UserEditLayout;
 use App\Orchid\Layouts\User\UserPasswordLayout;
-use App\Orchid\Layouts\User\UserRoleLayout;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Orchid\Access\Impersonation;
-use App\Models\User;
-use Orchid\Screen\Action;
+use Orchid\Support\Facades\Dashboard;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
@@ -30,16 +26,14 @@ class UserEditScreen extends Screen
 
     /**
      * Fetch data to be displayed on the screen.
-     *
-     * @return array
      */
     public function query(User $user): iterable
     {
-        $user->load(['roles']);
-
+        // $user->load(['roles']); // Eager load roles if UserRoleLayout is active and uses it
         return [
             'user'       => $user,
-            'permission' => $user->statusOfPermissions(),
+            // 'permission' is not strictly needed here if RolePermissionLayout now only handles 'is_admin'
+            // and doesn't display Orchid's full permission matrix.
         ];
     }
 
@@ -56,9 +50,12 @@ class UserEditScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'User profile and privileges, including their associated role.';
+        return 'Manage user profile, password, and administrator status.';
     }
 
+    /**
+     * The screen's available permissions.
+     */
     public function permission(): ?iterable
     {
         return [
@@ -68,17 +65,15 @@ class UserEditScreen extends Screen
 
     /**
      * The screen's action buttons.
-     *
-     * @return Action[]
      */
     public function commandBar(): iterable
     {
         return [
-//            Button::make(__('Impersonate user'))
-//                ->icon('bg.box-arrow-in-right')
-//                ->confirm(__('You can revert to your original state by logging out.'))
-//                ->method('loginAs')
-//                ->canSee($this->user->exists && $this->user->id !== \request()->user()->id),
+            // Button::make(__('Impersonate user'))
+            //     ->icon('bs.box-arrow-in-right')
+            //     ->confirm(__('You can revert to your original state by logging out.'))
+            //     ->method('loginAs')
+            //     ->canSee($this->user->exists && $this->user->id !== \request()->user()->id),
 
             Button::make(__('Remove'))
                 ->icon('bs.trash3')
@@ -93,12 +88,11 @@ class UserEditScreen extends Screen
     }
 
     /**
-     * @return \Orchid\Screen\Layout[]
+     * The screen's layout elements.
      */
     public function layout(): iterable
     {
-        return [
-
+        $layouts = [
             Layout::block(UserEditLayout::class)
                 ->title(__('Profile Information'))
                 ->description(__('Update your account\'s profile information and email address.'))
@@ -120,59 +114,68 @@ class UserEditScreen extends Screen
                         ->canSee($this->user->exists)
                         ->method('save')
                 ),
-
-//            Layout::block(UserRoleLayout::class)
-//                ->title(__('Roles'))
-//                ->description(__('A Role defines a set of tasks a user assigned the role is allowed to perform.'))
-//                ->commands(
-//                    Button::make(__('Save'))
-//                        ->type(Color::BASIC)
-//                        ->icon('bs.check-circle')
-//                        ->canSee($this->user->exists)
-//                        ->method('save')
-//                ),
-
-            Layout::block(RolePermissionLayout::class)
-                ->title(__('Permissions'))
-                ->description(__('Allow the user to perform some actions that are not provided for by his roles'))
-                ->commands(
-                    Button::make(__('Save'))
-                        ->type(Color::BASIC)
-                        ->icon('bs.check-circle')
-                        ->canSee($this->user->exists)
-                        ->method('save')
-                ),
-
         ];
+
+//        $layouts[] = Layout::block(RolePermissionLayout::class)
+//            ->title(__('Administrator Status & Permissions'))
+//            ->description(__('Set administrator status. If checked, the user will be granted all platform permissions. Granular permissions are managed elsewhere or through roles if administrator status is not checked.'))
+//            ->commands(
+//                Button::make(__('Save'))
+//                    ->type(Color::BASIC)
+//                    ->icon('bs.check-circle')
+//                    ->canSee($this->user->exists)
+//                    ->method('save')
+//            );
+//
+////         If using UserRoleLayout for assigning specific roles:
+//         $layouts[] = Layout::block(UserRoleLayout::class)
+//             ->title(__('Roles'))
+//             ->description(__('A Role defines a set of tasks a user assigned the role is allowed to perform.'))
+//             ->commands(
+//                 Button::make(__('Save'))
+//                     ->type(Color::BASIC)
+//                     ->icon('bs.check-circle')
+//                     ->canSee($this->user->exists)
+//                     ->method('save')
+//             );
+
+        return $layouts;
     }
 
     /**
+     * @param User      $user
+     * @param Request   $request
+     * @param Dashboard $dashboard To get all platform permissions
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function save(User $user, Request $request)
+    public function save(User $user, Request $request, Dashboard $dashboard)
     {
         $request->validate([
             'user.email' => [
                 'required',
-                Rule::unique(User::class, 'email')->ignore($user),
+                'email', // Good to have basic email validation
+                Rule::unique(User::class, 'email')->ignore($user->id),
             ],
+            'user.username' => 'required|string|max:255',
+            // 'user.is_admin' => 'sometimes|boolean', // 'sometimes' if the field might not be present
+            // but RolePermissionLayout should always submit it if it has sendTrueOrFalse()
         ]);
 
-        $permissions = collect($request->get('permissions'))
-            ->map(fn ($value, $key) => [base64_decode($key) => $value])
-            ->collapse()
-            ->toArray();
+        // Collect main user data, excluding fields handled separately or within specific logic.
+        $userData = $request->collect('user')->except(['password', 'permissions', 'roles'])->toArray();
 
-        $user->when($request->filled('user.password'), function (Builder $builder) use ($request) {
-            $builder->getModel()->password = Hash::make($request->input('user.password'));
-        });
+        // Explicitly handle the 'is_admin' flag from the request.
+        $userData['is_admin'] = $request->boolean('user.is_admin');
 
-        $user
-            ->fill($request->collect('user')->except(['password', 'permissions', 'roles'])->toArray())
-            ->forceFill(['permissions' => $permissions])
-            ->save();
+        if ($userData['is_admin']) {
+            $userData['permissions'] = Dashboard::getAllowAllPermission()->toArray();
+        }
 
-        $user->replaceRoles($request->input('user.roles'));
+        // Fill user data (including 'is_admin')
+        $user->fill($userData);
+        // Force fill the 'permissions' attribute separately, as it's handled by Orchid's special cast.
+        $user->save();
 
         Toast::info(__('User was saved.'));
 
@@ -180,6 +183,8 @@ class UserEditScreen extends Screen
     }
 
     /**
+     * @param User $user
+     *
      * @throws \Exception
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -187,21 +192,19 @@ class UserEditScreen extends Screen
     public function remove(User $user)
     {
         $user->delete();
-
         Toast::info(__('User was removed'));
-
         return redirect()->route('platform.systems.users');
     }
 
     /**
+     * @param User $user
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function loginAs(User $user)
     {
         Impersonation::loginAs($user);
-
         Toast::info(__('You are now impersonating this user'));
-
         return redirect()->route(config('platform.index'));
     }
 }

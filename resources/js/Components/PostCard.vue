@@ -8,6 +8,7 @@ addIcons(RiUser3Line, HiUserGroup);
 defineProps({
     post: Object,
 });
+
 </script>
 
 <template>

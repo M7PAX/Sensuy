@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Models\PostVotes;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
@@ -22,10 +21,10 @@ class PostSeeder extends Seeder
             $post->votes = $votes->sum('vote');
             $post->save();
         });
-	//Post::factory()->count(20)->create([
-	//	'title' => 'FREE FRESH $LAVES',
-	//	'description' => 'GET YOUR FREE $LAVES, FRESH AND FREE. BUY TWO AND GET ONE FREE. NO REFUNDS!',
-	//	'votes' => 999,
-	//]);
+        // Post::factory()->count(20)->create([
+        //	'title' => 'FREE FRESH $LAVES',
+        //	'description' => 'GET YOUR FREE $LAVES, FRESH AND FREE. BUY TWO AND GET ONE FREE. NO REFUNDS!',
+        //	'votes' => 999,
+        // ]);
     }
 }

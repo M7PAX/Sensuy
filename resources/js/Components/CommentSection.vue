@@ -38,12 +38,12 @@ const props = defineProps({
                             {{ $t('edit') }}
                         </Link>
 
-                        <div class="indicator">
+                        <div v-if="comment.can_delete" class="indicator">
                             <div class="indicator-item">
                                 <input type="checkbox" class="checkbox checkbox-error checkbox-xs bg-base-100" @click="(e) => e.target.parentNode?.parentNode?.querySelector('div>button.bt')?.classList.toggle('btn-disabled')" />
                             </div>
 
-                            <Link v-if="comment.can_delete" :href="route('communities.posts.comments.destroy', [community, post.data.slug, comment.id])" class="uppercase btn btn-xs btn-error bt btn-disabled" method="delete" type="button">
+                            <Link :href="route('communities.posts.comments.destroy', [community, post.data.slug, comment.id])" class="uppercase btn btn-xs btn-error bt btn-disabled" method="delete" type="button">
                                 {{ $t('delete') }}
                             </Link>
                         </div>

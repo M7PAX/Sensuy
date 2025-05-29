@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Community;
-use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 class FollowController extends Controller
 {
@@ -26,7 +24,7 @@ class FollowController extends Controller
     {
         $user = $request->user();
 
-        if (!$user->communities()->where('community_id', $community->id)->exists()) {
+        if (! $user->communities()->where('community_id', $community->id)->exists()) {
             return back()->with('error', 'You are not following this community.');
         }
 

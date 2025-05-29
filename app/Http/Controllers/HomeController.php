@@ -16,8 +16,8 @@ class HomeController extends Controller
         $posts = PostResource::collection(Post::with([
             'user',
             'community',
-            'voted' => fn($q) => $q->where('user_id', auth()->id()),
-            'files'
+            'voted' => fn ($q) => $q->where('user_id', auth()->id()),
+            'files',
         ])->withCount('comments')->orderByDesc('votes')->paginate(10));
 
         $communities = CommunityResource::collection(Community::withCount('posts')->orderByDesc('created_at')->take(10)->get());
@@ -65,8 +65,8 @@ class HomeController extends Controller
         $query = Post::with([
             'user',
             'community',
-            'voted' => fn($q) => $q->where('user_id', auth()->id()),
-            'files'
+            'voted' => fn ($q) => $q->where('user_id', auth()->id()),
+            'files',
         ])->withCount('comments');
 
         switch ($sort) {

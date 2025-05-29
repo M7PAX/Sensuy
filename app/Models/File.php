@@ -14,7 +14,7 @@ class File extends Model
         'name',
         'path',
         'mime_type',
-        'post_id'
+        'post_id',
     ];
 
     public function post()
@@ -41,13 +41,13 @@ class File extends Model
     {
         $bytes = Storage::exists($this->path) ? Storage::size($this->path) : 0;
         if ($bytes >= 1073741824) {
-            return number_format($bytes / 1073741824, 2) . ' GB';
+            return number_format($bytes / 1073741824, 2).' GB';
         } elseif ($bytes >= 1048576) {
-            return number_format($bytes / 1048576, 2) . ' MB';
+            return number_format($bytes / 1048576, 2).' MB';
         } elseif ($bytes >= 1024) {
-            return number_format($bytes / 1024, 2) . ' KB';
+            return number_format($bytes / 1024, 2).' KB';
         } else {
-            return $bytes . ' bytes';
+            return $bytes.' bytes';
         }
     }
 

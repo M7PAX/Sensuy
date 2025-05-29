@@ -85,9 +85,9 @@ const copyLink = async () => {
                                     {{ post.data.created_at_hum }}
                                 </span>
 
-                                <span v-if="post.data.created_at !== post.data.updated_at" class="text-sm text-base-content/50 font-normal ml-1">
-                                    ({{ $t('edited') }})
-                                </span>
+<!--                                <span v-if="post.data.created_at !== post.data.updated_at" class="text-sm text-base-content/50 font-normal ml-1">-->
+<!--                                    ({{ $t('edited') }})-->
+<!--                                </span>-->
                             </div>
 
                             <div v-if="$page.props.auth.auth_check">
@@ -95,12 +95,12 @@ const copyLink = async () => {
                                     {{ $t('edit') }}
                                 </Link>
 
-                                <div class="indicator">
+                                <div v-if="can_delete" class="indicator">
                                     <div class="indicator-item indicator-top">
                                         <input type="checkbox" v-model="isChecked" class="checkbox checkbox-error checkbox-sm bg-base-100" />
                                     </div>
 
-                                    <Link v-if="can_delete" :href="route('communities.posts.destroy', [community.slug, post.data.slug])" class="btn btn-error btn-sm uppercase ml-1" method="delete" type="button" :disabled="!isChecked">
+                                    <Link :href="route('communities.posts.destroy', [community.slug, post.data.slug])" class="btn btn-error btn-sm uppercase ml-1" method="delete" type="button" :disabled="!isChecked">
                                         {{ $t('delete') }}
                                     </Link>
                                 </div>
@@ -153,7 +153,7 @@ const copyLink = async () => {
                                             <v-icon name="hi-download"/>
                                         </a>
 
-                                        <div :class="{ 'tooltip tooltip-open': isVisible}" data-tip="Link copied!">
+                                        <div :class="{ 'tooltip tooltip-open': isVisible}" :data-tip="$t('link copied')">
                                             <button class="btn btn-circle hover:text-info" @click="copyLink">
                                                 <v-icon name="fa-share"/>
                                             </button>
@@ -163,7 +163,7 @@ const copyLink = async () => {
                             </div>
 
                             <div v-else class="flex justify-end">
-                                <div :class="{ 'tooltip tooltip-open': isVisible}" data-tip="Link copied!">
+                                <div :class="{ 'tooltip tooltip-open': isVisible}" :data-tip="$t('link copied')">
                                     <button class="btn btn-circle hover:text-info" @click="copyLink">
                                         <v-icon name="fa-share"/>
                                     </button>

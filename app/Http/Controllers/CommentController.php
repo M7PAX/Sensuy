@@ -30,6 +30,7 @@ class CommentController extends Controller
     public function edit(Community $community, Post $post, Comment $comment)
     {
         Gate::authorize('update', $comment);
+
         return Inertia::render('Comments/CommentEdit', ['community' => $community, 'post' => $post, 'comment' => $comment]);
     }
 

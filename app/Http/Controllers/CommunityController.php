@@ -6,7 +6,6 @@ use App\Http\Requests\CommunityStoreRequest;
 use App\Http\Requests\CommunityUpdateRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Community;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -55,8 +54,8 @@ class CommunityController extends Controller
 
         $posts = PostResource::collection($community->posts()->with([
             'user',
-            'voted' => fn($q) => $q->where('user_id', auth()->id()),
-            'files'
+            'voted' => fn ($q) => $q->where('user_id', auth()->id()),
+            'files',
         ])->withCount('comments')->paginate(10));
 
         $can_delete = Auth::check() ? Auth::user()->can('delete', $community) : false;
@@ -76,12 +75,9 @@ class CommunityController extends Controller
     {
         $posts = $community->posts()->with([
             'user',
-            'voted' => fn($q) => $q->where('user_id', auth()->id()),
-            'files'
+            'voted' => fn ($q) => $q->where('user_id', auth()->id()),
+            'files',
         ])->withCount('comments')->orderBy('created_at', 'desc')->paginate(10);
-
-        // Debugging: Log the posts
-        \Log::info('Loaded posts:', $posts->toArray());
 
         return response()->json(PostResource::collection($posts));
     }
@@ -89,6 +85,7 @@ class CommunityController extends Controller
     public function edit(Community $community)
     {
         Gate::authorize('update', $community);
+
         return Inertia::render('Communities/CommunityEdit', ['community' => $community]);
     }
 

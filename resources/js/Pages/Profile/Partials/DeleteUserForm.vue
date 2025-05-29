@@ -73,7 +73,6 @@ const deleteUser = () => {
                                v-model="form.password"
                                type="password"
                                class="mt-1 block w-3/4"
-                               placeholder="Password"
                                @keyup.enter="deleteUser"
                         />
                     </label>

@@ -54,7 +54,7 @@ const handleFileInput = (event) => {
         </header>
 
         <form @submit.prevent="form.post(route('profile.update'), { method: 'put' })" class="mt-6">
-            <div class="flex justify-between">
+            <div class="md:flex justify-between">
                 <div class="flex-1 space-y-6">
                     <div class="form-control">
                         <label class="block font-medium text-sm" for="name">
@@ -97,7 +97,7 @@ const handleFileInput = (event) => {
                     </div>
                 </div>
 
-                <div class="flex-1 space-y-4">
+                <div class="md:flex-1 space-y-4">
                     <div class="flex items-center justify-center">
                         <label for="picture" class=" w-42 h-42">
                             <div class="avatar">

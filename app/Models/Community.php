@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Laravel\Scout\Searchable;
 
 class Community extends Model
 {
-    use HasFactory, Sluggable, Searchable;
+    use HasFactory, Searchable, Sluggable;
 
     protected $fillable = [
         'user_id',
@@ -24,8 +24,8 @@ class Community extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 
@@ -37,7 +37,8 @@ class Community extends Model
         ];
     }
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class);
     }
 
@@ -53,11 +54,11 @@ class Community extends Model
 
     public function getPictureUrlAttribute()
     {
-        return $this->picture ? asset('storage/' . $this->picture) : null;
+        return $this->picture ? asset('storage/'.$this->picture) : null;
     }
 
     public function getBackgroundUrlAttribute()
     {
-        return $this->background ? asset('storage/' . $this->background) : null;
+        return $this->background ? asset('storage/'.$this->background) : null;
     }
 }

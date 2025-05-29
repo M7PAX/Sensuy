@@ -13,7 +13,6 @@ class FileResource extends JsonResource
      *
      * @return array<string, File>
      */
-
     public function toArray(Request $request): array
     {
         return [

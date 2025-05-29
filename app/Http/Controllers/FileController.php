@@ -18,7 +18,7 @@ class FileController extends Controller
         $originalName = $uploadedFile->getClientOriginalName();
         $mimeType = $uploadedFile->getClientMimeType();
         $type = explode('/', $mimeType)[0];
-        $path = $uploadedFile->store("uploads/{$type}", "public");
+        $path = $uploadedFile->store("uploads/{$type}", 'public');
 
         $file = File::create([
             'post_id' => $request->post_id,

@@ -14,7 +14,7 @@ const { t } = useI18n();
 const communities = ref(new Map());
 const selected = ref('mf');
 let option = 'mf';
-const options = ref([
+const options = computed( () => [
     { value: 'n', label: t('new') },
     { value: 'o', label: t('old') },
     { value: 'mp', label: t('most posts') },
