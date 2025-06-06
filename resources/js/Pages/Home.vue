@@ -8,7 +8,6 @@ import { useScroll } from "@vueuse/core";
 import { BiCaretDown } from "oh-vue-icons/icons";
 import { addIcons } from "oh-vue-icons";
 import {useI18n} from "vue-i18n";
-import {useEchoPublic} from "@laravel/echo-vue";
 addIcons(BiCaretDown);
 
 const props = defineProps({

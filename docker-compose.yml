@@ -19,7 +19,7 @@ services:
         environment:
             MEILI_MASTER_KEY: "masterKey"
         volumes:
-            - meili_data:/data.ms
+            - meili_data:/data
         restart: unless-stopped
 
 volumes:
