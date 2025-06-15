@@ -1,12 +1,13 @@
 <script setup>
-import  { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
+import { ref } from "vue";
 import ErrorAlert from "@/Components/ErrorAlert.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
-import { ref } from "vue";
+import AIChat from "@/Components/AIChat.vue";
 
 const props = defineProps({
     community: Object,
-})
+});
 
 const form = useForm({
     title: '',
@@ -16,13 +17,13 @@ const form = useForm({
     file_name: '',
 });
 
+const PreviewUrl = ref(null);
+
 const submit = () => {
     form.post(route('communities.posts.store', props.community.slug), {
         forceFormData: true,
     });
 };
-
-const PreviewUrl = ref(null);
 
 const FileUpload = (file) => {
     if (file && !['image', 'video', 'audio'].includes(file.type.split('/')[0])) {
@@ -33,6 +34,12 @@ const FileUpload = (file) => {
     form.file_name = file ? file.name : '';
     PreviewUrl.value = file ? URL.createObjectURL(file) : null;
 };
+
+const handleAiError = (errorMessage) => {
+    form.setError('title', errorMessage);
+    form.setError('description', errorMessage);
+};
+
 </script>
 
 <template>
@@ -41,7 +48,7 @@ const FileUpload = (file) => {
     <LayoutPicker>
         <template #header>
             <h2 class="font-semibold text-xl leading-tight">
-                {{ $t('create post for') }} {{community.name}}
+                {{ $t('create post for') }} {{ community.name }}
             </h2>
         </template>
 
@@ -141,7 +148,12 @@ const FileUpload = (file) => {
                         <ErrorAlert class="mt-2" :message="form.errors.file"/>
                     </div>
 
-                    <div class="flex items-center justify-end mt-4">
+                    <div class="flex items-center justify-between mt-4">
+                        <AIChat v-model:title="form.title"
+                            v-model:description="form.description"
+                            @error="handleAiError"
+                        />
+
                         <button class="ms-4 btn btn-success uppercase" :disabled="form.processing">
                             {{ $t('create') }}
                         </button>

@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { Head, useForm, router } from '@inertiajs/vue3';
 import ErrorAlert from "@/Components/ErrorAlert.vue";
 import LayoutPicker from "@/Components/LayoutPicker.vue";
+import AIChat from "@/Components/AIChat.vue";
 
 const props = defineProps({
     community: Object,
@@ -30,6 +31,11 @@ const submit = () => {
     }
 
     router.post(route('communities.update', [props.community.slug]), formData, {method: 'put'});
+};
+
+const handleAiError = (errorMessage) => {
+    form.setError('title', errorMessage);
+    form.setError('description', errorMessage);
 };
 
 </script>
@@ -127,7 +133,12 @@ const submit = () => {
                         <ErrorAlert class="mt-2" :message="form.errors.background"/>
                     </div>
 
-                    <div class="flex items-center justify-end mt-4">
+                    <div class="flex items-center justify-between mt-4">
+                        <AIChat v-model:title="form.name"
+                                v-model:description="form.description"
+                                @error="handleAiError"
+                        />
+
                         <button class="ms-4 btn btn-success uppercase" :disabled="form.processing">
                             {{ $t('update') }}
                         </button>

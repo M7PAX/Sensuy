@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AIController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\FileController;
@@ -46,6 +47,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/s/{community:slug}/follow', [FollowController::class, 'follow'])->name('communities.follow');
     Route::delete('/s/{community:slug}/unfollow', [FollowController::class, 'unfollow'])->name('communities.unfollow');
+
+    Route::post('/ai', [AIController::class, 'sendMessage'])->middleware('auth');
 });
 
 require __DIR__.'/auth.php';

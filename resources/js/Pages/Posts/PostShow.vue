@@ -6,6 +6,7 @@ import {HiDownload, FaShare, HiUserGroup} from "oh-vue-icons/icons";
 import {addIcons} from "oh-vue-icons";
 import CommentSection from "@/Components/CommentSection.vue";
 import {ref} from "vue";
+import AIChat from "@/Components/AIChat.vue";
 addIcons(HiDownload, FaShare, HiUserGroup);
 
 const props = defineProps({
@@ -40,6 +41,11 @@ const copyLink = async () => {
     } catch (err) {
         console.error('Failed to copy link: ', err);
     }
+};
+
+const handleAiError = (errorMessage) => {
+    form.setError('title', errorMessage);
+    form.setError('description', errorMessage);
 };
 
 </script>
@@ -191,9 +197,13 @@ const copyLink = async () => {
                             </div>
 
                             <div class="ml-3 my-auto">
-                                <button class="btn btn-accent shadow-md shadow-accent uppercase">
+                                <button class="btn btn-accent shadow-md shadow-accent uppercase mb-2 w-full">
                                     {{ $t('comment') }}
                                 </button>
+
+                                <AIChat v-model:description="form.content"
+                                        @error="handleAiError"
+                                />
                             </div>
                         </div>
                     </form>

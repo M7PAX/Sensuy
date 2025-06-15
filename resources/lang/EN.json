@@ -117,5 +117,8 @@
     "admin panel" : "Admin Panel",
     "search" : "Search",
     "link copied": "Link copied!",
-    "no results" : "No Results Found"
+    "no results" : "No Results Found",
+    "generating" : "Generating...",
+    "generate" : "Generate with AI",
+    "ai" : "This tool improves text using AI by fixing grammatical errors and improving clarity."
 }

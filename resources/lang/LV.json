@@ -117,5 +117,8 @@
     "admin panel": "Administratora panelis",
     "search" : "Meklēt",
     "link copied": "Saite nokopēta!",
-    "no results" : "Nav Rezultāti"
+    "no results" : "Nav Rezultāti",
+    "generating": "Ģenerēšana...",
+    "generate": "Ģenerēt ar AI",
+    "ai": "Šis rīks uzlabo tekstu, izmantojot mākslīgo intelektu, izlabojot gramatikas kļūdas un uzlabojot skaidrību."
 }
