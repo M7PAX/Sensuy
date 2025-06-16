@@ -12,20 +12,22 @@ const showingNavigationDropdown = ref(false);
 
 const { locale } = useI18n();
 const selectedLanguage = ref(locale.value);
-const searchResultsFromChild = ref([]);
-const searchErrorFromChild = ref(null);
+const searchResults = ref([]);
 const modalRef = ref(null);
 
 function handleSearchResults(results) {
-    searchResultsFromChild.value = results;
-    searchErrorFromChild.value = null;
-    modalRef.value.showModal();
+    searchResults.value = results;
+    if (modalRef.value) {
+        modalRef.value.show();
+    }
 }
 
 function handleSearchError(errorMessage) {
-    searchErrorFromChild.value = errorMessage;
-    searchResultsFromChild.value = [];
+    searchResults.value = [];
     console.error("Search Error in Parent:", errorMessage);
+    if (modalRef.value) {
+        modalRef.value.show();
+    }
 }
 
 watch(selectedLanguage, (newLocale) => {
@@ -73,8 +75,6 @@ onMounted(() => {
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
                             <div class="mr-5">
                                 <SearchBar @search-results="handleSearchResults" @search-error="handleSearchError" />
-
-                                <ResultModal/>
                             </div>
 
 
@@ -126,8 +126,6 @@ onMounted(() => {
                 <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
                     <div class="mb-2 mx-2">
                         <SearchBar @search-results="handleSearchResults" @search-error="handleSearchError" />
-
-                        <ResultModal/>
                     </div>
 
                     <div class="border-t border-primary">
@@ -141,8 +139,9 @@ onMounted(() => {
                             </Link>
                         </div>
                     </div>
-
                 </div>
+
+                <ResultModal ref="modalRef" :results="searchResults" @search-results="handleSearchResults" @search-error="handleSearchError"/>
             </nav>
 
             <!-- Page Heading -->

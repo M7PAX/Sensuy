@@ -59,16 +59,18 @@ class PostController extends Controller
                 'a' => 'audio'
             };
 
-            $path = $file->store("public/uploads/{$directory}");
+            $fileName = $request->input('file_name', $file->getClientOriginalName());
+
+            $path = $file->storeAs("public/uploads/{$directory}", $fileName);
 
             $post->files()->create([
                 'path' => $path,
-                'name' => $file->getClientOriginalName(),
+                'name' => $fileName,
                 'mime_type' => $file->getClientMimeType(),
             ]);
         }
 
-        return Redirect::route('communities', $community->slug)->with('message', __('post created'));
+        return Redirect::route('communities.show', $community->slug)->with('message', __('post created'));
     }
 
     public function edit(Community $community, Post $post)
