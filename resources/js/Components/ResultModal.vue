@@ -1,89 +1,83 @@
 <script setup>
 import {Link} from "@inertiajs/vue3";
-import SearchBar from "@/Components/SearchBar.vue";
+import SearchBar from "@/Components/SearchBar.vue"; // 1. Import SearchBar
 import {ref} from "vue";
 
-const searchResultsFromChild = ref([]);
-const searchErrorFromChild = ref(null);
+const props = defineProps({
+    results: {
+        type: Array,
+        required: true,
+    }
+});
+
+// 2. Define the events this component can emit to its parent
+const emit = defineEmits(['search-results', 'search-error']);
+
 const modalRef = ref(null);
 
-function handleSearchResults(results) {
-    searchResultsFromChild.value = results;
-    searchErrorFromChild.value = null;
-    modalRef.value.showModal();
+function show() {
+    if (modalRef.value) {
+        modalRef.value.showModal();
+    }
 }
 
-function handleSearchError(errorMessage) {
-    searchErrorFromChild.value = errorMessage;
-    searchResultsFromChild.value = [];
-    console.error("Search Error in Parent:", errorMessage);
-}
+defineExpose({
+    show
+});
 
 </script>
 
 <template>
     <dialog ref="modalRef" class="modal">
-        <div class="modal-box flex flex-col items-center">
+        <div class="modal-box">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
 
-            <SearchBar @search-results="handleSearchResults" @search-error="handleSearchError" />
+            <SearchBar class="w-full px-5" @search-results="results => emit('search-results', results)" @search-error="error => emit('search-error', error)"/>
 
-            <div v-if="searchResultsFromChild.length > 0">
-                <div class="mt-4 mx-auto max-md-w">
-                    <ul class="menu bg-base-100 rounded-box">
-                        <li>
-                            <h2 class="menu-title">
-                                {{ $t('posts') }}
-                            </h2>
-
-                            <ul v-for="result in searchResultsFromChild" :key="result.type + '-' + result.id">
-                                <li v-if="result.type === 'p'">
+            <div v-if="results.length > 0">
+                <ul class="menu bg-base-100 rounded-box">
+                    <li>
+                        <template v-if="results.some(r => r.type === 'p')">
+                            <h2 class="menu-title">{{ $t('posts') }}</h2>
+                            <ul>
+                                <li v-for="result in results.filter(r => r.type === 'p')" :key="result.id">
                                     <Link :href="route('posts', [result.community_slug, result.slug])" class="font-bold">
-                                        <div>
-                                            {{ result.title }}
-
-                                            <p class="text-xs font-normal">
-                                                {{ result.description }}
-                                            </p>
-                                        </div>
+                                        {{ result.title }}
+                                        <p class="text-xs font-normal">{{ result.description }}</p>
                                     </Link>
                                 </li>
                             </ul>
+                        </template>
 
-                            <h2 class="menu-title">
-                                {{ $t('communities') }}
-                            </h2>
-
-                            <ul v-for="result in searchResultsFromChild" :key="result.type + '-' + result.id">
-                                <li v-if="result.type === 'c'">
-                                    <Link :href="route('communities', result.slug)" class="font-bold">
-                                        <div>
-                                            <div class="avatar mr-2">
-                                                <div class="mask mask-heart w-8 bg-primary group-hover:bg-secondary">
-                                                    <v-icon v-if="result.community_picture === undefined" name="hi-user-group" class="w-8 h-8 text-base-100 mt-1"/>
-                                                    <img v-else :src="`/storage/${result.community_picture}`"/>
-                                                </div>
+                        <template v-if="results.some(r => r.type === 'c')">
+                            <h2 class="menu-title">{{ $t('communities') }}</h2>
+                            <ul>
+                                <li v-for="result in results.filter(r => r.type === 'c')" :key="result.id">
+                                    <Link :href="route('communities', result.slug)" class="font-bold flex items-center">
+                                        <div class="avatar mr-2">
+                                            <div class="mask mask-heart w-8 bg-primary">
+                                                <v-icon v-if="!result.community_picture" name="hi-user-group" class="w-8 h-8 text-base-100 p-1"/>
+                                                <img v-else :src="`/storage/${result.community_picture}`"/>
                                             </div>
-
+                                        </div>
+                                        <div>
                                             {{ result.name }}
-
-                                            <p class="text-xs font-normal">
-                                                {{ result.description }}
-                                            </p>
+                                            <p class="text-xs font-normal">{{ result.description }}</p>
                                         </div>
                                     </Link>
                                 </li>
                             </ul>
-                        </li>
-                    </ul>
-                </div>
+                        </template>
+                    </li>
+                </ul>
             </div>
 
-            <div v-else class="text-xl text-warning flex items-center justify-center m-5">
+            <div v-else class="text-xl text-center text-warning p-5">
                 {{ $t('no results') }}
             </div>
         </div>
     </dialog>
 </template>
+

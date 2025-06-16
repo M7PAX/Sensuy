@@ -14,8 +14,7 @@ const user = usePage().props.auth?.user;
 const showingNavigationDropdown = ref(false);
 const showMessage = ref(false);
 const currentMessage = ref(null);
-const searchResultsFromChild = ref([]);
-const searchErrorFromChild = ref(null);
+const searchResults = ref([]);
 const modalRef = ref(null);
 
 const initializeLanguage = () => {
@@ -28,15 +27,18 @@ const initializeTheme = () => {
 };
 
 function handleSearchResults(results) {
-    searchResultsFromChild.value = results;
-    searchErrorFromChild.value = null;
-    modalRef.value.showModal();
+    searchResults.value = results;
+    if (modalRef.value) {
+        modalRef.value.show();
+    }
 }
 
 function handleSearchError(errorMessage) {
-    searchErrorFromChild.value = errorMessage;
-    searchResultsFromChild.value = [];
+    searchResults.value = [];
     console.error("Search Error in Parent:", errorMessage);
+    if (modalRef.value) {
+        modalRef.value.show();
+    }
 }
 
 watch(() => user.language, (newLanguage) => {
@@ -112,8 +114,6 @@ onMounted(() => {
                         <div class="hidden sm:flex sm:items-center w-full justify-end">
                             <div class="mx-auto">
                                 <SearchBar @search-results="handleSearchResults" @search-error="handleSearchError" />
-
-                                <ResultModal/>
                             </div>
 
                             <!-- Settings Dropdown -->
@@ -181,10 +181,8 @@ onMounted(() => {
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 border-t border-primary">
-                        <div class="mb-2 mx-2">
+                        <div class="mx-auto">
                             <SearchBar @search-results="handleSearchResults" @search-error="handleSearchError" />
-
-                            <ResultModal/>
                         </div>
 
                         <div class="px-4">
@@ -217,6 +215,8 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
+
+                <ResultModal ref="modalRef" :results="searchResults" @search-results="handleSearchResults" @search-error="handleSearchError"/>
             </nav>
 
             <!-- Page Heading -->
